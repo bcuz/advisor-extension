@@ -29,13 +29,22 @@ function renderSidePanel(data) {
 		font-weight: strong;
 		font-size: 1.6em;
 		cursor: pointer;
-		color: white;
+		color: #000;
+	}
+	#whattodo {
+		position: absolute;
+		top: 0;
+		z-index: 5;
+		width: 90%;
+		height: 50px;
 	}
 	#side-panel div {
 		padding: 4% 5%;
 		list-style-type: none;
 	}
 	#open-report {
+		height: 60%;
+		width: 70%;
 		padding: 3%;
 		background: #5577ee;
 		color: white;
@@ -44,14 +53,27 @@ function renderSidePanel(data) {
 		text-align: center;
 		font-size: 1.2em;
 	}
+	#data { margin-top: 50px; }
 	</style>
-		<div id="close-side-panel">X</div>
-		<div id="user-name">User Name: <b>${data["Name"]}</b></div>
-		<div id="summary">Summary: <b>${data["Summary"]}</b></div>
+		<div id="whattodo">
+			<div id="open-report">Open report (No submit yet)</div>
+			<div id="close-side-panel">X</div>
+		</div>
+
+		<div id="data">
+		<div id="user-name" style="text-align: center;">User Name: <b>${data["Name"]}</b></div>
+
+		<div id="summary" data-field="entry.1667357959">
+			<labe>Summary:</label>
+			<textarea rows="4" cols="35">${data["Summary"]}</textarea>
+		</div>
+
 		<div id="hours" data-field="entry.1272130761_hour"></div>
 		<div id="minutes" data-field="entry.1272130761_minute"></div>
 		<div id="seconds" data-field="entry.1272130761_second"></div>
+
 		<div id="course" data-field="entry.1578101060">
+			<label>Course:</label>
 			<select>
 				<option value="None: Onboarding">None: Onboarding</option>
 				<option value="HTML &amp; CSS">HTML &amp; CSS</option>
@@ -71,41 +93,73 @@ function renderSidePanel(data) {
 				<option value="Git">Git</option>
 			</select>
 		</div>
-		<div id="easiness" data-field=>
+
+		<div id="user-rate" data-field="entry.5170217">
+			<label>Rate the learner:</label>
 			<select>
-				<option value="5">5</option>
-				<option value="4">4</option>
-				<option value="3">3</option>
-				<option value="2">2</option>
-				<option value="1">1</option>
+				<option value="5">5 - Very Easy</option>
+				<option value="4">4 - Easy</option>
+				<option value="3">3 - Neutral</option>
+				<option value="2">2 - Difficult</option>
+				<option value="1">1 - Very Difficult</option>
 			</select>
 		</div>
-		<div id="user-interaction">
+
+		<div id="user-rate-notes">
+			<textarea rows="4" cols="35"></textarea>
+		</div>
+
+
+		<div id="interaction-type-user" data-field="entry.244902865">
+			<label>User-initiated interaction ?</label>
 			<select>
 				<option value="1">Bug</option>
 				<option value="2">Resource Requested</option>
-				<option value="3">Guidance</option>
+				<option value="3">Guidance Requested</option>
 				<option value="4">User was Stuck</option>
 				<option value="5">Quiz</option>
 				<option value="6">Personal Project</option>
 				<option value="7">Other</option>
+				<input class="other" />
 			</select>
 		</div>
+
+		<div id="interaction-type-advisor" data-field="entry.677684700">
+			<label>Advisor-initiated interaction ?</label>
+			<select>
+				<option value="1">Follow-up on Resource</option>
+				<option value="2">Follow-up on guidance</option>
+				<option value="3">Routine check-in</option>
+				<option value="4">Target feedback requested</option>
+				<option value="5">Other</option>
+				<input class="other" />
+			</select>
+		</div>
+
 		<div id="given-resource" data-field="entry.1544719003">
+			<label>Added a resource?</label>
 			<select>
 				<option value="1">Yes</option>
 				<option value="2">No</option>
 			</select>
 		</div>
 
-		<div id="whattodo">
-			<div id="open-report">Open report (No submit yet)</div>
+		<div id="any-other-comments">
+			<label>Any other comments?</label>
+			<textarea rows="4" cols="35"></textarea>
 		</div>
+		</div>
+
 		<script>
 
 			// Open the report in new tab, don't send it yet
 			document.getElementById("open-report").addEventListener("click", function() {
 				
+				// Get data from the panel
+				var data = {
+
+				};
+
 				// Send the data to the report filler
 				chrome.runtime.sendMessage({
 					"message": "open_report_tab",
@@ -129,12 +183,8 @@ function renderSidePanel(data) {
 
 }
 
-function testing() {
-	alert("Testing scope");
-}
 
-
-/*function secondsToString(seconds) {
+function secondsToString(seconds) {
 	var numyears = Math.floor(seconds / 31536000);
 	var numdays = Math.floor((seconds % 31536000) / 86400); 
 	var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
@@ -142,7 +192,7 @@ function testing() {
 	var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
 	return numyears + " years " +  numdays + " days " + numhours + " hours "
 		 + numminutes + " minutes " + numseconds + " seconds";
-}*/
+}
 
 $("body").append(`<div id="side-panel"><div>`);
 
