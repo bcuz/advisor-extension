@@ -1,3 +1,5 @@
+STATUS: Information in panel not editable yet, code for submitting the report automatically is ready, but disabled until data collected can be tested and validated. Right now the button opens the report and loads data to the first screen, doesn't submit
+
 # README #
 --- NOTE: This is just a prototype made to confirm that it's actually possible to simplify this. It is, so i'm making the actual thing now. So don't use it to submit reports yet. ---
 
