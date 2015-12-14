@@ -7,10 +7,15 @@ The idea of this extension is to automate the filling/submit of post-interaction
 ### How it's supposed to work (send me feedback or suggestions if you have it) ###
 
 -> As we are in shift, we have multiple chat threads in intercom.
+
 -> When you want to submit a report, turn on the extension
+
 -> Click any of the chat threads in the left panel of all open threads intercom has
+
 -> After a couple of seconds, a panel should appear in the right side of the screen
+
 -> Here you will see all the information relevant for the report collected from the chat, you can make changes to the info in this panel before submitting
+
 -> When you're ready, click "Submit". Automatically a new tab will open, load the data, go through the entire form, and close itself. You'll get a message if the submit succeeded or not
 
 
