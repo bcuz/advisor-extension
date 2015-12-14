@@ -124,6 +124,7 @@ function renderSidePanel(data) {
 		</script>
 	`;
 
+	$("#side-panel").html("");
 	$("#side-panel").append(side_panel);
 
 }

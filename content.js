@@ -39,7 +39,9 @@ function dataCollector() {
 	// Check if we already have something in memory for this interaction
 	if (interactions[interactionID] == undefined) {
 		// Start up this object
+		console.log("interactions #: " + interactionID + " doesn't exists yet");
 		interactions[interactionID] = {};
+		console.log(JSON.stringify(interactions));
 	}
 	else {
 		console.log("Printing interactions...");
@@ -48,7 +50,7 @@ function dataCollector() {
 
     // Get user's name
     var userNameHeader = $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim();
-    var userNameLeftBox = $(chatItemSelector + '.o__active').find(".avatar__container h3").html().trim();
+    var userNameLeftBox = this.querySelector(".avatar__container h3").innerHTML.trim();
 
     // Add name to the state object
     interactions[interactionID]["Name"] = userNameLeftBox;
@@ -61,25 +63,29 @@ function dataCollector() {
     		// Wait until the chat has loaded
     		console.log(userNameHeader);
 
-    		userNameHeader = (chatItemSelector + '.o__active').find(".avatar__container h3").html().trim();
+    		userNameHeader = $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim();
     	}
     	else {
     		clearInterval(interval);
 
 		    // Get the summary from the last note
-		  	var possibleSummary = $(".conversation__part .o__admin-note .conversation__text p").last().html().split(": ");
-		  	var summary = "";
+		  	var possibleSummaryElement = $(".conversation__part .o__admin-note .conversation__text p").last();
+		  	if (possibleSummaryElement.length != 0)
+		  		var possibleSummary = possibleSummaryElement.html().split(": ");
+		  	else
+		  		var possibleSummary = [];
 
-		  	if (possibleSummary[1] != undefined && possibleSummary[0].toLowerCase() == "summary") {
-		  		summary = possibleSummary[1].trim();
-		  	}
+		  	if (possibleSummary[1] != undefined && possibleSummary[0].toLowerCase() == "summary")
+		  		var summary = possibleSummary[1].trim();	
+		  	else
+		  		var summary = "";
 
 		  	interactions[interactionID]["Summary"] = summary;
-			console.log(summary);
+			console.log("Summary: " + summary);
 
 			renderSidePanel(interactions[interactionID]);
     	}
-    }, 2500);
+    }, 500);
 
   	// Get the duration of this chat
 }
