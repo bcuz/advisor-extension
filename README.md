@@ -27,11 +27,15 @@ Pull this repo, open chrome, go to Extensions, enable Developer Mode, click "Loa
 ## Ideal scenario ##
 
 Ideally, we'll be able to only click 1 button, and the reports for all the threads we had on shift will be submitted automatically. For this, still need to improve:
-   - Collecting data from chat (and validate it)
-   - Collecting summary of interaction and additional notes (so that we make the least amount
+   
+- Collecting data from chat (and validate it)
+   
+- Collecting summary of interaction and additional notes (so that we make the least amount
      of changes to the collected data)
-   - Track that all reports are submitted without issues
-   - Track any changes intercom might do to its interface that might affect the behavior of
+   
+- Track that all reports are submitted without issues
+   
+- Track any changes intercom might do to its interface that might affect the behavior of
      this extension (and make the code fix itself >:D)
 
 
