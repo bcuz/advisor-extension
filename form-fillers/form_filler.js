@@ -1,13 +1,13 @@
 
 chrome.runtime.sendMessage({
-	"message": "give_me_data_yo"
+	"message": "give_me_data"
 },  function(response) {
 		// URL
 		var input = document.querySelector('[aria-label*="Intercom"]');
 		input.value = response.conversationURL;
 
 		// Name
-		document.querySelector('[aria-label*="Your Name"]').value = "Roberto Arias";
+		document.querySelector('[aria-label*="Your Name"]').value = response.myName;
 
 		// Course
 		document.querySelector('[name="entry.1578101060"]').value = "";

@@ -59,6 +59,8 @@ chrome.runtime.onMessage.addListener(
 
 			var conversationURL = request.conversationURL;
 			var summary = request.summary;
+			var myName = request.myName;
+			localStorage.setItem("myName", request.myName);
 			localStorage.setItem("conversationURL", request.conversationURL);
 			localStorage.setItem("summary", request.summary);
 			
@@ -71,12 +73,14 @@ chrome.runtime.onMessage.addListener(
 			});
 
 
-		} else if (request.message == "give_me_data_yo") {
+		} else if (request.message == "give_me_data") {
 
+			var myName = localStorage.getItem("myName");
 			var conversationURL = localStorage.getItem("conversationURL");
 			var summary = localStorage.getItem("summary");
 
 			sendResponse({
+				myName: myName,
 				conversationURL: conversationURL,
 				summary: summary
 			});

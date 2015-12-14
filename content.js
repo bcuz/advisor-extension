@@ -4,6 +4,11 @@ var count = 0;
 var chatSelector = ".conversation__inbox__list-wrapper";
 var chatItemSelector = ".conversation__list__item";
 
+
+/** Keep in memory data for all the users we'll have in this shift **/
+interactions = {};
+
+
 /**
  *  Wait until something is loaded and ready to use it
  */
@@ -19,21 +24,42 @@ function executeWhenReady(executeThisFunction, condition, expectedValue, delay) 
 	}, delay);
 }
 
+
 /**
  *  Take the conversation URL and send it to background
  */
-function myFunction() {
-	console.log("called myFunction");
+function dataCollector() {
+	console.log("called dataCollector");
+
+	/** Get the conversation URL, gotta use the last # as this interaction's ID */
+	// An interaction is the user-chat combination we have today
 	var conversationURL = $(this).attr("href");
+	var interactionID = conversationURL.split("/")[conversationURL.split("/").length - 1];
+
+	// Check if we already have something in memory for this interaction
+	if (interactions[interactionID] == undefined) {
+		// Start up this object
+		interactions[interactionID] = {};
+	}
+	else {
+		console.log("Printing interactions...");
+		console.log(JSON.stringify(interactions));
+	}
 
     // Get user's name
     var userNameHeader = $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim();
     var userNameLeftBox = $(chatItemSelector + '.o__active').find(".avatar__container h3").html().trim();
 
+    // Add name to the state object
+    interactions[interactionID]["Name"] = userNameLeftBox;
+    interactions[interactionID]["conversationURL"] = conversationURL;
+
+    interactions[interactionID]["myName"] = "Roberto Arias";
+
     var interval = setInterval(function() {
     	if (userNameHeader != userNameLeftBox) {
     		// Wait until the chat has loaded
-    		alert(userNameHeader);
+    		console.log(userNameHeader);
 
     		userNameHeader = (chatItemSelector + '.o__active').find(".avatar__container h3").html().trim();
     	}
@@ -48,16 +74,12 @@ function myFunction() {
 		  		summary = possibleSummary[1].trim();
 		  	}
 
+		  	interactions[interactionID]["Summary"] = summary;
 			console.log(summary);
 
-		    // Send the data to the report filler
-			chrome.runtime.sendMessage({
-				"message": "open_report_tab",
-				"conversationURL": conversationURL,
-				"summary": summary
-			});	
+			renderSidePanel(interactions[interactionID]);
     	}
-    }, 1000);
+    }, 2500);
 
   	// Get the duration of this chat
 }
@@ -73,12 +95,12 @@ chrome.runtime.onMessage.addListener(
 			console.log("Starting up...");
 
 		   	// When a chat tab is clicked...
-			$(chatSelector).on("click", chatItemSelector, myFunction);
+			$(chatSelector).on("click", chatItemSelector, dataCollector);
 		}
 
 		// If we're disabling it, unbind listeners
 		else {
-			$(chatSelector).unbind("click", myFunction);
+			$(chatSelector).unbind("click", dataCollector);
 			console.log("Disabling it");
 		}
 	}
