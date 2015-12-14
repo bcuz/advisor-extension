@@ -1,0 +1,41 @@
+{
+	"manifest_version": 2,
+	"name": "User Report Automator - Codecademy",
+	"version": "0.1",
+
+	"permissions": [
+		"tabs","declarativeWebRequest", "*://*/*"
+	],
+
+	"content_scripts": [
+		{
+			"matches": [
+				"https://app.intercom.io/a/apps/*/inbox/*"
+			],
+
+			"js": [
+				"libs/jquery-2.1.4.js",
+				"content.js", "side-panel.js"
+			]
+		},
+		{
+			"matches": [
+				"https://docs.google.com/forms/*"
+			],
+			"js": [
+				"libs/jquery-2.1.4.js"
+			],
+			"run_at": "document_start"
+		}
+	],
+
+	"browser_action": {
+		"default_icon": "img/panda-48x48.png",
+		"default_popup": "ui/popup.html",
+		"default_title": "Report Filler"
+	},
+
+	"background": {
+		"scripts": ["background.js"]
+	}
+}
