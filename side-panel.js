@@ -224,16 +224,3 @@ function secondsToString(seconds) {
 }
 
 $("body").append(`<div id="side-panel"><div>`);
-
-chrome.runtime.onMessage.addListener(
-	function(request, sender, sendResponse) {
-		if (request.message == "side-panel") {
-			console.log("Received side panel message - " + request.enabled);
-			console.log(interactions);
-			if (request.enabled == "true")
-				renderSidePanel(null);
-			else
-				$("#side-panel").html("");
-		}
-	}
-);

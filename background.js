@@ -6,9 +6,6 @@ var reportTab;
 
 var data = {};
 
-localStorage.setItem("enabled", "false");
-localStorage.setItem("side_panel", "false");
-
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		// If this message comes from the popup
@@ -22,38 +19,13 @@ chrome.runtime.onMessage.addListener(
 				// Send a message to the active tab
 				chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 					var activeTab = tabs[0];
-					console.log(activeTab.title);
-					enabled = localStorage.getItem("enabled");
-					enabled = (enabled == "false") ? "true" : "false";
-					localStorage.setItem("enabled", enabled);
-					console.log(enabled);
 
+					// Only send an arbitrary start-stop message, state is maintained per tab
 					chrome.tabs.sendMessage(activeTab.id, {
-						"message": "start",
-						"enabled": enabled
+						"message": "start-stop",
 					});
-
-					// Set the text status in the browser action icon
-					var browserActionStatus = (enabled == "true") ? "ON" : "";
-					console.log("Badge: " + browserActionStatus);
-					chrome.browserAction.setBadgeText({text: browserActionStatus});
-
 				});				
 
-			} else if (request.id == "report-panel") {
-				// Open the report panel... not yet
-				chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-					var activeTab = tabs[0];
-					side_panel = localStorage.getItem("side_panel");
-					side_panel = (side_panel == "true") ? "false" : "true";
-					localStorage.setItem("side_panel", side_panel);
-					console.log(side_panel);
-
-					chrome.tabs.sendMessage(activeTab.id, {
-						"message": "side-panel",
-						"enabled": side_panel
-					});
-				});
 			}
 
 

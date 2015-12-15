@@ -6,7 +6,11 @@ var chatItemSelector = ".conversation__list__item";
 
 
 /** Keep in memory data for all the users we'll have in this shift **/
+// This will be used later... during data collection
 interactions = {};
+
+// Set the state of the extension in this tab
+var isRunning = false;
 
 
 /**
@@ -26,7 +30,7 @@ function executeWhenReady(executeThisFunction, condition, expectedValue, delay) 
 
 
 /**
- *  Take the conversation URL and send it to background
+ *  Take data from the chat and send it to the background
  */
 function dataCollector() {
 	console.log("called dataCollector");
@@ -93,26 +97,41 @@ function dataCollector() {
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if( request.message === "start" ) {
+    if( request.message === "start-stop" ) {
     	console.log("Reporter");
 
-		if (request.enabled == "true") {
+    	// Toggle the status of the extension
+    	isRunning = !isRunning;
+    	console.log("Extension running now");
+
+    	// Start it up or shut it down
+		if (isRunning) {
 		    
 			console.log("Starting up...");
 
 		   	// When a chat tab is clicked...
 			$(chatSelector).on("click", chatItemSelector, dataCollector);
+
+			// Alert that report mode is ON
+			alert("Reports enabled!");
+			// Add the label REPORTS ON
+			/*append(
+				`<center style="
+    				display: inline-block;
+    				margin: 2% 2% 3% 7%;
+    				color: red;">
+    				<b>REPORTS ON</b>
+    			</center>`);*/
 		}
 
 		// If we're disabling it, unbind listeners
 		else {
 			$(chatSelector).unbind("click", dataCollector);
 			console.log("Disabling it");
+
+			// Alert reports disabled
+			alert("Reports disabled!");
 		}
 	}
   }
 );
-
-      /*$("body").append(
-			`<script> alert('Testing script'); </script>`
-		);*/
