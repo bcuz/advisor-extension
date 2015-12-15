@@ -1,10 +1,15 @@
 STATUS 12/15: Information is now editable in panel. All information is correctly passed to form (need to test extreme cases yet). Form fills itself until the last screen, submit is still disabled until approved by Daniella. Resources are not supported yet, if resources are marked as "Yes", then form stops filling itself in the "List resources" screen.
 
 ## HOW TO USE (this is being updated as development goes) ##
+
 1.- Install the extension using instructions below
+
 2.- Make sure you are in your intercom inbox
+
 3.- Click the panda, then "Start/Stop"
+
 4.- You'll get an alert saying ("Reports Enabled"). While reports are enabled, any time you click a chat thread it will show the reports panel on the right side with the user information.
+
 5.- To disable reports (stop showing panel on every click), click the panda again, you'll get another alert saying "Reports disabled". Reloading or closing the tab will also disable the reports.
 
 
