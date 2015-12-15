@@ -4,6 +4,8 @@ var testing = "valueTesting";
 
 var reportTab;
 
+var data = {};
+
 localStorage.setItem("enabled", "false");
 localStorage.setItem("side_panel", "false");
 
@@ -57,13 +59,15 @@ chrome.runtime.onMessage.addListener(
 
 		} else if (request.message == "open_report_tab") {
 
-			var conversationURL = request.conversationURL;
-			var summary = request.summary;
-			var myName = request.myName;
-			localStorage.setItem("myName", request.myName);
-			localStorage.setItem("conversationURL", request.conversationURL);
-			localStorage.setItem("summary", request.summary);
-			
+			// Save all variables in local storage, so we can get them from reports tab later
+			for (field in request.data) {
+				console.log("Field: " + field + " - Value: " + request.data[field]);
+				//localStorage.setItem(field, request.data[field]);
+			}
+
+			data = request.data;
+			console.log("Set data");
+
 			chrome.tabs.create({url: reportURL}, function(tab) {
 				reportTab = tab;
 				chrome.tabs.executeScript(tab.id, {
@@ -74,22 +78,15 @@ chrome.runtime.onMessage.addListener(
 
 
 		} else if (request.message == "give_me_data") {
-
-			var myName = localStorage.getItem("myName");
-			var conversationURL = localStorage.getItem("conversationURL");
-			var summary = localStorage.getItem("summary");
-
 			sendResponse({
-				myName: myName,
-				conversationURL: conversationURL,
-				summary: summary
+				data: data
 			});
 		}
 
 		// Call the other screens in the form
 		else if (request.message == "checkpoint") {
 			// Script to load next
-			var script = "form_filler_"+request.goingToPage + ".js";
+			var script = "form-fillers/form_filler_"+request.goingToPage + ".js";
 
 			setTimeout(function() {
 				chrome.tabs.executeScript(reportTab.id, {

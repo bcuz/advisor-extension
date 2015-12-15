@@ -1,10 +1,14 @@
-
 chrome.runtime.sendMessage({
-	"message": "give_me_data_yo"
+	"message": "give_me_data"
 },  function(response) {
-	// Lets see if this works
-	document.getElementById("group_244902865_7").checked = true;
-	document.getElementById("entry_244902865_other_option_response").value = "Testing";
+
+	var id_to_check = "group_244902865_" + response.data.interaction_user;
+	document.getElementById(id_to_check).checked = true;
+	document.getElementById("entry_244902865_other_option_response").value = response.data.interaction_user_other;
+
+	id_to_check = "group_677684700_" + response.data.interaction_adv;
+	document.getElementById(id_to_check).checked = true;
+	document.getElementById("entry_677684700_other_option_response").value = response.data.interaction_adv_other;
 
 	// Send new checkpoint
 	chrome.runtime.sendMessage({

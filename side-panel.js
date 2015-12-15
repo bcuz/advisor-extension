@@ -61,6 +61,7 @@ function renderSidePanel(data) {
 		</div>
 
 		<div id="data">
+		<input id="myName" type="hidden" value="${data['myName']}" />
 		<div id="user-name" style="text-align: center;">User Name: <b>${data["Name"]}</b></div>
 
 		<div id="summary" data-field="entry.1667357959">
@@ -106,6 +107,7 @@ function renderSidePanel(data) {
 		</div>
 
 		<div id="user-rate-notes">
+			<label>Why this rate?</label>
 			<textarea rows="4" cols="35"></textarea>
 		</div>
 
@@ -157,15 +159,24 @@ function renderSidePanel(data) {
 				
 				// Get data from the panel
 				var data = {
-
+					myName: 		   		$("#myName").val(),
+					conversationURL: 		"${data['conversationURL']}",
+					summary: 				$("#summary textarea").val(),
+					course: 				$("#course select").val(),
+					user_rate: 				$("#user-rate select").val(),
+					user_rate_notes: 		$("#user-rate-notes textarea").val(),
+					interaction_user: 		$("#interaction-type-user select").val(),
+					interaction_user_other: $("#interaction-type-user .other").val(),
+					interaction_adv: 		$("#interaction-type-advisor select").val(),
+					interaction_adv_other:  $("#interaction-type-advisor .other").val(),
+					given_resource: 		$("#given-resource select").val(),
+					other_notes: 			$("#any-other-comments textarea").val()
 				};
 
 				// Send the data to the report filler
 				chrome.runtime.sendMessage({
-					"message": "open_report_tab",
-					"myName": "${data['myName']}",
-					"conversationURL": "${data['conversationURL']}",
-					"summary": "${data['Summary']}"
+					message: "open_report_tab",
+					data: data
 				});
 			});
 
