@@ -8,5 +8,11 @@ chrome.runtime.sendMessage({
 	else {
 		document.getElementById("entry_1712191337").value = response.data.other_notes;
 		console.log("We're almost done!");
+
+		// Send new checkpoint
+		chrome.runtime.sendMessage({
+			"message": "checkpoint",
+			"goingToPage": 5
+		});
 	}
 });

@@ -4,7 +4,7 @@
 	"version": "0.1",
 
 	"permissions": [
-		"tabs","declarativeWebRequest", "*://*/*"
+		"tabs","declarativeWebRequest", "*://*/*", "storage"
 	],
 
 	"content_scripts": [
@@ -33,6 +33,11 @@
 		"default_icon": "img/panda-48x48.png",
 		"default_popup": "ui/popup.html",
 		"default_title": "Report Filler"
+	},
+
+	"options_ui": {
+		"page": "ui/options.html",
+		"chrome_style": true
 	},
 
 	"background": {

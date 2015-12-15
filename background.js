@@ -3,10 +3,31 @@ var reportURL = "https://docs.google.com/forms/d/1RlohZ5t3mKU7KoCNz9Uh4z2Ytghw1n
 // Hold the data shared between intercom and report tabs
 var data = {};
 
+// Get saved options
+var advisorName = "";
+var timeBetweenScreensForm = "";
+
+// Initialize options saved
+function pullOptions() {
+	chrome.storage.sync.get({
+	    advisorName: '',
+	    timeBetweenScreensForm: "5"
+	  }, function(items) {
+	    advisorName = items.advisorName;
+	    timeBetweenScreensForm = items.timeBetweenScreensForm;
+	    console.log("Options updated! Name: " + advisorName + " - time: " + timeBetweenScreensForm);
+	});
+}
+
+pullOptions();
+
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		// If this message comes from the popup
-		if (request.message == "popup") {
+		if (request.message == "update-options") {
+			pullOptions();
+		}
+		else if (request.message == "popup") {
 
 			console.log("received message popup");
 			// Start/stop the report data collection
@@ -25,6 +46,10 @@ chrome.runtime.onMessage.addListener(
 
 			}
 
+			// Open options page
+			else if (request.id == "open-options") {
+				window.open(chrome.runtime.getURL('ui/options.html'));
+			}
 
 		} else if (request.message == "open_report_tab") {
 
@@ -38,6 +63,9 @@ chrome.runtime.onMessage.addListener(
 
 				// Store the data using this tab's ID
 				data[tab.id] = request.data;
+
+				// Set advisor name
+				data[tab.id]["myName"] = advisorName;
 
 				chrome.tabs.executeScript(tab.id, {
 					file: "form-fillers/form_filler.js",
@@ -69,7 +97,30 @@ chrome.runtime.onMessage.addListener(
 					file: script,
 					runAt: "document_end"
 				});
-			}, 15000);
+			}, timeBetweenScreensForm);
+		}
+
+		else if (request.message == "report-success") {
+			// Requestor tab's ID
+			var requestorTabID = sender.tab.id;
+
+			// Update this tab ID in data
+			// We'll replace tab ID with the interactionID
+
+			// Get the interaction ID
+			var conversationURL = data[requestorTabID]["conversationURL"];
+			var interactionID = conversationURL.split("/")[conversationURL.split("/").length - 1];
+
+			// Clone data with interactionID as new ID
+			data[interactionID] = data[requestorTabID];
+			// Remove old copy that uses tabID
+			data[requestorTabID] = {};
+
+			// Mark field for success
+			data[interactionID]["success"] = true;
+
+			// Report success to user
+			console.log("Success report!  ID#: " + interactionID);
 		}
 	}
 );
