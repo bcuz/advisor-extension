@@ -13,6 +13,11 @@ chrome.runtime.sendMessage({
 		// Name
 		document.querySelector('[aria-label*="Your Name"]').value = response.data.myName;
 
+		// Time
+		document.querySelector('[aria-label*="Hours"]').value = response.data.hours;
+		document.querySelector('[aria-label*="Minutes"]').value = response.data.minutes;
+		document.querySelector('[aria-label*="Seconds"]').value = response.data.seconds;
+
 		// Course
 		document.querySelector('[name="entry.1578101060"]').value = response.data.course;
 

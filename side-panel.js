@@ -18,18 +18,20 @@ function renderSidePanel(data) {
 		box-shadow: -5px 0 6px -4px black;
 	}
 	#close-side-panel {
-		padding: 1%
-		width: 30px;
+		padding: 1%;
+		width: 25px;
+		display: block;
 		height: 30px;
 		position:absolute;
 		right: 0;
-		top: 0;
-		z-index: 10
-		background: #7f7f7f;
-		font-weight: strong;
+		top: 9px;
+		z-index: 10;
+		background: #c5c5c5;
+		font-weight: bold;
 		font-size: 1.6em;
 		cursor: pointer;
 		color: #000;
+		text-align: center;
 	}
 	#whattodo {
 		position: absolute;
@@ -39,8 +41,10 @@ function renderSidePanel(data) {
 		height: 50px;
 	}
 	#side-panel div {
-		padding: 4% 5%;
+		padding: 2%;
 		list-style-type: none;
+		line-height: 30px;
+		border-radius: 6px;
 	}
 	#open-report {
 		height: 60%;
@@ -64,15 +68,6 @@ function renderSidePanel(data) {
 		<input id="myName" type="hidden" value="${data['myName']}" />
 		<div id="user-name" style="text-align: center;">User Name: <b>${data["Name"]}</b></div>
 
-		<div id="summary" data-field="entry.1667357959">
-			<labe>Summary:</label>
-			<textarea rows="4" cols="35">${data["Summary"]}</textarea>
-		</div>
-
-		<div id="hours" data-field="entry.1272130761_hour"></div>
-		<div id="minutes" data-field="entry.1272130761_minute"></div>
-		<div id="seconds" data-field="entry.1272130761_second"></div>
-
 		<div id="course" data-field="entry.1578101060">
 			<label>Course:</label>
 			<select>
@@ -93,6 +88,26 @@ function renderSidePanel(data) {
 				<option value="Command Line">Command Line</option>
 				<option value="Git">Git</option>
 			</select>
+		</div>
+
+		<div id="summary" data-field="entry.1667357959">
+			<labe>Summary:</label>
+			<textarea rows="4" cols="35">${data["Summary"]}</textarea>
+		</div>
+
+		<div id="time" data-field="entry.1272130761">
+			<div>
+				<label>Hours (Max. 72)</label>
+				<input type="text" id="hours" />
+			</div>
+			<div>
+				<label>Minutes</label>
+				<input type="text" id="minutes" />
+			</div>
+			<div>
+				<label>Seconds</label>
+				<input type="text" id="seconds" />
+			</div>
 		</div>
 
 		<div id="user-rate" data-field="entry.5170217">
@@ -162,6 +177,9 @@ function renderSidePanel(data) {
 					myName: 		   		$("#myName").val(),
 					conversationURL: 		"${data['conversationURL']}",
 					summary: 				$("#summary textarea").val(),
+					hours: 					$("#hours").val(),
+					minutes: 				$("#minutes").val(),
+					seconds: 				$("#seconds").val(),
 					course: 				$("#course select").val(),
 					user_rate: 				$("#user-rate select").val(),
 					user_rate_notes: 		$("#user-rate-notes textarea").val(),
