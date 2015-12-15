@@ -41,10 +41,13 @@ function renderSidePanel(data) {
 		height: 50px;
 	}
 	#side-panel div {
-		padding: 2%;
+		padding: 3% 4%;
 		list-style-type: none;
 		line-height: 30px;
 		border-radius: 6px;
+	}
+	#side-panel div * {
+		display: block;
 	}
 	#open-report {
 		height: 60%;
@@ -57,7 +60,8 @@ function renderSidePanel(data) {
 		text-align: center;
 		font-size: 1.2em;
 	}
-	#data { margin-top: 50px; }
+	#data { margin-top: 55px; }
+	.other { display: none; }
 	</style>
 		<div id="whattodo">
 			<div id="open-report">Open report (No submit yet)</div>
@@ -65,11 +69,11 @@ function renderSidePanel(data) {
 		</div>
 
 		<div id="data">
+		<center id="user-name" style="font-size: 20px; color: #3d7eff;"><b>${data["Name"]}</b></center>
 		<input id="myName" type="hidden" value="${data['myName']}" />
-		<div id="user-name" style="text-align: center;">User Name: <b>${data["Name"]}</b></div>
 
 		<div id="course" data-field="entry.1578101060">
-			<label>Course:</label>
+			<label>Course: *</label>
 			<select>
 				<option value="None: Onboarding">None: Onboarding</option>
 				<option value="HTML &amp; CSS">HTML &amp; CSS</option>
@@ -91,7 +95,7 @@ function renderSidePanel(data) {
 		</div>
 
 		<div id="summary" data-field="entry.1667357959">
-			<labe>Summary:</label>
+			<labe>Summary: *</label>
 			<textarea rows="4" cols="35">${data["Summary"]}</textarea>
 		</div>
 
@@ -111,7 +115,7 @@ function renderSidePanel(data) {
 		</div>
 
 		<div id="user-rate" data-field="entry.5170217">
-			<label>Rate the learner:</label>
+			<label>Rate the learner: *</label>
 			<select>
 				<option value="5">5 - Very Easy</option>
 				<option value="4">4 - Easy</option>
@@ -130,6 +134,7 @@ function renderSidePanel(data) {
 		<div id="interaction-type-user" data-field="entry.244902865">
 			<label>User-initiated interaction ?</label>
 			<select>
+				<option value="">None</option>
 				<option value="1">Bug</option>
 				<option value="2">Resource Requested</option>
 				<option value="3">Guidance Requested</option>
@@ -144,6 +149,7 @@ function renderSidePanel(data) {
 		<div id="interaction-type-advisor" data-field="entry.677684700">
 			<label>Advisor-initiated interaction ?</label>
 			<select>
+				<option value="">None</option>
 				<option value="1">Follow-up on Resource</option>
 				<option value="2">Follow-up on guidance</option>
 				<option value="3">Routine check-in</option>
@@ -154,10 +160,10 @@ function renderSidePanel(data) {
 		</div>
 
 		<div id="given-resource" data-field="entry.1544719003">
-			<label>Added a resource?</label>
+			<label>Added a resource? *</label>
 			<select>
-				<option value="1">Yes</option>
 				<option value="2">No</option>
+				<option value="1">Yes</option>
 			</select>
 		</div>
 
@@ -203,6 +209,24 @@ function renderSidePanel(data) {
 				document.getElementById("side-panel").innerHTML = "";
 				console.log("closed reports panel");
 			})
+
+			// Only when "Other" is selected for Interaction types the extra reason input should appear
+			$("#interaction-type-user select").change(function() {
+				var extra_input = $(this).parent().children(".other");
+				if ($(this).val() == "7")
+					extra_input.show();
+				else 
+					extra_input.hide();
+			});
+
+			// Only when "Other" is selected for Interaction types the extra reason input should appear
+			$("#interaction-type-advisor select").change(function() {
+				var extra_input = $(this).parent().children(".other");
+				if ($(this).val() == "5")
+					extra_input.show();
+				else 
+					extra_input.hide();
+			});
 
 		</script>
 	`;
