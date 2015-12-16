@@ -1,19 +1,31 @@
-STATUS 12/15: Information is now editable in panel. All information is correctly passed to form (need to test extreme cases yet). Form fills itself until the last screen, submit is still disabled until approved by Daniella. Resources are not supported yet, if resources are marked as "Yes", then form stops filling itself in the "List resources" screen.
+STATUS 12/15: READY TO RUMBLE !!
+
+All pages are filled automatic, but clicking the last "Submit" button is still manual. Need to write validation of data filling to completely automate it. Aside of that, it's ready to be tested by everyone.
 
 ## HOW TO USE (this is being updated as development goes) ##
 
 1.- Install the extension using instructions below
 
-2.- Make sure you are in your intercom inbox
+IMPORTANT:
+---------------------------------------------------------------------------
+Right after you install it, click the panda and select "Options". In the options page you have to put 2 values:
+  - **Your name**,  make sure it is exactly the same as it is listed in the report google form (with spaces, capital letters and all of that, must be EXACTLY the same).
+  - **Time between screens**, this is the # of seconds the extension will delay the filling of each page of the report. You must give enough time to the page to load, or the extension will fail. To be safe, set it initially to 4.
+
+Then save it and continue with next steps. This is a one time only thing.
+---------------------------------------------------------------------------
+
+2.- Make sure you are in your intercom inbox. Once you're there, reload the page (it's kind of long to explain why, it's the way intercom and chrome work, for now just do it).
 
 3.- Click the panda, then "Start/Stop"
 
-4.- You'll get an alert saying ("Reports Enabled"). While reports are enabled, any time you click a chat thread it will show the reports panel on the right side with the user information.
+4.- You'll get an alert saying ("Reports Enabled"). While reports are enabled, any time you click a chat thread, the reports panel on the right side with the user information. URL is already loaded, so don't worry about it.
 
-5.- To disable reports (stop showing panel on every click), click the panda again, you'll get another alert saying "Reports disabled". Reloading or closing the tab will also disable the reports.
+TIP ->  If you put a note in the chat that starts with  "Summary: " (including the colon and space), and this note is last note in the chat thread, the panel will automatically take the text from the note and load it in the "Summary" field.
 
+5.- To disable reports (stop showing panel on every click), click "start/stop" again, you'll get another alert saying "Reports disabled". Reloading or closing the intercom tab will also disable it.
 
---- NOTE: This is just a prototype made to confirm that it's actually possible to simplify this. It is, so i'm making the actual thing now. So don't use it to submit reports yet. ---
+###### DESCRIPTION  ##########
 
 The idea of this extension is to automate the filling/submit of post-interaction reports
 (and make our lives easier, happier, healthier, longer and save our fingers from calluses)
