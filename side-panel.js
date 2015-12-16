@@ -239,6 +239,9 @@ loadJavascript: function() {
 		});
 	`;
 
+	/*** Mark resources to false - bad hack .... **/
+	JS += `$("#given_resource").val("2");`;
+
 	return JS;
 },
 
