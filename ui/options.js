@@ -29,7 +29,7 @@ function restore_options() {
     timeBetweenScreensForm: "5"
   }, function(items) {
     document.getElementById('advisor-name').value = items.advisorName;
-    document.getElementById('timeBetweenScreensForm').value = items.timeBetweenScreensForm;
+    document.getElementById('time-between-screens-form').value = items.timeBetweenScreensForm;
   });
 }
 

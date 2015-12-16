@@ -92,12 +92,14 @@ chrome.runtime.onMessage.addListener(
 			// Requestor tab's ID
 			var requestorTabID = sender.tab.id;
 
+			console.log("Checkpoint - calling next in script in " + (timeBetweenScreensForm*1000));
+
 			setTimeout(function() {
 				chrome.tabs.executeScript(requestorTabID, {
 					file: script,
 					runAt: "document_end"
 				});
-			}, timeBetweenScreensForm);
+			}, timeBetweenScreensForm * 1000);
 		}
 
 		else if (request.message == "report-success") {

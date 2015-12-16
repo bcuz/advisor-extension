@@ -40,6 +40,7 @@ function renderSidePanel(data) {
 		width: 90%;
 		height: 50px;
 	}
+	.other { display: none; }
 	#side-panel div {
 		padding: 3% 4%;
 		list-style-type: none;
@@ -61,7 +62,6 @@ function renderSidePanel(data) {
 		font-size: 1.2em;
 	}
 	#data { margin-top: 55px; }
-	.other { display: none; }
 	</style>
 		<div id="whattodo">
 			<div id="open-report">Open report (No submit yet)</div>
