@@ -87,7 +87,7 @@ function dataCollector() {
 		  	interactions[interactionID]["Summary"] = summary;
 			console.log("Summary: " + summary);
 
-			renderSidePanel(interactions[interactionID]);
+			side_panel.render(interactions[interactionID]);
     	}
     }, 500);
 

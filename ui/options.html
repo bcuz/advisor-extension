@@ -3,19 +3,38 @@
   <head>
     <title>Report Automator - Codecademy</title>
     <style>
-      body: { padding: 10px; }
+      body { padding: 10px; }
+      body div {
+        padding: 1% 0;
+        display: block;
+      }
+      body div * {
+        display: block;
+        padding: 1% 0;
+      }
+      label {
+        font-size: 1.6em;
+        font-style: italic;
+      }
+      input {
+        font-size: 1.4em;
+      }
     </style>
   </head>
 
   <body>
-    <label>Your Name:</label>
-    <input id="advisor-name" type="text" />
+    <div>
+      <label>Your Name:</label>
+      <input id="advisor-name" type="text" />
+    </div>
 
-    <label>How many seconds between page to page in form?</label>
-    <input id="time-between-screens-form" type="text" />
+    <div>
+      <label>How many seconds between page to page in form?</label>
+      <input id="time-between-screens-form" type="text" />
+    </div>
 
     <div id="status"></div>
-    <button id="save">Save</button>
+    <button style="padding: 0;" id="save">Save</button>
 
     <script src="options.js"></script>
   </body>

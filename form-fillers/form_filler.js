@@ -3,8 +3,7 @@ chrome.runtime.sendMessage({
 },  function(response) {
 
 		for (i in response.data) {
-			console.log("Field: " + i);
-			console.log("Value: " + response.data[i]);
+			console.log("Field: " + i + " - Value: " + response.data[i]);
 		}
 
 		// URL
