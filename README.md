@@ -2,17 +2,25 @@ STATUS 12/15: READY TO RUMBLE !!
 
 All pages are filled automatic, but clicking the last "Submit" button is still manual. Need to write validation of data filling to completely automate it. Aside of that, it's ready to be tested by everyone.
 
+NEXT UPDATE: Will include validation of filling, notification if report failed, and retry button.
+
 ## HOW TO USE (this is being updated as development goes) ##
 
 1.- Install the extension using instructions below
 
 IMPORTANT:
+
 ---------------------------------------------------------------------------
+
 Right after you install it, click the panda and select "Options". In the options page you have to put 2 values:
+
   - **Your name**,  make sure it is exactly the same as it is listed in the report google form (with spaces, capital letters and all of that, must be EXACTLY the same).
+
   - **Time between screens**, this is the # of seconds the extension will delay the filling of each page of the report. You must give enough time to the page to load, or the extension will fail. To be safe, set it initially to 4.
 
+
 Then save it and continue with next steps. This is a one time only thing.
+
 ---------------------------------------------------------------------------
 
 2.- Make sure you are in your intercom inbox. Once you're there, reload the page (it's kind of long to explain why, it's the way intercom and chrome work, for now just do it).
@@ -25,24 +33,10 @@ TIP ->  If you put a note in the chat that starts with  "Summary: " (including t
 
 5.- To disable reports (stop showing panel on every click), click "start/stop" again, you'll get another alert saying "Reports disabled". Reloading or closing the intercom tab will also disable it.
 
-###### DESCRIPTION  ##########
+##########  DESCRIPTION  ##########
 
 The idea of this extension is to automate the filling/submit of post-interaction reports
 (and make our lives easier, happier, healthier, longer and save our fingers from calluses)
-
-### How it's supposed to work (send me feedback or suggestions if you have it) ###
-
--> As we are in shift, we have multiple chat threads in intercom.
-
--> When you want to submit a report, turn on the extension
-
--> Click any of the chat threads in the left panel of all open threads intercom has
-
--> After a couple of seconds, a panel should appear in the right side of the screen
-
--> Here you will see all the information relevant for the report collected from the chat, you can make changes to the info in this panel before submitting
-
--> When you're ready, click "Submit". Automatically a new tab will open, load the data, go through the entire form, and close itself. You'll get a message if the submit succeeded or not
 
 
 ## How to load it ##
