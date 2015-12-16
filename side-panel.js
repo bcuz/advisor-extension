@@ -69,7 +69,7 @@ CSS : `
 		font-size: 1.2em;
 	}
 	#data { margin-top: 55px; }
-	.required {
+	.required-mark {
 		font-size: 13px;
     	color: red;
     	font-style: italic;
@@ -90,12 +90,22 @@ render: function(data) {
 		// Get passed value for this field. Mark empty if undefined
 		var fieldValue = (data[field] != undefined) ? data[field] : "";
 
+		// Check if field is required
+		if (FORM[field].Required) {
+			var requiredLabel = "*"; var requiredClass = "required";
+		}
+		else { 
+			var requiredLabel = "";  var requiredClass = "";
+		}
+
+
+
 		// Render content based on the type of field this is
 		switch (FORM[field].Type) {
 
 			// If hidden, just need a hidden input, and continue to next field
 			case "hidden":
-				formHTML += `<input id='${ field }' type="hidden" value='${fieldValue}' />`;
+				formHTML += `<input class="${ requiredClass }" id='${ field }' type="hidden" value='${fieldValue}' />`;
 				continue;
 				break;
 
@@ -114,26 +124,24 @@ render: function(data) {
 			// If text or number, put a regular input element
 			case "text":
 			case "number":
-				fieldHTML += `<input id="${ field }" type="text" value="${fieldValue}" />`;
+				fieldHTML += `<input class="${ requiredClass }" id="${ field }" type="text" value="${fieldValue}" />`;
 				break;
 
 
 			// If longText, put a textarea
 			case "longText":
-				fieldHTML += `<textarea id="${ field }" rows="4" cols="35">${fieldValue}</textarea>`;
+				fieldHTML += `<textarea class="${ requiredClass }" id="${ field }" rows="4" cols="35">${fieldValue}</textarea>`;
 				break;
 
 			default:
 				break;
 		}
 
-		// Mark if field is required
-		var required = (FORM[field].Required) ? "*" : "";
 
 		// Append field to the form
 		formHTML += `
 			<div>
-				<label>${FORM[field].Label} <span style="display: inline-block; color: red;">${ required }</span></label>
+				<label>${FORM[field].Label} <span style="display: inline-block; color: red;">${ requiredLabel }</span></label>
 				${ fieldHTML }
 			</div>
 		`;
@@ -149,7 +157,7 @@ render: function(data) {
 		${ side_panel.HTML }
 		<div id="data">
 			<center id="user-name" style="font-size: 20px; color: #3d7eff;"><b>${data["Name"]}</b></center>
-			<h5 class="required">*   Required</h5>
+			<h5 class="required-mark">*   Required</h5>
 			${ formHTML }
 		</div>
 
@@ -207,6 +215,7 @@ loadJavascript: function() {
 	/***************  Hide "Other Reason" fields  ***************/
 	JS += `
 		// Only when "Other" is selected for Interaction types the extra reason input should appear
+		$("#interaction_user_other").hide();
 		$("#interaction_user").change(function() {
 			var extra_input = $("#interaction_user_other");
 			if ($(this).val() == "7")
@@ -216,6 +225,7 @@ loadJavascript: function() {
 		});
 
 		// Only when "Other" is selected for Interaction types the extra reason input should appear
+		$("#interaction_adv_other").hide();
 		$("#interaction_adv").change(function() {
 			var extra_input = $("#interaction_adv_other");
 			if ($(this).val() == "5")
@@ -226,8 +236,82 @@ loadJavascript: function() {
 	`;
 
 	return JS;
-}
+},
 
+
+/* Perform validation of fields */
+validate: function(data) {
+	var valid = true;
+
+	// Go through elements passed in the data
+	for (field in data) {
+
+		// Map this field in the form
+		var f = FORM[field];
+
+		// Check if field has a maximum value
+		if (f.Max != undefined) {
+			
+			// Validate against it
+			switch (f.Type) {
+
+				case "text":
+				case "longText":
+					if (data[field].length > f.Max) {
+						console.log(`Field ${field} has more than ${f.Max} characters`);
+						valid = false;
+					}
+					break;
+
+				case "number":
+					if (data[field] > f.Max) {
+						console.log(`Field ${field} is greater than ${f.Max}. It is ${data[field]}`);
+						valid = false;
+					}
+					break;
+
+				default:
+					break;
+			}
+		}
+
+		// Always validate numbers against minimum value (default is 0)
+		var minimum = (f.Min != undefined) ? f.Min : 0;
+		if (f.Type == "number") {
+			if (data[field] < minimum) {
+				console.log(`Field ${field} is smaller than ${minimum}. It is ${data[field]}`);
+				valid = false;
+			}
+		}
+
+
+		// Check if field is required
+		if (f.Required) {
+			// Need to validate its minimum value
+			var minimum = (f.Min != undefined) ? f.Min : 0;
+
+			switch (f.Type) {
+				case "number":
+					if (data[field] < minimum) {
+						console.log(`Field ${field} is smaller than ${minimum}. It is ${data[field]}`);
+						valid = false;
+					}
+					break;
+
+				case "text":
+				case "longText":
+					if (data[field].length == minimum) {
+						console.log(`Field ${field} has ${minimum} characters!`);
+						valid = false;
+					}
+					break;
+
+				default:
+					break;	
+			}
+		}
+	}
+}
 
 
 }
