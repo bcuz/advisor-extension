@@ -60,8 +60,6 @@ function dataCollector() {
     interactions[interactionID]["Name"] = userNameLeftBox;
     interactions[interactionID]["conversationURL"] = conversationURL;
 
-    interactions[interactionID]["myName"] = "Roberto Arias";
-
     var interval = setInterval(function() {
     	if (userNameHeader != userNameLeftBox) {
     		// Wait until the chat has loaded
@@ -84,7 +82,7 @@ function dataCollector() {
 		  	else
 		  		var summary = "";
 
-		  	interactions[interactionID]["Summary"] = summary;
+		  	interactions[interactionID]["summary"] = summary;
 			console.log("Summary: " + summary);
 
 			side_panel.render(interactions[interactionID]);

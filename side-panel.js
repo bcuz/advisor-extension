@@ -116,6 +116,10 @@ render: function(data) {
 				for (option in FORM[field].Options)
 					fieldHTML += `<option value="${option}">${FORM[field].Options[option]}</option>`;
 
+				// If this field is not required, we can include an empty option
+				if (FORM[field].Required == undefined || FORM[field].Required == false)
+					fieldHTML = fieldHTML + `<option value="">None</option>`;
+
 				// Put them in the select field
 				fieldHTML = `<select id="${ field }">${fieldHTML}</select>`;
 				break;

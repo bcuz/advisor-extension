@@ -41,6 +41,6 @@
 	},
 
 	"background": {
-		"scripts": ["background.js"]
+		"scripts": ["background.js", "form.js"]
 	}
 }
