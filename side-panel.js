@@ -112,13 +112,13 @@ render: function(data) {
 
 			// If select, need the select box with options
 			case "select":
-				// Get all the options
-				for (option in FORM[field].Options)
-					fieldHTML += `<option value="${option}">${FORM[field].Options[option]}</option>`;
-
 				// If this field is not required, we can include an empty option
 				if (FORM[field].Required == undefined || FORM[field].Required == false)
 					fieldHTML = fieldHTML + `<option value="">None</option>`;
+			
+				// Get all the options
+				for (option in FORM[field].Options)
+					fieldHTML += `<option value="${option}">${FORM[field].Options[option]}</option>`;
 
 				// Put them in the select field
 				fieldHTML = `<select id="${ field }">${fieldHTML}</select>`;
