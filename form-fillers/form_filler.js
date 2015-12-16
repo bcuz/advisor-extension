@@ -1,3 +1,73 @@
+var thisPage = 1;
+var data;
+
+function fillTextAndValidate(selector, field) {
+
+	var selectedElement = document.querySelector(selector);
+
+	// Check that something was found
+	if (selectedElement == undefined) {
+		// If not, send error notification
+		chrome.runtime.sendMessage({
+			"message": "filling_failed",
+			"page": thisPage,
+			"field": field,
+			"selector": selector
+		});
+
+		throw false;
+	}
+
+	// Fill the field
+	selectedElement.value = data[field];
+
+	// Check that it was properly filled
+	if (selectedElement.value != data[field]) {
+		// If not, send error notification
+		chrome.runtime.sendMessage({
+			"message": "filling_failed",
+			"page": thisPage,
+			"field": field,
+			"value": data[field]
+		});
+
+		throw false;		
+	}
+}
+
+function checkAndValidate(selector, field) {
+	var selectedElement = document.querySelector(selector);
+
+	// Check that something was found
+	if (selectedElement == undefined) {
+		// If not, send error notification
+		chrome.runtime.sendMessage({
+			"message": "filling_failed",
+			"page": thisPage,
+			"field": field,
+			"selector": selector
+		});
+
+		throw false;
+	}
+
+	// Fill the field
+	selectedElement.checked = true;
+
+	// Check that it was properly filled
+	if (selectedElement.checked != true) {
+		// If not, send error notification
+		chrome.runtime.sendMessage({
+			"message": "filling_failed",
+			"page": thisPage,
+			"field": field,
+			"value": "false"
+		});
+
+		throw false;
+	}
+}
+
 chrome.runtime.sendMessage({
 	"message": "give_me_data"
 },  function(response) {
@@ -6,29 +76,31 @@ chrome.runtime.sendMessage({
 			console.log("Field: " + i + " - Value: " + response.data[i]);
 		}
 
-		// URL
-		document.querySelector('[aria-label*="Intercom"]').value = response.data.conversationURL;
+		data = response.data;
 
 		// Name
-		document.querySelector('[aria-label*="Your Name"]').value = response.data.myName;
+		fillTextAndValidate(`[aria-label*="Your Name"]`, `myName`);
+
+		// URL
+		fillTextAndValidate(`[aria-label*="Intercom"]`, `conversationURL`);
 
 		// Time
-		document.querySelector('[aria-label*="Hours"]').value = response.data.hours;
-		document.querySelector('[aria-label*="Minutes"]').value = response.data.minutes;
-		document.querySelector('[aria-label*="Seconds"]').value = response.data.seconds;
+		fillTextAndValidate(`[aria-label*="Hours"]`, `hours`);
+		fillTextAndValidate(`[aria-label*="Minutes"]`, `minutes`);
+		fillTextAndValidate(`[aria-label*="Seconds"]`, `seconds`);
 
 		// Course
-		document.querySelector('[name="entry.1578101060"]').value = response.data.course;
+		fillTextAndValidate(`[name="entry.1578101060"]`, `course`);
 
 		// Summary
-		document.querySelector('[name="entry.1667357959"]').value = response.data.summary;
+		fillTextAndValidate(`[name="entry.1667357959"]`, `summary`);
 
 		// User rate
-		var id_to_check = "group_5170217_" + response.data.user_rate;
-		document.querySelector(`[id="${id_to_check}"]`).checked = true;
+		var id_to_check = "group_5170217_" + data.user_rate;
+		checkAndValidate(`[id="${id_to_check}"]`, `user_rate`)
 
 		// User rate notes
-		document.querySelector(`[id="entry_1328304469"]`).value = response.data.user_rate_notes;
+		fillTextAndValidate(`[id="entry_1328304469"]`, `user_rate_notes`);
 
 		// Send another message to background to keep track of where we are
 		chrome.runtime.sendMessage({

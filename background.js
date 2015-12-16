@@ -23,6 +23,7 @@ pullOptions();
 
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
+
 		// If this message comes from the popup
 		if (request.message == "update-options") {
 			pullOptions();
@@ -33,6 +34,8 @@ chrome.runtime.onMessage.addListener(
 			// Start/stop the report data collection
 			if (request.id == "start-stop") {
 				console.log("received start-stop");
+
+				// Before sending message, check if there's any
 
 				// Send a message to the active tab
 				chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -58,23 +61,26 @@ chrome.runtime.onMessage.addListener(
 				console.log("Field: " + field + " - Value: " + request.data[field]);
 			}
 
-			chrome.tabs.create({url: reportURL}, function(tab) {
-				reportTab = tab;
+			chrome.tabs.create({
+				url: reportURL,
+				active: false
+				}, function(tab) {
+					reportTab = tab;
 
-				// Store the data using this tab's ID
-				data[tab.id] = request.data;
+					// Store the data using this tab's ID
+					data[tab.id] = request.data;
 
-				// Set advisor name
-				data[tab.id]["myName"] = advisorName;
+					// Set advisor name
+					data[tab.id]["myName"] = advisorName;
 
-				chrome.tabs.executeScript(tab.id, {
-					file: "form-fillers/form_filler.js",
-					runAt: "document_end"
-				});
-			});
+					chrome.tabs.executeScript(tab.id, {
+						file: "form-fillers/form_filler.js",
+						runAt: "document_end"
+					});
+				}
+			);
 
 		} else if (request.message == "give_me_data") {
-			// Get the id of the tab that's asking for data
 			var requestorTabID = sender.tab.id;
 			console.log("Requestor is: " + requestorTabID);
 			console.log("Data found: " + JSON.stringify(data[requestorTabID]));
@@ -86,11 +92,9 @@ chrome.runtime.onMessage.addListener(
 
 		// Call the other screens in the form
 		else if (request.message == "checkpoint") {
+			var requestorTabID = sender.tab.id;
 			// Script to load next
 			var script = "form-fillers/form_filler_"+request.goingToPage + ".js";
-
-			// Requestor tab's ID
-			var requestorTabID = sender.tab.id;
 
 			console.log("Checkpoint - calling next in script in " + (timeBetweenScreensForm*1000));
 
@@ -102,10 +106,17 @@ chrome.runtime.onMessage.addListener(
 			}, timeBetweenScreensForm * 1000);
 		}
 
-		else if (request.message == "report-success") {
-			// Requestor tab's ID
+		else if (request.message == "filling_failed") {
 			var requestorTabID = sender.tab.id;
+			console.log("Failed filling for id " + sender.tab.id);
+			console.log("Page: " + request.page + " - Field: " + request.field);
+			console.log("Selector: " + request.selector + " - Value: " + request.value);
 
+			data[requestorTabID]["success"] = false;
+		}
+
+		else if (request.message == "report-success") {
+			var requestorTabID = sender.tab.id;
 			// Update this tab ID in data
 			// We'll replace tab ID with the interactionID
 
