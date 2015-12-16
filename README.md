@@ -1,8 +1,8 @@
 STATUS 12/15: READY TO RUMBLE !!
 
-All pages are filled automatic, but clicking the last "Submit" button is still manual. Need to write validation of data filling to completely automate it. Aside of that, it's ready to be tested by everyone.
+All pages are filled automatic, but clicking the last "Submit" button is still manual. Need to complete validation of submit before completely automate it (to notify if it failed - almost done). Aside of that, it's ready to be tested by everyone.
 
-NEXT UPDATE: Will include validation of filling, notification if report failed, and retry button.
+NEXT UPDATE: Extension detects if submit failed, need to add notification now.
 
 ## HOW TO USE (this is being updated as development goes) ##
 
