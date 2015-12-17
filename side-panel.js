@@ -76,6 +76,10 @@ CSS : `
     	padding: 3% 7% 1% 7%;
     	opacity: 0.9;
 	}
+	#user_name {
+		font-size: 20px;
+		color: #3d7eff;
+	}
 `,
 
 /* Render the panel, apply HTML, CSS and JS and render FORM*/
@@ -151,6 +155,9 @@ render: function(data) {
 		`;
 	}
 
+	// Check if report for this user was already submitted
+	var alreadySubmitted = (data["success"]) ? "Already Submitted!" : "";
+
 	// Form HTML is ready, now render the entire thing
 	$("#side-panel").html("");
 	$("#side-panel").append(`
@@ -160,8 +167,9 @@ render: function(data) {
 		
 		${ side_panel.HTML }
 		<div id="data">
-			<center id="user-name" style="font-size: 20px; color: #3d7eff;"><b>${data["Name"]}</b></center>
+			<center id="user_name">${data["Name"]}</center>
 			<h5 class="required-mark">*   Required</h5>
+			<span style="color: green; float: right; font-size: 16px;">${alreadySubmitted}</span>
 			${ formHTML }
 		</div>
 
@@ -190,7 +198,6 @@ loadJavascript: function() {
 	// Trim trailing comma
 	tmp = tmp.substring(0, tmp.length-1);
 
-
 	// Fields to get are loaded, not put the actual javascript
 	JS += `
 		// Open report tab and pass data on click
@@ -198,6 +205,9 @@ loadJavascript: function() {
 			var data = {
 				${ tmp }
 			};
+
+			// Add the user name too
+			data["user_name"] = $("#user_name").html();
 
 			// Send the message to open report tab
 			chrome.runtime.sendMessage({
@@ -335,43 +345,3 @@ function secondsToString(seconds) {
 }
 
 $("body").append(`<div id="side-panel"><div>`);
-
-/*
-<div id="queue">
-   On queue:
-   <ul style="
-    margin: 0;
-">
-     <li data-id="123" style="
-    padding: 2px 8%;
-    background: #3d7eff;
-    color: white;
-    cursor: pointer;
-                         ">Gustavo Yacupoma  <span class="status" style="
-    display: inline-block;
-    float: right;
-    font-weight: bold;
-">WORKING</span></li>
-  <li data-id="123" style="
-    padding: 2px 8%;
-    background: #56a033;
-    color: white;
-    ">Jon Samp  <span class="status" style="
-    display: inline-block;
-    float: right;
-    font-weight: bold;
-">SUCCESS</span></li>
-  <li data-id="123" style="
-    padding: 2px 8%;
-    background: #c92739;
-    color: white;
-    cursor: pointer;
-    ">Dan Snyder  <span class="status" style="
-    display: inline-block;
-    float: right;
-    font-weight: bold;
-    padding: 0 4%;
-    background: #112233;
-    ">RETRY</span></li>
-   </ul>
-</div>*/

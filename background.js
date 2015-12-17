@@ -3,6 +3,9 @@ var reportURL = "https://docs.google.com/forms/d/1RlohZ5t3mKU7KoCNz9Uh4z2Ytghw1n
 // Hold the data shared between intercom and report tabs
 var data = {};
 
+// Save the intercom tab for notifications
+var intercomTab;
+
 // Get saved options
 var advisorName = "";
 var timeBetweenScreensForm = "";
@@ -56,6 +59,9 @@ chrome.runtime.onMessage.addListener(
 
 		} else if (request.message == "open_report_tab") {
 
+			// Save intercom tab
+			intercomTab = sender.tab.id;
+
 			// Save all variables in local storage, so we can get them from reports tab later
 			for (field in request.data) {
 				console.log("Field: " + field + " - Value: " + request.data[field]);
@@ -66,6 +72,17 @@ chrome.runtime.onMessage.addListener(
 				active: false
 				}, function(tab) {
 					reportTab = tab;
+
+					// Get interactionID of this request
+					var conversationURL = request.data.conversationURL;
+					var interactionID = conversationURL.split("/")[conversationURL.split("/").length - 1];
+
+					// Check if there's a previous failed report with same interactionID
+					// If there is one, remove it from memory
+					if (data[interactionID] != undefined && data[interactionID]["success"] == false) {
+						console.log("Found old report, remove it: " + data[interactionID].user_name + " - " + interactionID);
+						data[interactionID] = null;
+					}
 
 					// Store the data using this tab's ID
 					data[tab.id] = request.data;
@@ -82,6 +99,11 @@ chrome.runtime.onMessage.addListener(
 
 		} else if (request.message == "give_me_data") {
 			var requestorTabID = sender.tab.id;
+
+			// If intercom tab is asking for the information, take the tabID parameter
+			if (request.tabID != undefined)
+				requestorTabID = request.tabID;
+
 			console.log("Requestor is: " + requestorTabID);
 			console.log("Data found: " + JSON.stringify(data[requestorTabID]));
 
@@ -113,6 +135,22 @@ chrome.runtime.onMessage.addListener(
 			console.log("Selector: " + request.selector + " - Value: " + request.value);
 
 			data[requestorTabID]["success"] = false;
+
+			// Get the interaction ID
+			var conversationURL = data[requestorTabID]["conversationURL"];
+			var interactionID = conversationURL.split("/")[conversationURL.split("/").length - 1];
+
+			// Clone data with interactionID as new ID
+			data[interactionID] = data[requestorTabID];
+			// Remove old copy that uses tabID
+			data[requestorTabID] = null;
+
+			// Notify failure to intercom tab
+			chrome.tabs.sendMessage(intercomTab, {
+				message: "filling_failed",
+				interactionID: interactionID,
+				userName: data[interactionID]["user_name"]
+			});
 		}
 
 		else if (request.message == "report-success") {
@@ -127,10 +165,17 @@ chrome.runtime.onMessage.addListener(
 			// Clone data with interactionID as new ID
 			data[interactionID] = data[requestorTabID];
 			// Remove old copy that uses tabID
-			data[requestorTabID] = {};
+			data[requestorTabID] = null;
 
 			// Mark field for success
 			data[interactionID]["success"] = true;
+
+			// Notify failure to intercom tab
+			chrome.tabs.sendMessage(intercomTab, {
+				message: "filling_success",
+				userName: data[interactionID]["user_name"],
+				interactionID: interactionID
+			});
 
 			// Report success to user
 			console.log("Success report!  ID#: " + interactionID);

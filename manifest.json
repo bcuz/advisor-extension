@@ -14,7 +14,7 @@
 			],
 
 			"js": [
-				"libs/jquery-2.1.4.js",
+				"libs/jquery-2.1.4.js", "libs/notify.min.js",
 				"content.js", "side-panel.js", "form.js"
 			]
 		},

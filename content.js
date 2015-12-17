@@ -92,6 +92,25 @@ function dataCollector() {
   	// Get the duration of this chat
 }
 
+function success(message) {
+	$.notify(message, {
+		className: "success",
+		globalPosition: "top center",
+		hideAnimation: "slideUp",
+		autoHide: true,
+		autoHideDelay: 5000
+	});
+}
+
+function failure(message) {
+	$.notify(message, {
+		className: "error",
+		globalPosition: "top center",
+		hideAnimation: "slideUp",
+		clickToHide: true,
+		autoHide: false
+	});
+}
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
@@ -111,15 +130,10 @@ chrome.runtime.onMessage.addListener(
 			$(chatSelector).on("click", chatItemSelector, dataCollector);
 
 			// Alert that report mode is ON
-			alert("Reports enabled!");
-			// Add the label REPORTS ON
-			/*append(
-				`<center style="
-    				display: inline-block;
-    				margin: 2% 2% 3% 7%;
-    				color: red;">
-    				<b>REPORTS ON</b>
-    			</center>`);*/
+			$.notify("Reports enabled!", {
+				className: "info",
+				globalPosition: "top center"
+			});
 		}
 
 		// If we're disabling it, unbind listeners
@@ -128,8 +142,24 @@ chrome.runtime.onMessage.addListener(
 			console.log("Disabling it");
 
 			// Alert reports disabled
-			alert("Reports disabled!");
+			$.notify("Reports disabled!", {
+				className: "info",
+				globalPosition: "top center"
+			});
 		}
+	}
+
+	else if (request.message == "filling_failed") {
+		// Show notification about it
+		failure("Failed report for: " + request.userName);
+	}
+
+	else if (request.message == "filling_success") {
+		// Show notification about it
+		success("Success report for: " + request.userName);
+
+		// Update our list of success
+		interactions[request.interactionID]["success"] = true;
 	}
   }
 );
