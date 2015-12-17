@@ -1,8 +1,6 @@
 STATUS 12/15: READY TO RUMBLE !!
 
-All pages are filled automatic, but clicking the last "Submit" button is still manual. Need to complete validation of submit before completely automate it (to notify if it failed - almost done). Aside of that, it's ready to be tested by everyone.
-
-NEXT UPDATE: Extension detects if submit failed, need to add notification now.
+Almost everything done (except resources automatic filling). Now it notifies it submit was successful or not, and remembers if you submitted something before. Automatic submit disabled until Daniella approves it
 
 ## HOW TO USE (this is being updated as development goes) ##
 
