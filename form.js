@@ -64,14 +64,14 @@ FORM =
 	},
 
 	minutes: {
-		Label: "Minutes:",
+		Label: "Minutes: (Use 2 digits. Example: 09)",
 		Type: "number",
 		formID: "1272130761",
 		Max: 59
 	},
 
 	seconds: {
-		Label: "Seconds:",
+		Label: "Seconds: (Use 2 digits. Example: 09)",
 		Type: "number",
 		formID: "1272130761",
 		Max: 59

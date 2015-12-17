@@ -249,8 +249,11 @@ loadJavascript: function() {
 		});
 	`;
 
-	/*** Mark resources to false - bad hack .... **/
-	JS += `$("#given_resource").val("2");`;
+	/*** Bad hacks.... Set useful default values .... **/
+	JS += `
+		$("#user_rate").val("5");
+		$("#given_resource").val("2");
+	`;
 
 	return JS;
 },
