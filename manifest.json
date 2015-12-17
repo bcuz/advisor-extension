@@ -10,7 +10,7 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"https://app.intercom.io/a/apps/*/inbox/*"
+				"https://app.intercom.io/a/apps/*"
 			],
 
 			"js": [

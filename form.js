@@ -113,6 +113,7 @@ FORM =
 	},
 
 	interaction_user_other: {
+		parentID: "interaction_user_other_field",
 		Label: "Other reason?",
 		Type: "text",
 		formID: "244902865"
@@ -132,6 +133,7 @@ FORM =
 	},
 
 	interaction_adv_other: {
+		parentID: "interaction_adv_other_field",
 		Label: "Other reason?",
 		Type: "text",
 		formID: "677684700"

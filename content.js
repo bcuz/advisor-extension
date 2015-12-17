@@ -117,6 +117,14 @@ chrome.runtime.onMessage.addListener(
     if( request.message === "start-stop" ) {
     	console.log("Reporter");
 
+    	if ($(chatSelector).length == 0) {
+			$.notify("You are not in your inbox page!", {
+				className: "info",
+				globalPosition: "top center"
+			});
+			return;
+		}
+
     	// Toggle the status of the extension
     	isRunning = !isRunning;
     	console.log("Extension running now");
@@ -127,7 +135,7 @@ chrome.runtime.onMessage.addListener(
 			console.log("Starting up...");
 
 		   	// When a chat tab is clicked...
-			$(chatSelector).on("click", chatItemSelector, dataCollector);
+			$(".app__wrapper").on("click", `${chatSelector} ${chatItemSelector}`, dataCollector);
 
 			// Alert that report mode is ON
 			$.notify("Reports enabled!", {
@@ -138,7 +146,7 @@ chrome.runtime.onMessage.addListener(
 
 		// If we're disabling it, unbind listeners
 		else {
-			$(chatSelector).unbind("click", dataCollector);
+			$(".app__wrapper").unbind("click", dataCollector);
 			console.log("Disabling it");
 
 			// Alert reports disabled
