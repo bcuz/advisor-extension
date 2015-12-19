@@ -121,11 +121,14 @@ render: function(data) {
 					fieldHTML = fieldHTML + `<option value="">None</option>`;
 			
 				// Get all the options
-				for (option in FORM[field].Options)
-					fieldHTML += `<option value="${option}">${FORM[field].Options[option]}</option>`;
+				for (option in FORM[field].Options) {
+					// If we have collected data for this field and know the value of this option, mark it here
+					var test = (option === fieldValue) ? "selected" : "";
+					fieldHTML += `<option value="${option}" ${test}>${FORM[field].Options[option]}</option>`;
+				}
 
 				// Put them in the select field
-				fieldHTML = `<select id="${ field }">${fieldHTML}</select>`;
+				fieldHTML = `<select id="${ field }" ${test}>${fieldHTML}</select>`;
 				break;
 
 
@@ -144,6 +147,13 @@ render: function(data) {
 			default:
 				break;
 		}
+
+		// Render any extra input the form might have
+		/*for (var extra = FORM[field].Extra; extra != undefined; ) {
+			var extra_tmp = "";
+
+			for ()
+		}*/
 
 
 		// Append field to the form

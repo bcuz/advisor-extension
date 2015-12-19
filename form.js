@@ -1,8 +1,32 @@
+/*******************************************************************
+ * This file defines the contents of the data and form used in the report
+ * This exists so that it's easier to change form layout anytime
+ *******************************************************************/
+
 /**
- * This file defines the contents of the form
- * This exists so that it's easier to change form layout later
- 
- * Each 1st level element is a field, and has these properties:
+ *  COURSES is used to collect the value for "course" field.
+ *  The keys are the values used in report, values are the keywords to look for in user's last visited URL
+ */
+
+// Can't figure out yet for PHP and User Onboarding
+COURSES = {
+	"HTML &amp; CSS": "html-css",
+	"Javascript": "javascript",
+	"jQuery": "jquery",
+	"Angular.JS": "angularjs",
+	"Ruby": "ruby",
+	"Rails": "learn-rails",
+	"Rails Auth": "rails-auth",
+	"Make a Website": "make-a-website",
+	"Make an Interactive Website": "make-an-interactive-website",
+	"SQL": "sql",
+	"Java": "java",
+	"Python": "python",
+	"Command Line": "command-line",
+	"Git": "git"
+}
+
+/* Each 1st level element is a field, and has these properties:
  
  * 	Label: What's gonna be shown in the label of the field (human readable)
  *	Type:  What kind of input is this (number, text, longText, select, hidden)
@@ -13,7 +37,7 @@
  *  Required: If field is required or not. true or false
  *  Options: If field's type is select, it must have this property. Sub-object that contains options of select.
   		Example: { "value": "label" }, where "value" is value to be used in form filling, label is what user will read in screen
-  * formID: ID taken directly from Google Form's HTML
+ * formID: ID taken directly from Google Form's HTML
  */
 
 FORM =
@@ -109,14 +133,14 @@ FORM =
 			5: "Quiz",
 			6: "Personal Project",
 			7: "Other"
+		},
+		Extra: {
+			Condition: 7,
+			interaction_user_other: {
+				Label: "Other reason?",
+				Type: "text"
+			}
 		}
-	},
-
-	interaction_user_other: {
-		parentID: "interaction_user_other_field",
-		Label: "Other reason?",
-		Type: "text",
-		formID: "244902865"
 	},
 
 	interaction_adv: {
@@ -129,14 +153,14 @@ FORM =
 			3: "Routine check-in",
 			4: "Target feedback requested",
 			5: "Other"
+		},
+		Extra: {
+			Condition: 5,
+			interaction_adv_other: {
+				Label: "Other reason?",
+				Type: "text"
+			}
 		}
-	},
-
-	interaction_adv_other: {
-		parentID: "interaction_adv_other_field",
-		Label: "Other reason?",
-		Type: "text",
-		formID: "677684700"
 	},
 
 	given_resource: {
@@ -145,8 +169,54 @@ FORM =
 		Required: true,
 		formID: "1544719003",
 		Options: {
-			"2": "No",
-			"1": "Yes"
+			"1": "Yes",
+			"2": "No"
+		},
+
+		Extra: {
+			Condition: 1,
+
+			resource1_title: {
+				Label: "Resource#1 Title:",
+				Type: "text"
+			},
+
+			resource1_link: {
+				Label: "Resource#1 Link:",
+				Type: "text"
+			},
+
+			resource1_description: {
+				Label: "Resource#1 Description:",
+				Type: "text"
+			},
+
+			more_than_one_resource: {
+				Label: "Another resource?",
+				Type: "select",
+				Options: {
+					"1": "Yes",
+					"2": "No"
+				},
+
+				Extra: {
+					Condition: 1,
+
+					resource2_title: {
+						Label: "Resource#2 Description",
+						Type: "text"
+					},
+					resource2_link: {
+						Label: "Resource#2 Link:",
+						Type: "text"
+					},
+
+					resource2_description: {
+						Label: "Resource#2 Description:",
+						Type: "text"
+					}
+				}
+			}
 		}
 	},
 

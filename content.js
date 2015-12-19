@@ -3,6 +3,7 @@ var count = 0;
 /** Selectors from intercom chat website **/
 var chatSelector = ".conversation__inbox__list-wrapper";
 var chatItemSelector = ".conversation__list__item";
+var userLastVisitedLinkSelector = ".test__page-activity-link";
 
 
 /** Keep in memory data for all the users we'll have in this shift **/
@@ -43,48 +44,69 @@ function dataCollector() {
 	// Check if we already have something in memory for this interaction
 	if (interactions[interactionID] == undefined) {
 		// Start up this object
-		console.log("interactions #: " + interactionID + " doesn't exists yet");
 		interactions[interactionID] = {};
-		console.log(JSON.stringify(interactions));
-	}
-	else {
-		console.log("Printing interactions...");
-		console.log(JSON.stringify(interactions));
 	}
 
     // Get user's name
     var userNameHeader = $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim();
     var userNameLeftBox = this.querySelector(".avatar__container h3").innerHTML.trim();
 
-    // Add name to the state object
+
+    /*  Add user's name and conversation URL to our collected data object */
     interactions[interactionID]["Name"] = userNameLeftBox;
     interactions[interactionID]["conversationURL"] = conversationURL;
 
+
+    // Need to wait until the right chat is loaded in screen
+    // To do this, compare the user's name from the chat panel (the one that we're waiting for to load)...
+    // ... vs user's name on the left chat panel (the one that is already loaded and we can use as reference)
     var interval = setInterval(function() {
     	if (userNameHeader != userNameLeftBox) {
-    		// Wait until the chat has loaded
-    		console.log(userNameHeader);
-
     		userNameHeader = $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim();
     	}
     	else {
+    		// Once reached this point, chat is properly loaded in screen. No need to keep the loop alive
     		clearInterval(interval);
 
-		    // Get the summary from the last note
+    		/**** Get summary from the chat  *****/
+
+		    // Get the last note which might be our Summary of interaction
 		  	var possibleSummaryElement = $(".conversation__part .o__admin-note .conversation__text p").last();
 		  	if (possibleSummaryElement.length != 0)
 		  		var possibleSummary = possibleSummaryElement.html().split(": ");
 		  	else
 		  		var possibleSummary = [];
 
+		  	// Get the summary text from our previous last note/possible summary note
 		  	if (possibleSummary[1] != undefined && possibleSummary[0].toLowerCase() == "summary")
-		  		var summary = possibleSummary[1].trim();	
+		  		var summary = possibleSummary[1].trim();
 		  	else
 		  		var summary = "";
 
+		  	// Add the summary to our panel
 		  	interactions[interactionID]["summary"] = summary;
-			console.log("Summary: " + summary);
 
+
+		  	/** Get report's course from the user's information panel (the one at the right of the chat)
+		  	 *  This field might not be correct 100% of the time,
+		  	 *  because link used here only shows the last visited page by user, and user might have go to a different course
+		  	 *  But, it's worth the try, and if it's wrong for the report then advisor will notice and fix it
+		  	 */
+
+		  	// TODO: Move this logic to a separate function
+		  	var lastVisitedLinkURL = $(userLastVisitedLinkSelector).attr("href");
+		  	console.log("Retrieved last visited link: " + lastVisitedLinkURL);
+
+			// Compare against pre-defined courses values in URL (check form.js)
+			for (key in COURSES) {
+				if (lastVisitedLinkURL.indexOf(COURSES[key]) > -1) {
+					console.log("Found the course " + key);
+					interactions[interactionID]["course"] = key;
+					break;
+				}
+			}
+
+		  	// Finally, render the panel. Do it at the end so all collected info is displayed
 			side_panel.render(interactions[interactionID]);
     	}
     }, 500);
