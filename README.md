@@ -1,6 +1,6 @@
-STATUS 12/15: READY TO RUMBLE !!
+STATUS 12/20: READY TO RUMBLE !!
 
-Almost everything done (except resources automatic filling). Now it notifies it submit was successful or not, and remembers if you submitted something before. Automatic submit disabled until Daniella approves it
+Added detection for user's last course visited. Now need to add resources
 
 ## HOW TO USE (this is being updated as development goes) ##
 
@@ -28,6 +28,8 @@ Then save it and continue with next steps. This is a one time only thing.
 4.- You'll get an alert saying ("Reports Enabled"). While reports are enabled, any time you click a chat thread, the reports panel on the right side with the user information. URL is already loaded, so don't worry about it.
 
 TIP ->  If you put a note in the chat that starts with  "Summary: " (including the colon and space), and this note is last note in the chat thread, the panel will automatically take the text from the note and load it in the "Summary" field.
+
+4.5 ->  Fill the form, then click "Open Report" to submit it (it'll open a new  tab and fill the report, automatic submit is disabled for now). You'll get a notification if the submit succeeded or failed. If it succeeded, the panel for a user will show "Already submitted!" when you re-open it
 
 5.- To disable reports (stop showing panel on every click), click "start/stop" again, you'll get another alert saying "Reports disabled". Reloading or closing the intercom tab will also disable it.
 
