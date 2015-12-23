@@ -1,5 +1,7 @@
 var count = 0;
 
+var INTERCOM_URL_PREFIX = "app.intercom.io";
+
 /** Selectors from intercom chat website **/
 var chatSelector = ".conversation__inbox__list-wrapper";
 var chatItemSelector = ".conversation__list__item";
@@ -54,7 +56,7 @@ function dataCollector() {
 
     /*  Add user's name and conversation URL to our collected data object */
     interactions[interactionID]["Name"] = userNameLeftBox;
-    interactions[interactionID]["conversationURL"] = conversationURL;
+    interactions[interactionID]["conversationURL"] = INTERCOM_URL_PREFIX + conversationURL;
 
 
     // Need to wait until the right chat is loaded in screen
