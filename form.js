@@ -194,6 +194,7 @@ FORM =
 			more_than_one_resource: {
 				Label: "Another resource?",
 				Type: "select",
+				Required: true,
 				Options: {
 					"1": "Yes",
 					"2": "No"

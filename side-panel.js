@@ -82,13 +82,58 @@ CSS : `
 	}
 `,
 
-/* Render the panel, apply HTML, CSS and JS and render FORM*/
-// Populate fields with data passed
-render: function(data) {
-	formHTML = ``;
+// Contains base JS
+// Keeping this as a function 'cause need to pass dynamic retrieving of panel's data on click
+// I'll make it static code, like the CSS field, when i figure out how to make this more cleaner
+JS : function(data) {
+
+	return  `
+	/******  Assign the click listener to open panel on click of chat thread  ******/
+
+	document.getElementById("open-report").addEventListener("click", function() {
+
+		// Here's the creation of the 'data' object, that retrieves the data from the form
+		${ data }
+
+		// Add the user name too
+		data["user_name"] = $("#user_name").html();
+
+		// Send the message to open report tab
+		chrome.runtime.sendMessage({
+			message: "open_report_tab",
+			data: data
+		});
+	});
+
+	/*************  Close side panel  ***************/
+
+	document.getElementById("close-side-panel").addEventListener("click", function() {
+		document.getElementById("side-panel").innerHTML = "";
+	});
+
+	/*** Bad hacks.... Set useful default values .... **/
+
+	$("#user_rate").val("5");
+	$("#given_resource").val("2");
+	$("#more_than_one_resource").val("2");
+
+	`;
+},
+
+/* Render each field with its subfields */
+// Used for recursive rendering, in case some fields depend on another one
+renderField: function(FORM, data, extra) {
+
+	// HTML and Javascript for each field to be rendered
+	var formHTMLandJS = [ ``, `` ];
 
 	// Go through the FORM object and fill form's HTML
-	for (field in FORM) {
+	for (var field in FORM) {
+
+		// Don't render conditions in subfields
+		if (field == "Condition")
+			continue;
+
 		var fieldHTML = ``;
 
 		// Get passed value for this field. Mark empty if undefined
@@ -109,7 +154,8 @@ render: function(data) {
 
 			// If hidden, just need a hidden input, and continue to next field
 			case "hidden":
-				formHTML += `<input class="${ requiredClass }" id='${ field }' type="hidden" value='${fieldValue}' />`;
+				formHTMLandJS[0] += `<input class="${ requiredClass }" id='${ field }' type="hidden" value='${fieldValue}' />`;
+				dataFields += `${field} : \$("#${ field }").val(),`;
 				continue;
 				break;
 
@@ -148,22 +194,63 @@ render: function(data) {
 				break;
 		}
 
-		// Render any extra input the form might have
-		/*for (var extra = FORM[field].Extra; extra != undefined; ) {
-			var extra_tmp = "";
+		// Render any subfields we find
+		var extraHTMLandJS = [ ``, `` ];
+		var extraClass = ``;
 
-			for ()
-		}*/
+		if (FORM[field].Extra != undefined) {
+			console.log(field);
+			extraHTMLandJS = side_panel.renderField(FORM[field].Extra, data, true);
 
+			// Append field's javascript to the form
+			formHTMLandJS[1] += extraHTMLandJS[1] + `
+				$("#${ field }").change(function() {
+					if ($(this).val() == ${ FORM[field].Extra.Condition })
+						$(this).parent().children(".extra").show();
+					else
+						$(this).parent().children(".extra").hide();
+				});
+			`;
+			console.log(formHTMLandJS[1]);
+		}
+
+		// Mark this field as "extra"
+		if (extra != undefined && extra == true)
+			extraClass = `class="extra" style="display: none;"`;
 
 		// Append field to the form
-		formHTML += `
-			<div>
+		formHTMLandJS[0] += `
+			<div ${extraClass}>
 				<label>${FORM[field].Label} <span style="display: inline-block; color: red;">${ requiredLabel }</span></label>
 				${ fieldHTML }
+				${ extraHTMLandJS[0] }
 			</div>
 		`;
+
+		// Add this field into the data to be passed from panel to report
+		// They'll be loaded as if they were retrieved using jquery
+		// Something like this:      myName: $("#myName").val(),
+		dataFields += `${field} : \$("#${ field }").val(),`;
 	}
+
+	return formHTMLandJS;
+},
+
+
+/* Render the panel, apply HTML, CSS and JS and render FORM*/
+// Populate fields with data passed
+render: function(data) {
+
+	// Data to be retrieved from panel, used later to fill reports
+	// Global 'cause it'll be modified in other functions
+	dataFields = `var data = { `;
+
+	// Recursive render of all fields and subfields in the form
+	var formHTMLandJS = side_panel.renderField(FORM, data);
+
+	// Remove trailing comma and close data object, it's full at this point
+	dataFields = dataFields.substring(0, dataFields.length-1);
+	dataFields += ` }; `;
 
 	// Check if report for this user was already submitted
 	var alreadySubmitted = (data["success"]) ? "Already Submitted!" : "";
@@ -180,92 +267,14 @@ render: function(data) {
 			<center id="user_name">${data["Name"]}</center>
 			<h5 class="required-mark">*   Required</h5>
 			<span style="color: green; float: right; font-size: 16px;">${alreadySubmitted}</span>
-			${ formHTML }
+			${ formHTMLandJS[0] }
 		</div>
 
 		<script>
-			${ side_panel.loadJavascript() }
+			${ formHTMLandJS[1] }
+			${ side_panel.JS(dataFields) }
 		</script>
 	`);
-},
-
-
-/* Load the Javascript for the form */
-// This function exists because javascript has to be dinamically created
-// so that it gets the latests contents of the form, and reduces # of lines, too long to read
-loadJavascript: function() {
-	var JS = ``;
-	var tmp = ``;
-
-	/***************  Assign the click listener to open panel on click of chat thread  ***************/
-
-	// First, need to retrieve values from all the fields
-	// They'll be loaded as if they were retrieved using jquery
-	// Something like this:      myName: $("#myName").val(),
-	for (field in FORM)
-		tmp += `${field} : \$("#${ field }").val(),`;
-
-	// Trim trailing comma
-	tmp = tmp.substring(0, tmp.length-1);
-
-	// Fields to get are loaded, not put the actual javascript
-	JS += `
-		// Open report tab and pass data on click
-		document.getElementById("open-report").addEventListener("click", function() {
-			var data = {
-				${ tmp }
-			};
-
-			// Add the user name too
-			data["user_name"] = $("#user_name").html();
-
-			// Send the message to open report tab
-			chrome.runtime.sendMessage({
-				message: "open_report_tab",
-				data: data
-			});
-		});
-	`;
-
-
-	/*************  Close side panel  ***************/
-	JS += `
-		document.getElementById("close-side-panel").addEventListener("click", function() {
-			document.getElementById("side-panel").innerHTML = "";
-		});
-	`;
-
-
-	/***************  Hide "Other Reason" fields  ***************/
-	JS += `
-		// Only when "Other" is selected for Interaction types the extra reason input should appear
-		$("#interaction_user_other").hide();
-		$("#interaction_user").change(function() {
-			var extra_input = $("#interaction_user_other");
-			if ($(this).val() == "7")
-				extra_input.show();
-			else 
-				extra_input.hide();
-		});
-
-		// Only when "Other" is selected for Interaction types the extra reason input should appear
-		$("#interaction_adv_other").hide();
-		$("#interaction_adv").change(function() {
-			var extra_input = $("#interaction_adv_other");
-			if ($(this).val() == "5")
-				extra_input.show();
-			else 
-				extra_input.hide();
-		});
-	`;
-
-	/*** Bad hacks.... Set useful default values .... **/
-	JS += `
-		$("#user_rate").val("5");
-		$("#given_resource").val("2");
-	`;
-
-	return JS;
 },
 
 
