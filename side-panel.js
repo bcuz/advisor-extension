@@ -199,7 +199,6 @@ renderField: function(FORM, data, extra) {
 		var extraClass = ``;
 
 		if (FORM[field].Extra != undefined) {
-			console.log(field);
 			extraHTMLandJS = side_panel.renderField(FORM[field].Extra, data, true);
 
 			// Append field's javascript to the form
@@ -211,7 +210,6 @@ renderField: function(FORM, data, extra) {
 						$(this).parent().children(".extra").hide();
 				});
 			`;
-			console.log(formHTMLandJS[1]);
 		}
 
 		// Mark this field as "extra"

@@ -1,4 +1,4 @@
-var thisPage = 3;
+var thisPage = "rs2";
 var data;
 
 function fillTextAndValidate(selector, field) {
@@ -68,29 +68,22 @@ function checkAndValidate(selector, field) {
 	}
 }
 
-
 chrome.runtime.sendMessage({
 	"message": "give_me_data"
 },  function(response) {
 	data = response.data;
-	var id_to_check = "group_1544719003_" + response.data.given_resource;
-	checkAndValidate(`[id="${id_to_check}"]`, `given_resource`);
+	var id_to_check;
+
+
+	fillTextAndValidate(`[id="entry_1596886395"]`, `resource2_title`);
+	fillTextAndValidate(`[id='entry_1720884895']`, `resource2_link`);
+	fillTextAndValidate(`[id='entry_941358238']`, `resource2_description`);
 
 	// Send new checkpoint
-
-	// If a resource was passed, go to page rs1
-	if (response.data.given_resource == "1")
-		chrome.runtime.sendMessage({
-			"message": "checkpoint",
-			"goingToPage": "rs1"
-		});
-
-	// Else, go to the last page
-	else
-		chrome.runtime.sendMessage({
-			"message": "checkpoint",
-			"goingToPage": 4
-		});
+	chrome.runtime.sendMessage({
+		"message": "checkpoint",
+		"goingToPage": 4
+	});
 
 	document.getElementById("ss-submit").click();
 });

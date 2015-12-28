@@ -1,4 +1,4 @@
-var thisPage = 3;
+var thisPage = "rs1";
 var data;
 
 function fillTextAndValidate(selector, field) {
@@ -68,21 +68,27 @@ function checkAndValidate(selector, field) {
 	}
 }
 
-
 chrome.runtime.sendMessage({
 	"message": "give_me_data"
 },  function(response) {
 	data = response.data;
-	var id_to_check = "group_1544719003_" + response.data.given_resource;
-	checkAndValidate(`[id="${id_to_check}"]`, `given_resource`);
+	var id_to_check;
+
+
+	fillTextAndValidate(`[id="entry_1107725395"]`, `resource1_title`);
+	fillTextAndValidate(`[id='entry_1555194575']`, `resource1_link`);
+	fillTextAndValidate(`[id='entry_986954396']`, `resource1_description`);
+
+	var id_to_check = "group_367198721_" + response.data.more_than_one_resource;
+	checkAndValidate(`[id="${id_to_check}"]`, `more_than_one_resource`);
 
 	// Send new checkpoint
 
-	// If a resource was passed, go to page rs1
-	if (response.data.given_resource == "1")
+	// If one more resource was passed, go to page rs2
+	if (response.data.more_than_one_resource == "1")
 		chrome.runtime.sendMessage({
 			"message": "checkpoint",
-			"goingToPage": "rs1"
+			"goingToPage": "rs2"
 		});
 
 	// Else, go to the last page

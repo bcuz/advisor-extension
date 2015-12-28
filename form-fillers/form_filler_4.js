@@ -38,19 +38,14 @@ function fillTextAndValidate(selector, field) {
 chrome.runtime.sendMessage({
 	"message": "give_me_data"
 },  function(response) {
-
 	data = response.data;
-	// Check if a resource was given
-	if (response.data.given_resource == "1")
-		console.log("Resources not supported yet");
-	else {
-		fillTextAndValidate(`[id="entry_1712191337"]`, `other_notes`);
-		console.log("We're almost done!");
+	
+	fillTextAndValidate(`[id="entry_1712191337"]`, `other_notes`);
+	console.log("We're almost done!");
 
-		// Send new checkpoint
-		chrome.runtime.sendMessage({
-			"message": "checkpoint",
-			"goingToPage": 5
-		});
-	}
+	// Send new checkpoint
+	chrome.runtime.sendMessage({
+		"message": "checkpoint",
+		"goingToPage": 5
+	});
 });

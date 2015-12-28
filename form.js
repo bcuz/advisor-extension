@@ -188,7 +188,7 @@ FORM =
 
 			resource1_description: {
 				Label: "Resource#1 Description:",
-				Type: "text"
+				Type: "longText"
 			},
 
 			more_than_one_resource: {
@@ -214,7 +214,7 @@ FORM =
 
 					resource2_description: {
 						Label: "Resource#2 Description:",
-						Type: "text"
+						Type: "longText"
 					}
 				}
 			}
