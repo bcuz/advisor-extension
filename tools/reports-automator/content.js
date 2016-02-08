@@ -75,12 +75,13 @@ function dataCollector() {
 		    // Get the last note which might be our Summary of interaction
 		  	var possibleSummaryElement = $(".conversation__part .o__admin-note .conversation__text p").last();
 		  	if (possibleSummaryElement.length != 0)
-		  		var possibleSummary = possibleSummaryElement.html().split(": ");
+		  		var possibleSummary = possibleSummaryElement.html().split(":");
 		  	else
 		  		var possibleSummary = [];
 
 		  	// Get the summary text from our previous last note/possible summary note
-		  	if (possibleSummary[1] != undefined && possibleSummary[0].toLowerCase() == "summary")
+		  	if (possibleSummary[1] != undefined && (possibleSummary[0].toLowerCase() == "summary"
+		  		|| possibleSummary[0].toLowerCase() == "s"))
 		  		var summary = possibleSummary[1].trim();
 		  	else
 		  		var summary = "";

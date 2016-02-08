@@ -107,7 +107,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 				data[tab.id]["myName"] = advisorName;
 
 				chrome.tabs.executeScript(tab.id, {
-					file: "form-fillers/form_filler.js",
+					file: "tools/reports-automator/form-fillers/form_filler.js",
 					runAt: "document_end"
 				});
 			}
@@ -133,7 +133,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 	else if (request.message == "checkpoint") {
 		var requestorTabID = sender.tab.id;
 		// Script to load next
-		var script = "form-fillers/form_filler_"+request.goingToPage + ".js";
+		var script = "tools/reports-automator/form-fillers/form_filler_"+request.goingToPage + ".js";
 
 		console.log("Checkpoint - calling next in script in " + (timeBetweenScreensForm*1000));
 

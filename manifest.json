@@ -1,10 +1,10 @@
 {
 	"manifest_version": 2,
-	"name": "User Report Automator - Codecademy",
-	"version": "0.1",
+	"name": "Advisor Toolbox - Codecademy",
+	"version": "0.3",
 
 	"permissions": [
-		"tabs","declarativeWebRequest", "*://*/*", "storage"
+		"tabs","declarativeWebRequest", "*://*/*", "storage", "webRequest"
 	],
 
 	"content_scripts": [
@@ -15,7 +15,7 @@
 
 			"js": [
 				"libs/jquery-2.1.4.js", "libs/notify.min.js",
-				"content.js", "side-panel.js", "form.js"
+				"tools/reports-automator/content.js", "tools/reports-automator/side-panel.js", "tools/reports-automator/form.js"
 			]
 		},
 		{
@@ -41,6 +41,6 @@
 	},
 
 	"background": {
-		"scripts": ["background.js", "form.js"]
+		"scripts": ["tools/reports-automator/background.js", "tools/reports-automator/form.js"]
 	}
 }
