@@ -1,7 +1,8 @@
 {
 	"manifest_version": 2,
 	"name": "Advisor Toolbox - Codecademy",
-	"version": "0.3",
+	"version": "0.31",
+	"devtools_page": "core/intercom-mapper/devtools.html",
 
 	"permissions": [
 		"tabs","declarativeWebRequest", "*://*/*", "storage", "webRequest"
@@ -20,7 +21,7 @@
 		},
 		{
 			"matches": [
-				"https://docs.google.com/forms/*"
+				"https://docs.google.com/forms/*", "https://www.codecademy.com/advisors/survey/new"
 			],
 			"js": [
 				"libs/jquery-2.1.4.js"
@@ -41,6 +42,9 @@
 	},
 
 	"background": {
-		"scripts": ["tools/reports-automator/background.js", "tools/reports-automator/form.js"]
+		"scripts": [
+			"tools/reports-automator/background.js", "tools/reports-automator/form.js",
+			"core/intercom-mapper/background.js", "libs/jquery-2.1.4.js"
+		]
 	}
 }

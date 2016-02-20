@@ -194,5 +194,38 @@ chrome.runtime.onMessage.addListener(
 		// Update our list of success
 		interactions[request.interactionID]["success"] = true;
 	}
+
+	// URL rating
+	else if (request.message == "got_rating_url") {
+		console.log("Received rating url: " + request.ratingURL);
+		$(".conversation__text.composer-inbox p").text(request.ratingURL);
+	}
   }
 );
+
+// ADD RATING URL QUICK HACK
+$(".app__wrapper").on("click", `${chatSelector} ${chatItemSelector}`, function() {
+	var userNameHeader = $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim();
+    var userNameLeftBox = this.querySelector(".avatar__container h3").innerHTML.trim();
+    var interval = setInterval(function() {
+    	if (userNameHeader != userNameLeftBox) {
+    		userNameHeader = $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim();
+    	}
+    	else {
+    		// Once reached this point, chat is properly loaded in screen. No need to keep the loop alive
+    		clearInterval(interval);
+			
+			if ($('.URL-rating').length == 0) {
+				$(`.inbox__conversation-controls .tabs__discrete-tab__container .u__right`)
+					.append(`<a class='URL-rating quick-action'> <b>URL</b> </a>`);
+
+				$(".URL-rating").click(function() {
+					chrome.runtime.sendMessage({
+						message: "url_rating",
+						convoURL: document.URL
+					});
+				});
+			}
+		}
+	}, 500);
+});

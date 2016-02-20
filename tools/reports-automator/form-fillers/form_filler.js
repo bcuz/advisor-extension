@@ -70,44 +70,44 @@ function checkAndValidate(selector, field) {
 
 chrome.runtime.sendMessage({
 	"message": "give_me_data"
-},  function(response) {
+},  function (response) {
 
-		for (i in response.data) {
-			console.log("Field: " + i + " - Value: " + response.data[i]);
-		}
+	for (i in response.data) {
+		console.log("Field: " + i + " - Value: " + response.data[i]);
+	}
 
-		data = response.data;
+	data = response.data;
 
-		// Name
-		fillTextAndValidate(`[aria-label*="Your Name"]`, `myName`);
+	// Name
+	fillTextAndValidate(`[aria-label*="Your Name"]`, `myName`);
 
-		// URL
-		fillTextAndValidate(`[aria-label*="Intercom"]`, `conversationURL`);
+	// URL
+	fillTextAndValidate(`[aria-label*="Intercom"]`, `conversationURL`);
 
-		// Time
-		fillTextAndValidate(`[aria-label*="Hours"]`, `hours`);
-		fillTextAndValidate(`[aria-label*="Minutes"]`, `minutes`);
-		fillTextAndValidate(`[aria-label*="Seconds"]`, `seconds`);
+	// Time
+	fillTextAndValidate(`[aria-label*="Hours"]`, `hours`);
+	fillTextAndValidate(`[aria-label*="Minutes"]`, `minutes`);
+	fillTextAndValidate(`[aria-label*="Seconds"]`, `seconds`);
 
-		// Course
-		fillTextAndValidate(`[name="entry.1578101060"]`, `course`);
+	// Course
+	fillTextAndValidate(`[name="entry.1578101060"]`, `course`);
 
-		// Summary
-		fillTextAndValidate(`[name="entry.1667357959"]`, `summary`);
+	// Summary
+	fillTextAndValidate(`[name="entry.1667357959"]`, `summary`);
 
-		// User rate
-		var id_to_check = "group_5170217_" + data.user_rate;
-		checkAndValidate(`[id="${id_to_check}"]`, `user_rate`)
+	// User rate
+	var id_to_check = "group_5170217_" + data.user_rate;
+	checkAndValidate(`[id="${id_to_check}"]`, `user_rate`)
 
-		// User rate notes
-		fillTextAndValidate(`[id="entry_1328304469"]`, `user_rate_notes`);
+	// User rate notes
+	fillTextAndValidate(`[id="entry_1328304469"]`, `user_rate_notes`);
 
-		// Send another message to background to keep track of where we are
-		chrome.runtime.sendMessage({
-			"message": "checkpoint",
-			"goingToPage": 2
-		});
+	// Send another message to background to keep track of where we are
+	chrome.runtime.sendMessage({
+		"message": "checkpoint",
+		"goingToPage": 2
+	});
 
-		// Click Continue - to part 2
-		document.querySelector(`[type="submit"]`).click();
+	// Click Continue - to part 2
+	document.querySelector(`[type="submit"]`).click();
 });
