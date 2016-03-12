@@ -107,6 +107,10 @@ JS : function(data) {
 		// Add the user name too
 		data["user_name"] = $("#user_name").html();
 
+		// Fix the time issue for 1 digit in minutes and seconds
+		if (data.minutes.length == 1) data.minutes = "0" + data.minutes;
+		if (data.seconds.length == 1) data.seconds = "0" + data.seconds;
+
 		// Send the message to open report tab
 		chrome.runtime.sendMessage({
 			message: "open_report_tab",
@@ -127,8 +131,8 @@ JS : function(data) {
 	//$("#more_than_one_resource").val("2");
 	$("#able_solve_issue").val("1");
 	$("#panic_button").val("1");
-	$("suggestion_or_bug").val("3");
-	$("convo_type").val("1");
+	$("#suggestion_or_bug").val("3");
+	$("#convo_type").val("1");
 	`;
 },
 
