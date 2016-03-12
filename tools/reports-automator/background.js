@@ -1,4 +1,5 @@
 var reportURL = "https://docs.google.com/forms/d/1RlohZ5t3mKU7KoCNz9Uh4z2Ytghw1n1qWqabfihXVlI/viewform";
+var newReportURL = "https://docs.google.com/forms/d/1jk8KkJ_JVvXhIsiSI_YfRtEZk_40wRhTOXevwHSTSKQ/viewform";
 
 // Hold the data shared between intercom and report tabs
 var data = {};
@@ -84,7 +85,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 		}
 
 		chrome.tabs.create({
-			url: reportURL,
+			url: newReportURL,
 			active: false
 			}, function(tab) {
 				reportTab = tab;
@@ -107,7 +108,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 				data[tab.id]["myName"] = advisorName;
 
 				chrome.tabs.executeScript(tab.id, {
-					file: "tools/reports-automator/form-fillers/form_filler.js",
+					file: "tools/reports-automator/form-fillers/form_filler_new.js",
 					runAt: "document_end"
 				});
 			}

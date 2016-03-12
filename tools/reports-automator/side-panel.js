@@ -3,6 +3,12 @@ var side_panel = {
 
 // Contains base HTML
 HTML : `
+	<script>
+	String.prototype.replaceAt=function(index, character) {
+    	return this.substr(0, index) + character + this.substr(index+1, this.length);
+	}
+	</script>
+
 	<div id="whattodo">
 		<div id="open-report">Open report (No submit yet)</div>
 		<div id="close-side-panel">X</div>
@@ -80,6 +86,9 @@ CSS : `
 		font-size: 20px;
 		color: #3d7eff;
 	}
+	#side-panel input[type=checkbox], #side-panel label[data-for=checkbox] {
+		display: inline-block !important;
+	}
 `,
 
 // Contains base JS
@@ -114,9 +123,12 @@ JS : function(data) {
 	/*** Bad hacks.... Set useful default values .... **/
 
 	$("#user_rate").val("5");
-	$("#given_resource").val("2");
-	$("#more_than_one_resource").val("2");
-
+	//$("#given_resource").val("2");
+	//$("#more_than_one_resource").val("2");
+	$("#able_solve_issue").val("1");
+	$("#panic_button").val("1");
+	$("suggestion_or_bug").val("3");
+	$("convo_type").val("1");
 	`;
 },
 
@@ -184,6 +196,21 @@ renderField: function(FORM, data, extra) {
 				fieldHTML += `<input class="${ requiredClass }" id="${ field }" type="text" value="${fieldValue}" />`;
 				break;
 
+			// If multiple selection
+			case "checkbox":
+				// Fix fieldvalue
+				if (fieldValue == "") fieldValue = "000";
+
+				for (option in FORM[field].Options) {
+					fieldHTML += `
+						<input type="checkbox" data-field="${field}" class="${ requiredClass }" value="${option}">
+						<label data-for="checkbox"> ${ FORM[field].Options[option] }</label>
+						<br />`;
+				}
+
+				fieldHTML += `<input type="hidden" id="${ field }" value="${fieldValue}" />`;
+
+				break;
 
 			// If longText, put a textarea
 			case "longText":
@@ -244,7 +271,7 @@ render: function(data) {
 	dataFields = `var data = { `;
 
 	// Recursive render of all fields and subfields in the form
-	var formHTMLandJS = side_panel.renderField(FORM, data);
+	var formHTMLandJS = side_panel.renderField(NEW_FORM, data);
 
 	// Remove trailing comma and close data object, it's full at this point
 	dataFields = dataFields.substring(0, dataFields.length-1);
@@ -271,6 +298,18 @@ render: function(data) {
 		<script>
 			${ formHTMLandJS[1] }
 			${ side_panel.JS(dataFields) }
+		</script>
+
+		<script>
+		\$("#side-panel input[type=checkbox]").change(function() {
+			var value = (\$(this).prop("checked") == true) ? 1 : 0;
+			var str_tmp = \$("#"+\$(this).attr("data-field")).val();
+			var index = \$(this).val() - 1;
+			console.log(value);
+			console.log(str_tmp);
+			console.log(index);
+			\$("#"+\$(this).attr("data-field")).val(str_tmp.replaceAt(index, value));
+		});
 		</script>
 	`);
 },
