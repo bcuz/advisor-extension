@@ -83,16 +83,15 @@ chrome.runtime.sendMessage({
 	if (response.data.able_solve_issue != "") {
 		id_to_check = "group_1819799503_" + response.data.able_solve_issue;
 		checkAndValidate(`[id="${id_to_check}"]`, `able_solve_issue`);
-	}		
-
-	if (response.data.able_solve_issue == "3") {
-		fillTextAndValidate(`[id="entry_1819799503_other_option_response"]`, `able_solve_issue_other`);
 	}
 
 
 	// User rate
 	var id_to_check = "group_1881757241_" + data.user_rate;
 	checkAndValidate(`[id="${id_to_check}"]`, `user_rate`);
+
+	// User rate notes
+	fillTextAndValidate(`[name="entry.748200867"]`, `user_rate_notes`);
 
 	// Summary
 	fillTextAndValidate(`[name="entry.1090271664"]`, `summary`);
@@ -133,4 +132,8 @@ chrome.runtime.sendMessage({
 
 	// Click Continue - to part 2
 	//document.querySelector(`[type="submit"]`).click();
+	// Notify that this report is successful
+	chrome.runtime.sendMessage({
+		"message": "report-success"
+	});
 });

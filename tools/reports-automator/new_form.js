@@ -81,15 +81,7 @@ NEW_FORM =
 		Required: true,
 		Options: {
 			1: "Yes",
-			2: "No",
-			3: "Other"
-		},
-		Extra: {
-			Condition: 3,
-			able_solve_issue_other: {
-				Label: "Other reason?",
-				Type: "text"
-			}
+			2: "No"
 		}
 	},
 
@@ -105,6 +97,12 @@ NEW_FORM =
 			"2": "2 - Difficult",
 			"1": "1 - Very Difficult"
 		}
+	},
+
+	user_rate_notes: {
+		Label: "Why this rate?",
+		Type: "longText",
+		formID: "1328304469"
 	},
 
 	panic_button: {
@@ -147,7 +145,7 @@ NEW_FORM =
 	},
 
 	minutes: {
-		Label: "Minutes: (Use 2 digits. Example: 09)",
+		Label: "Minutes:",
 		Type: "number",
 		formID: "1272130761",
 		Required: true,
@@ -155,7 +153,7 @@ NEW_FORM =
 	},
 
 	seconds: {
-		Label: "Seconds: (Use 2 digits. Example: 09)",
+		Label: "Seconds:",
 		Type: "number",
 		formID: "1272130761",
 		Required: true,
