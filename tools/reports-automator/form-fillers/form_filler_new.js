@@ -120,7 +120,7 @@ chrome.runtime.sendMessage({
 		if (buffer == 1) {
 			var id_to_check = "group_1265779157_" + (i+1);
 			console.log(id_to_check);
-			$(`#${id_to_check}`).attr("checked", true);
+			document.querySelector(`[id="${id_to_check}"]`).checked = true;
 		}
 	}
 
