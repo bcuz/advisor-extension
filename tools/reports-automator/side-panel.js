@@ -52,9 +52,9 @@ CSS : `
 	}
 	.other { display: none; }
 	#side-panel #data div {
-		padding: 3% 4%;
+		padding: 0 4%;
 		list-style-type: none;
-		line-height: 30px;
+		line-height: 25px;
 	}
 	#side-panel div *:not(.other) {
 		display: block;
