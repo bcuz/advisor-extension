@@ -49,28 +49,14 @@ NEW_FORM =
 		formID: "432135478"
 	},
 
-	course: {
-		Label: "What language did you help with?",
-		Type: "select",
+	panic_button: {
+		Label: "Did you need to use @channel #panicbutton ?",
+		Type: "radio",
 		Required: true,
-		formID: "1578101060",
+		formID: "5170217",
 		Options: {
-			"NOT A CODE QUESTION": "NOT A CODE QUESTION",
-			"HTML/CSS": "HTML/CSS",
-			"JavaScript": "Javascript",
-			"jQuery": "jQuery",
-			"Angular.js": "Angular.js",
-			"Ruby": "Ruby",
-			"Rails": "Rails",
-			"Rails Authentication": "Rails Auth",
-			"Make a Website": "Make a Website",
-			"Make an Interactive Website": "Make an Interactive Website",
-			"SQL": "SQL",
-			"Java": "Java",
-			"Python": "Python",
-			"PHP": "PHP",
-			"Command Line": "Command Line",
-			"Git": "Git"
+			1 : "No",
+			2 : "Yes"
 		}
 	},
 
@@ -86,7 +72,7 @@ NEW_FORM =
 	},
 
 	user_rate: {
-		Label: "Rate the learner:",
+		Label: "How would you rate your interaction with the user?",
 		Type: "radio",
 		Required: true,
 		formID: "5170217",
@@ -100,24 +86,13 @@ NEW_FORM =
 	},
 
 	user_rate_notes: {
-		Label: "Why this rate?",
+		Label: "Why did you choose this rating?",
 		Type: "longText",
 		formID: "1328304469"
 	},
 
-	panic_button: {
-		Label: "Did you need to use panic button?",
-		Type: "radio",
-		Required: true,
-		formID: "5170217",
-		Options: {
-			1 : "No",
-			2 : "Yes"
-		}
-	},
-
 	suggestion_or_bug: {
-		Label: "Product suggestion or Bug report?",
+		Label: "Did you submit a product suggestion or bug report?",
 		Type: "radio",
 		Required: true,
 		formID: "5170217",
@@ -130,7 +105,7 @@ NEW_FORM =
 	},
 
 	summary: {
-		Label: "Summary:",
+		Label: "Brief summary of this conversation:",
 		Type: "longText",
 		formID: "1667357959",
 		Required: true
@@ -162,7 +137,7 @@ NEW_FORM =
 
 
 	convo_type: {
-		Label: "Type of conversation",
+		Label: "What type of conversation was this?",
 		Type: "radio",
 		Required: true,
 		formID: "677684700",
@@ -179,8 +154,33 @@ NEW_FORM =
 		}
 	},
 
+	course: {
+		Label: "What language did you help with?",
+		Type: "select",
+		Required: true,
+		formID: "1578101060",
+		Options: {
+			"NOT A CODE QUESTION": "NOT A CODE QUESTION",
+			"HTML/CSS": "HTML/CSS",
+			"JavaScript": "Javascript",
+			"jQuery": "jQuery",
+			"Angular.js": "Angular.js",
+			"Ruby": "Ruby",
+			"Rails": "Rails",
+			"Rails Authentication": "Rails Auth",
+			"Make a Website": "Make a Website",
+			"Make an Interactive Website": "Make an Interactive Website",
+			"SQL": "SQL",
+			"Java": "Java",
+			"Python": "Python",
+			"PHP": "PHP",
+			"Command Line": "Command Line",
+			"Git": "Git"
+		}
+	},
+
 	issue_type: {
-		Label: "Type of Issue",
+		Label: "If the user had trouble with their code, which of the following did you need to do?",
 		Type: "checkbox",
 		Required: true,
 		formID: "",
