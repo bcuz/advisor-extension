@@ -22,7 +22,6 @@ CSS : `
 		height: 100%;
 		width: 30%;
 		border-left: 1px solid #c9d7df;
-		overflow-y: auto;
 		position: absolute;
 		right: 0;
 		top: 0;
@@ -31,50 +30,52 @@ CSS : `
 		box-shadow: -5px 0 6px -4px black;
 	}
 	#close-side-panel {
-		padding: 1%;
-		width: 25px;
-		display: block;
-		height: 30px;
+		width: 25%;
+		display: inline-block !important;
+		height: 100%;
 		position:absolute;
-		right: 0;
-		top: 9px;
 		z-index: 10;
-		background: #c5c5c5;
+		background: #df4057;
 		font-weight: bold;
 		font-size: 1.6em;
 		cursor: pointer;
 		color: #000;
 		text-align: center;
+		line-height: 50px;
 	}
 	#whattodo {
 		position: absolute;
 		top: 0;
 		z-index: 5;
-		width: 90%;
+		width: 100%;
 		height: 50px;
 	}
 	.other { display: none; }
-	#side-panel div {
+	#side-panel #data div {
 		padding: 3% 4%;
 		list-style-type: none;
 		line-height: 30px;
-		border-radius: 6px;
 	}
 	#side-panel div *:not(.other) {
 		display: block;
 	}
 	#open-report {
-		height: 60%;
-		width: 70%;
-		padding: 3%;
-		background: #5577ee;
+		height: 100%;
+		width: 75%;
+		line-height: 50px;
+		display: inline-block !important;
+		background: #76c56f;
 		color: white;
 		font-family: sans-serif;
 		cursor: pointer;
 		text-align: center;
 		font-size: 1.2em;
 	}
-	#data { margin-top: 55px; }
+	#data { 
+		margin-top: 65px;
+		overflow-y: auto;
+		height: 90%;
+	}
 	.required-mark {
 		font-size: 13px;
     	color: red;
@@ -145,7 +146,7 @@ JS : function(data) {
 
 	/**  Set useful default values  **/
 
-	$("input[name=user_rate][value=5]").click();
+	//$("input[name=user_rate][value=5]").click();
 	//$("#given_resource").val("2");
 	//$("#more_than_one_resource").val("2");
 	$("input[name=able_solve_issue][value=1]").click();
@@ -323,7 +324,7 @@ render: function(data) {
 		<div id="data">
 			<center id="user_name">${data["Name"]}</center>
 			<h5 class="required-mark">*   Required</h5>
-			<span style="color: green; float: right; font-size: 16px;">${alreadySubmitted}</span>
+			<span style="color: green; float: right; font-size: 18px; font-weight: bold; margin-right: 10px;">${alreadySubmitted}</span>
 			${ formHTMLandJS[0] }
 		</div>
 
