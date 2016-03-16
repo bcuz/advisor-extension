@@ -20,7 +20,7 @@ CSS : `
 	#side-panel {
 		background: #f0f0f0;
 		height: 100%;
-		width: 27%;
+		width: 30%;
 		border-left: 1px solid #c9d7df;
 		overflow-y: auto;
 		position: absolute;
@@ -86,7 +86,8 @@ CSS : `
 		font-size: 20px;
 		color: #3d7eff;
 	}
-	#side-panel input[type=checkbox], #side-panel label[data-for=checkbox] {
+	#side-panel input[type=checkbox], #side-panel label[data-for=checkbox],
+	#side-panel input[type=radio], #side-panel label[data-for=radio] {
 		display: inline-block !important;
 	}
 `,
@@ -124,15 +125,33 @@ JS : function(data) {
 		document.getElementById("side-panel").innerHTML = "";
 	});
 
-	/*** Bad hacks.... Set useful default values .... **/
+	/*** Bad hacks **/
 
-	$("#user_rate").val("5");
+	// Hack for checkboxes
+	\$("#side-panel input[type=checkbox]").change(function() {
+		var value = (\$(this).prop("checked") == true) ? 1 : 0;
+		var str_tmp = \$("#"+\$(this).attr("data-field")).val();
+		var index = \$(this).val() - 1;
+		console.log(value);
+		console.log(str_tmp);
+		console.log(index);
+		\$("#"+\$(this).attr("data-field")).val(str_tmp.replaceAt(index, value));
+	});
+
+	// Hack for radio buttons
+	\$("#side-panel input[type=radio]").click(function() {
+		$("#"+\$(this).attr("name")).val(\$(this).val());
+	});
+
+	/**  Set useful default values  **/
+
+	$("input[name=user_rate][value=5]").click();
 	//$("#given_resource").val("2");
 	//$("#more_than_one_resource").val("2");
-	$("#able_solve_issue").val("1");
-	$("#panic_button").val("1");
-	$("#suggestion_or_bug").val("3");
-	$("#convo_type").val("1");
+	$("input[name=able_solve_issue][value=1]").click();
+	$("input[name=panic_button][value=1]").click();
+	$("input[name=suggestion_or_bug][value=3]").click();
+	$("input[name=convo_type][value=1]").click();
 	`;
 },
 
@@ -193,6 +212,15 @@ renderField: function(FORM, data, extra) {
 				fieldHTML = `<select id="${ field }" ${test}>${fieldHTML}</select>`;
 				break;
 
+			case "radio":
+				for (option in FORM[field].Options) {
+					fieldHTML += `<input name="${field}" type="radio" value="${option}">
+								  <label data-for="radio">${FORM[field].Options[option]}</label>
+								  <br />`;
+				}
+
+				fieldHTML += `<input type="hidden" id="${field}" value="${fieldValue}" />`;
+				break;
 
 			// If text or number, put a regular input element
 			case "text":
@@ -250,7 +278,7 @@ renderField: function(FORM, data, extra) {
 		// Append field to the form
 		formHTMLandJS[0] += `
 			<div ${extraClass}>
-				<label>${FORM[field].Label} <span style="display: inline-block; color: red;">${ requiredLabel }</span></label>
+				<label style="font-weight:bold;">${FORM[field].Label} <span style="display: inline-block; color: red;">${ requiredLabel }</span></label>
 				${ fieldHTML }
 				${ extraHTMLandJS[0] }
 			</div>
@@ -305,15 +333,7 @@ render: function(data) {
 		</script>
 
 		<script>
-		\$("#side-panel input[type=checkbox]").change(function() {
-			var value = (\$(this).prop("checked") == true) ? 1 : 0;
-			var str_tmp = \$("#"+\$(this).attr("data-field")).val();
-			var index = \$(this).val() - 1;
-			console.log(value);
-			console.log(str_tmp);
-			console.log(index);
-			\$("#"+\$(this).attr("data-field")).val(str_tmp.replaceAt(index, value));
-		});
+
 		</script>
 	`);
 },

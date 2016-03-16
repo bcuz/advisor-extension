@@ -50,19 +50,19 @@ NEW_FORM =
 	},
 
 	course: {
-		Label: "Course:",
+		Label: "What language did you help with?",
 		Type: "select",
 		Required: true,
 		formID: "1578101060",
 		Options: {
-			"None: Onboarding": "None: Onboarding",
-			"HTML &amp; CSS": "HTML &amp; CSS",
-			"Javascript": "Javascript",
+			"NOT A CODE QUESTION": "NOT A CODE QUESTION",
+			"HTML/CSS": "HTML/CSS",
+			"JavaScript": "Javascript",
 			"jQuery": "jQuery",
-			"Angular.JS": "Angular.JS",
+			"Angular.js": "Angular.js",
 			"Ruby": "Ruby",
 			"Rails": "Rails",
-			"Rails Auth": "Rails Auth",
+			"Rails Authentication": "Rails Auth",
 			"Make a Website": "Make a Website",
 			"Make an Interactive Website": "Make an Interactive Website",
 			"SQL": "SQL",
@@ -75,8 +75,8 @@ NEW_FORM =
 	},
 
 	able_solve_issue: {
-		Label: "Did you solve user's issue?",
-		Type: "select",
+		Label: "Were you able to solve the user's issue?",
+		Type: "radio",
 		formID: "244902865",
 		Required: true,
 		Options: {
@@ -87,7 +87,7 @@ NEW_FORM =
 
 	user_rate: {
 		Label: "Rate the learner:",
-		Type: "select",
+		Type: "radio",
 		Required: true,
 		formID: "5170217",
 		Options: {
@@ -107,7 +107,7 @@ NEW_FORM =
 
 	panic_button: {
 		Label: "Did you need to use panic button?",
-		Type: "select",
+		Type: "radio",
 		Required: true,
 		formID: "5170217",
 		Options: {
@@ -118,7 +118,7 @@ NEW_FORM =
 
 	suggestion_or_bug: {
 		Label: "Product suggestion or Bug report?",
-		Type: "select",
+		Type: "radio",
 		Required: true,
 		formID: "5170217",
 		Options: {
@@ -163,7 +163,7 @@ NEW_FORM =
 
 	convo_type: {
 		Label: "Type of conversation",
-		Type: "select",
+		Type: "radio",
 		Required: true,
 		formID: "677684700",
 		Options: {
