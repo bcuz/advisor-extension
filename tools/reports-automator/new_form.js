@@ -160,6 +160,7 @@ NEW_FORM =
 		Required: true,
 		formID: "1578101060",
 		Options: {
+			" ": "",
 			"NOT A CODE QUESTION": "NOT A CODE QUESTION",
 			"HTML/CSS": "HTML/CSS",
 			"JavaScript": "Javascript",

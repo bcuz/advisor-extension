@@ -149,10 +149,10 @@ JS : function(data) {
 	//$("input[name=user_rate][value=5]").click();
 	//$("#given_resource").val("2");
 	//$("#more_than_one_resource").val("2");
-	$("input[name=able_solve_issue][value=1]").click();
+	//$("input[name=able_solve_issue][value=1]").click();
 	$("input[name=panic_button][value=1]").click();
 	$("input[name=suggestion_or_bug][value=3]").click();
-	$("input[name=convo_type][value=1]").click();
+	//$("input[name=convo_type][value=1]").click();
 	`;
 },
 
