@@ -147,7 +147,7 @@ NEW_FORM =
 			3: "Learner Guidance (What to learn next?)",
 			4: "Bug Report",
 			5: "Product Suggestion",
-			6: "Personal Project",
+			6: "Personal Project (Off-Platform)",
 			7: "Cancellation/Account question",
 			8: "Follow up",
 			9: "Other (Explain in summary)"
@@ -186,9 +186,9 @@ NEW_FORM =
 		Required: true,
 		formID: "",
 		Options: {
-			1: "Reviewed a concept",
-			2: "Syntax error",
-			3: "Not a code question"
+			1: "I reviewed a concept",
+			2: "I helped fix a syntax error",
+			3: "This wasn't a code question"
 		}
 	},
 
