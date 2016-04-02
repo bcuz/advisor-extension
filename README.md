@@ -1,6 +1,6 @@
-STATUS 12/20: READY TO RUMBLE !!
+STATUS 3/19/16: All ready for new form and display.
 
-Added detection for user's last course visited. Now need to add resources
+Added ratings URL button and new form to be released for reports. Need to complete chat detection and analysis from intercom.
 
 ## HOW TO USE (this is being updated as development goes) ##
 
