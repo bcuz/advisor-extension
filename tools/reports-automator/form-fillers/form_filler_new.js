@@ -129,11 +129,18 @@ chrome.runtime.sendMessage({
 
 	// Additional notes 
 	fillTextAndValidate(`[name="entry.1525920400"]`, `other_notes`);
-
-	// Click Continue - to part 2
-	//document.querySelector(`[type="submit"]`).click();
-	// Notify that this report is successful
+	
+	// Continue to next confirmation page
 	chrome.runtime.sendMessage({
-		"message": "report-success"
+		"message": "checkpoint",
+		"goingToPage": "confirmation"
 	});
+
+	// Click Submit
+	document.querySelector(`[type="submit"]`).click();
+	
+	// Notify that this report is successful
+	/*chrome.runtime.sendMessage({
+		"message": "report-success"
+	});*/
 });

@@ -241,4 +241,9 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 
 		console.log("send to intercomtab");
 	}
+
+	else if (request.message == "close_tab") {
+		// Close the generation url tab
+		chrome.tabs.remove(sender.tab.id);
+	}
 });
