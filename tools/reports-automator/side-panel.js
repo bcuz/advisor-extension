@@ -10,7 +10,7 @@ HTML : `
 	</script>
 
 	<div id="whattodo">
-		<div id="open-report">Open report (No submit yet)</div>
+		<div id="open-report">Submit Report</div>
 		<div id="close-side-panel">X</div>
 	</div>
 `,
