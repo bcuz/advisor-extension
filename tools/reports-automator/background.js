@@ -1,5 +1,5 @@
 var reportURL = "https://docs.google.com/forms/d/1RlohZ5t3mKU7KoCNz9Uh4z2Ytghw1n1qWqabfihXVlI/viewform";
-var newReportURL = "https://docs.google.com/forms/d/1jk8KkJ_JVvXhIsiSI_YfRtEZk_40wRhTOXevwHSTSKQ/viewform";
+var newReportURL = "https://docs.google.com/forms/d/1xsr7MktdvKWqkMgA4oU1dg3Gb3rKlBwunZpDz-YzBeY/viewform";
 
 // Hold the data shared between intercom and report tabs
 var data = {};

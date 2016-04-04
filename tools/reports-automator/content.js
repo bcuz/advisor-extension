@@ -1,6 +1,6 @@
 var count = 0;
 
-var INTERCOM_URL_PREFIX = "app.intercom.io";
+var INTERCOM_URL_PREFIX = "https://app.intercom.io";
 
 /** Selectors from intercom chat website **/
 var chatSelector = ".conversation__inbox__list-wrapper";
