@@ -152,6 +152,7 @@ JS : function(data) {
 	//$("input[name=able_solve_issue][value=1]").click();
 	$("input[name=panic_button][value=1]").click();
 	$("input[name=suggestion_or_bug][value=3]").click();
+	$("input[id=seconds]").val("0");
 	//$("input[name=convo_type][value=1]").click();
 	`;
 },

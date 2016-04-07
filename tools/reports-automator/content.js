@@ -203,7 +203,8 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-// ADD RATING URL QUICK HACK
+
+// ADD RATING URL QUICK HACK AND ONE-CLIK UNASSIGN & CLOSE QUICK HACK
 $(".app__wrapper").on("click", `${chatSelector} ${chatItemSelector}`, function() {
 	var userNameHeader = $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim();
     var userNameLeftBox = this.querySelector(".avatar__container h3").innerHTML.trim();
@@ -217,13 +218,20 @@ $(".app__wrapper").on("click", `${chatSelector} ${chatItemSelector}`, function()
 			
 			if ($('.URL-rating').length == 0) {
 				$(`.inbox__conversation-controls .tabs__discrete-tab__container .u__right`)
-					.append(`<a class='URL-rating quick-action'> <b>URL</b> </a>`);
+					.append(`<a class='URL-rating quick-action' style="margin: 0 4px;"> <b>URL</b> </a>
+						     <a class='unassign-and-close quick-action' style="margin: 0 2px;"> <b>U&amp;C</b> </a>`);
 
 				$(".URL-rating").click(function() {
 					chrome.runtime.sendMessage({
 						message: "url_rating",
 						convoURL: document.URL
 					});
+				});
+
+				$(".unassign-and-close").click(function() {
+					$("div[data-content='Assign to teammate or team']").click();
+					$("span.dropdown__list-item")[0].click();
+					$("button.js__conversation-header__close-button").click();
 				});
 			}
 		}
