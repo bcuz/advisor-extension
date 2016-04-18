@@ -71,7 +71,7 @@ CSS : `
 		text-align: center;
 		font-size: 1.2em;
 	}
-	#data { 
+	#data {
 		margin-top: 65px;
 		overflow-y: auto;
 		height: 90%;
@@ -154,7 +154,7 @@ JS : function(data) {
 	$("input[name=suggestion_or_bug][value=3]").click();
 	$("input[id=hours]").val("0");
 	$("input[id=seconds]").val("0");
-	//$("input[name=convo_type][value=1]").click();
+	$("input[name=convo_type][value=1]").click();
 	`;
 },
 
@@ -181,7 +181,7 @@ renderField: function(FORM, data, extra) {
 		if (FORM[field].Required) {
 			var requiredLabel = "*"; var requiredClass = "required";
 		}
-		else { 
+		else {
 			var requiredLabel = "";  var requiredClass = "";
 		}
 
@@ -203,7 +203,7 @@ renderField: function(FORM, data, extra) {
 				// If this field is not required, we can include an empty option
 				if (FORM[field].Required == undefined || FORM[field].Required == false)
 					fieldHTML = fieldHTML + `<option value="">None</option>`;
-			
+
 				// Get all the options
 				for (option in FORM[field].Options) {
 					// If we have collected data for this field and know the value of this option, mark it here
@@ -321,7 +321,7 @@ render: function(data) {
 		<style>
 			${ side_panel.CSS }
 		</style>
-		
+
 		${ side_panel.HTML }
 		<div id="data">
 			<center id="user_name">${data["Name"]}</center>
@@ -354,7 +354,7 @@ validate: function(data) {
 
 		// Check if field has a maximum value
 		if (f.Max != undefined) {
-			
+
 			// Validate against it
 			switch (f.Type) {
 
@@ -410,7 +410,7 @@ validate: function(data) {
 					break;
 
 				default:
-					break;	
+					break;
 			}
 		}
 	}
@@ -422,7 +422,7 @@ validate: function(data) {
 
 function secondsToString(seconds) {
 	var numyears = Math.floor(seconds / 31536000);
-	var numdays = Math.floor((seconds % 31536000) / 86400); 
+	var numdays = Math.floor((seconds % 31536000) / 86400);
 	var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
 	var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
 	var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
