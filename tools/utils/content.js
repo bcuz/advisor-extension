@@ -31,13 +31,6 @@ $("body").append(
 		  	event.preventDefault();
 		  	event.stopPropagation();
 		  }
-
-		  // Try to override intercom shortcuts
-		  else if(event.keyCode == 103 && event.keyCode == 97) { 
-		    console.log("Hey! g+a event captured!");
-		    event.preventDefault();
-		    event.stopPropagation(); 
-		  }
 		});
 	 </script>`
 );
