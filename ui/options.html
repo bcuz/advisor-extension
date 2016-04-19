@@ -19,6 +19,22 @@
       input {
         font-size: 1.4em;
       }
+      ol {
+        list-style: decimal;
+        margin: 0;
+      }
+      p {
+        padding: 0;
+      }
+      ul {
+        margin: 0;
+      }
+      span {
+        text-decoration: underline;
+      }
+      #how-to {
+        font-size: 14px;
+      }
     </style>
   </head>
 
@@ -29,12 +45,31 @@
     </div>
 
     <div>
-      <label>How many seconds between page to page in form?</label>
+      <label>Number of seconds to submit report? (If you have a good internet connection, set to 2)</label>
       <input id="time-between-screens-form" type="text" />
     </div>
 
     <div id="status"></div>
     <button style="padding: 0;" id="save">Save</button>
+
+    <div id="how-to">
+      <h1 style="font-size: 20px; font-weight: bold;"> How-To Guides </h1>
+      <span style="font-style: underlined"> Keyboard Shortcuts </span>
+      <ul>
+        <li>Ctrl + Shift + O  - Open reports panel</li>
+        <li>Ctrl + Shift + R  - Generate rating URL</li>
+        <li>Ctrl + Shift + U  - Unassign & Close</li>
+      </ul>
+      <span> Using Reports Automator </span>
+      <ol>
+        <li> 1. Make sure you set your name and # of seconds in the fields above. Make sure your name matches the one listed in the <a style="display:inline;" href="https://docs.google.com/forms/d/1xsr7MktdvKWqkMgA4oU1dg3Gb3rKlBwunZpDz-YzBeY/viewform">post-interaction report form</a>
+        <li> 2. Being in the intercom tab, click the panda icon, then "Open/Close Reports Panel" (or use the shortcut). This will open the panel for your active conversation. Try it out!</li>
+        <li> 3. If you select another conversation while the panel is open, it'll update with that conversation's info </li>
+        <li> 4. Fill the required fields and submit. Real report form will automatically be filled, submitted and closed. You'll get a notification whether the report suceeded or failed.</li>
+        <li> 5. If you've already submitted a report for a conversation, you'll see a notification about this in the panel (to avoid double entries).</li>
+        <li> 6. To close the panel, click the red X button, or "Open/Close Reports Panel" again. Unlike before, panel now stops showing on every click (so it's not annoying anymore) </li>
+      </ol>
+    </div>
 
     <script src="options.js"></script>
   </body>
