@@ -36,7 +36,6 @@ function executeWhenReady(executeThisFunction, condition, expectedValue, delay) 
  *  Take data from the chat and send it to the background
  */
 function dataCollector() {
-	console.log("called dataCollector");
 
 	/** Get the conversation URL, gotta use the last # as this interaction's ID */
 	// An interaction is the user-chat combination we have today
@@ -137,48 +136,63 @@ function failure(message) {
 	});
 }
 
-function enableReports() {
-	// When a chat tab is clicked...
-	$(".app__wrapper").on("click", `${chatSelector} ${chatItemSelector}`, dataCollector);
-	dataCollector();
-
-	// Alert that report mode is ON
-	$.notify("Reports enabled!", {
-		className: "info",
-		globalPosition: "top center"
-	});
-}
 
 // If we're disabling it, unbind listeners
-function disableReports() {
-	$(".app__wrapper").unbind("click", dataCollector);			
+openOrCloseReports = function() {
 
-	// Alert reports disabled
-	$.notify("Reports disabled!", {
-		className: "info",
-		globalPosition: "top center"
-	});
+	if ($(chatSelector).length == 0) {
+		$.notify("You are not in your inbox page!", {
+			className: "info",
+			globalPosition: "top center"
+		});
+		return;
+	}
+
+	// Toggle the status of the extension
+	isRunning = !isRunning;
+
+	// Enable or disable reports
+	if (isRunning) {
+		// When a chat tab is clicked...
+		$(".app__wrapper").on("click", `${chatSelector} ${chatItemSelector}`, dataCollector);
+		$(chatSelector + " " + chatItemSelector + ".o__active").click();
+
+		// Alert that report mode is ON
+		$.notify("Reports enabled!", {
+			className: "info",
+			globalPosition: "top center"
+		});
+	} else {
+		document.getElementById("side-panel").innerHTML = "";
+		$(".app__wrapper").unbind("click", dataCollector);			
+
+		// Alert reports disabled
+		$.notify("Reports disabled!", {
+			className: "info",
+			globalPosition: "top center"
+		});
+	}
 }
 
+$("body").append(
+	`<script>
+		$(window).keydown(function(event) {
+
+		  // Shortcut for Open/Close reports automator
+		  if(event.ctrlKey && event.shiftKey && event.keyCode == 79) { 
+		    console.log("Hey! Ctrl+Shift+O event captured!");
+		    openOrCloseReports();
+		    event.preventDefault();
+		    event.stopPropagation();
+		  }
+		});
+	 </script>`
+);
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if( request.message === "start-stop" ) {
-
-    	if ($(chatSelector).length == 0) {
-			$.notify("You are not in your inbox page!", {
-				className: "info",
-				globalPosition: "top center"
-			});
-			return;
-		}
-
-    	// Toggle the status of the extension
-    	isRunning = !isRunning;
-
-    	// Enable or disable reports
-		if (isRunning) enableReports();
-		else disableReports();
+		openOrCloseReports();
 	}
 
 	else if (request.message == "filling_failed") {

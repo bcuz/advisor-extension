@@ -123,7 +123,10 @@ JS : function(data) {
 	/*************  Close side panel  ***************/
 
 	document.getElementById("close-side-panel").addEventListener("click", function() {
-		document.getElementById("side-panel").innerHTML = "";
+		chrome.runtime.sendMessage({
+        	"message": "popup",
+        	"id": "start-stop"
+      	});
 	});
 
 	/*** Bad hacks **/
