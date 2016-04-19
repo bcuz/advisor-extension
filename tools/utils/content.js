@@ -13,10 +13,7 @@ function unassign_and_close() {
 
 $("body").append(
 	`<script>
-		$(window).unbind("keydown");
-		$(window).unbind("keypress");
-		$(window).unbind("keyup");
-
+		$(document).off("keydown");
 		$(window).keydown(function(event) {
 
 		  // Shortcut for Unassign & Close	
