@@ -326,7 +326,7 @@ render: function(data) {
 		<div id="data">
 			<center id="user_name">${data["Name"]}</center>
 			<h5 class="required-mark">*   Required</h5>
-			<span style="color: green; float: right; font-size: 18px; font-weight: bold; margin-right: 10px;">${alreadySubmitted}</span>
+			<span style="color: green; text-align: center; font-size: 18px; font-weight: bold; margin-right: 10px;">${alreadySubmitted}</span>
 			${ formHTMLandJS[0] }
 		</div>
 
