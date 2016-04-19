@@ -137,10 +137,33 @@ function failure(message) {
 	});
 }
 
+function enableReports() {
+	// When a chat tab is clicked...
+	$(".app__wrapper").on("click", `${chatSelector} ${chatItemSelector}`, dataCollector);
+	dataCollector();
+
+	// Alert that report mode is ON
+	$.notify("Reports enabled!", {
+		className: "info",
+		globalPosition: "top center"
+	});
+}
+
+// If we're disabling it, unbind listeners
+function disableReports() {
+	$(".app__wrapper").unbind("click", dataCollector);			
+
+	// Alert reports disabled
+	$.notify("Reports disabled!", {
+		className: "info",
+		globalPosition: "top center"
+	});
+}
+
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if( request.message === "start-stop" ) {
-    	console.log("Reporter");
 
     	if ($(chatSelector).length == 0) {
 			$.notify("You are not in your inbox page!", {
@@ -152,34 +175,10 @@ chrome.runtime.onMessage.addListener(
 
     	// Toggle the status of the extension
     	isRunning = !isRunning;
-    	console.log("Extension running now");
 
-    	// Start it up or shut it down
-		if (isRunning) {
-		    
-			console.log("Starting up...");
-
-		   	// When a chat tab is clicked...
-			$(".app__wrapper").on("click", `${chatSelector} ${chatItemSelector}`, dataCollector);
-
-			// Alert that report mode is ON
-			$.notify("Reports enabled!", {
-				className: "info",
-				globalPosition: "top center"
-			});
-		}
-
-		// If we're disabling it, unbind listeners
-		else {
-			$(".app__wrapper").unbind("click", dataCollector);
-			console.log("Disabling it");
-
-			// Alert reports disabled
-			$.notify("Reports disabled!", {
-				className: "info",
-				globalPosition: "top center"
-			});
-		}
+    	// Enable or disable reports
+		if (isRunning) enableReports();
+		else disableReports();
 	}
 
 	else if (request.message == "filling_failed") {
