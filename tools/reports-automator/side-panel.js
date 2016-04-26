@@ -146,7 +146,7 @@ JS : function(data) {
 
 	/**  Set useful default values  **/
 
-	//$("input[name=user_rate][value=5]").click();
+	$("input[name=user_rate][value=5]").click();
 	//$("#given_resource").val("2");
 	//$("#more_than_one_resource").val("2");
 	$("input[name=able_solve_issue][value=1]").click();
@@ -154,7 +154,7 @@ JS : function(data) {
 	$("input[name=suggestion_or_bug][value=3]").click();
 	$("input[id=hours]").val("0");
 	$("input[id=seconds]").val("0");
-	//$("input[name=convo_type][value=1]").click();
+	$("input[name=convo_type][value=1]").click();
 	`;
 },
 
@@ -216,10 +216,13 @@ renderField: function(FORM, data, extra) {
 				break;
 
 			case "radio":
+				// K is used to assign unique ids to each radio option, to use with its label
+				var k = 0;
 				for (option in FORM[field].Options) {
-					fieldHTML += `<input name="${field}" type="radio" value="${option}">
-								  <label data-for="radio">${FORM[field].Options[option]}</label>
+					fieldHTML += `<input name="${field}" id="${field}_${k}" type="radio" value="${option}">
+								  <label data-for="radio" for="${field}_${k}">${FORM[field].Options[option]}</label>
 								  <br />`;
+					k++;
 				}
 
 				fieldHTML += `<input type="hidden" id="${field}" value="${fieldValue}" />`;
@@ -236,11 +239,13 @@ renderField: function(FORM, data, extra) {
 				// Fix fieldvalue
 				if (fieldValue == "") fieldValue = "000";
 
+				var k = 0;
 				for (option in FORM[field].Options) {
 					fieldHTML += `
-						<input type="checkbox" data-field="${field}" class="${ requiredClass }" value="${option}">
-						<label data-for="checkbox"> ${ FORM[field].Options[option] }</label>
+						<input id="${field}_${k}" type="checkbox" data-field="${field}" class="${ requiredClass }" value="${option}">
+						<label data-for="checkbox" for="${field}_${k}"> ${ FORM[field].Options[option] }</label>
 						<br />`;
+					k++;
 				}
 
 				fieldHTML += `<input type="hidden" id="${ field }" value="${fieldValue}" />`;
