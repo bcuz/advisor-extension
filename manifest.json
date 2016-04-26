@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Advisor Toolbox - Codecademy",
-	"version": "0.6",
+	"version": "0.61",
 	"devtools_page": "core/intercom-mapper/devtools.html",
 
 	"permissions": [
@@ -34,7 +34,7 @@
 	"browser_action": {
 		"default_icon": "img/panda-48x48.png",
 		"default_popup": "ui/popup.html",
-		"default_title": "Report Filler"
+		"default_title": "Advisor Toolbox"
 	},
 
 	"options_ui": {
