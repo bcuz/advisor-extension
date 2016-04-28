@@ -10,28 +10,33 @@
 
 // Can't figure out yet for PHP and User Onboarding
 COURSES = {
-	"HTML/CSS": "html-css",
-	"JavaScript": "javascript",
-	"jQuery": "jquery",
-	"Angular.js": "angularjs",
-	"Ruby": "ruby",
-	"Rails": "learn-rails",
-	"Rails Authentication": "rails-auth",
-	"Make a Website": "make-a-website",
-	"Make an Interactive Website": "make-an-interactive-website",
-	"SQL": "sql",
-	"PHP": "php",
-	"Java": "java",
-	"Python": "python",
-	"Command Line": "command-line",
-	"Git": "git"
+	"HTML/CSS": ["html-css", "HZA3b", "LceTK", "y2Yjd", "9x6JW",
+								"f8mcL", "zrZ6c", "TlhFi", "UuBLw", "WF0CF",
+								"jNuXw", "6merh"],
+	"Java": ["java"],
+	"JavaScript": ["javascript", "spencer-sandbox"],
+	"jQuery": ["jquery", "bay3D", "GfjC6", "v6phg", "JwhI1",
+							"jtFIC"],
+	"Angular.js": ["angularjs"],
+	"Ruby": ["ruby"],
+	"Rails": ["learn-rails"],
+	"Rails Authentication": ["rails-auth"],
+	"Make a Website": ["make-a-website"],
+	"Make an Interactive Website": ["make-an-interactive-website"],
+	"SQL": ["sql"],
+	"PHP": ["php", "StaFQ", "QF3Wb", "jZv2E", "8a35h", "L83Do",
+					"5YvPF", "7I7Xm", "RcIEe", "ZQQ64", "bH5s3",
+					"QnQrd"],
+	"Python": ["python"],
+	"Command Line": ["command-line"],
+	"Git": ["git"]
 }
 
 /* Each 1st level element is a field, and has these properties:
- 
+
  * 	Label: What's gonna be shown in the label of the field (human readable)
  *	Type:  What kind of input is this (number, text, longText, select, hidden)
- * 	Max:   Max. value field can have. If text, max is max# of characters. 
+ * 	Max:   Max. value field can have. If text, max is max# of characters.
  		   If number, max numerical value. Not valid for select
  *  Min:   Min. value field can have. If text, min is min# of characters (default is 1, not empty).
  		   If number, min numerical value (default is 0). Not valid for select
