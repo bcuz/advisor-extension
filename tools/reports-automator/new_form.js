@@ -10,7 +10,9 @@
 
 // Can't figure out yet for PHP and User Onboarding
 COURSES = {
-	"HTML/CSS": ["html-css"],
+	"HTML/CSS": ["html-css", "HZA3b", "LceTK", "y2Yjd", "9x6JW",
+								"f8mcL", "zrZ6c", "TlhFi", "UuBLw", "WF0CF",
+								"jNuXw", "6merh"],
 	"JavaScript": ["javascript"],
 	"jQuery": ["jquery", "bay3D"],
 	"Angular.js": ["angularjs"],
