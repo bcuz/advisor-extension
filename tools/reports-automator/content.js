@@ -101,12 +101,14 @@ function dataCollector() {
 
 			// Compare against pre-defined courses values in URL (check form.js)
 			for (key in COURSES) {
-				if (lastVisitedLinkURL.indexOf(COURSES[key]) > -1) {
-					console.log("Found the course " + key);
-					interactions[interactionID]["course"] = key;
-					break;
-				}
-			}
+        for (course_id in COURSES[key]) {
+        if (lastVisitedLinkURL.indexOf(COURSES[key][course_id]) > -1) {
+          console.log("Found the course " + key);
+          interactions[interactionID]["course"] = key;
+          break;
+        }
+      }
+      }
 
 		  	// Finally, render the panel. Do it at the end so all collected info is displayed
 			side_panel.render(interactions[interactionID]);
@@ -164,7 +166,7 @@ openOrCloseReports = function() {
 		});
 	} else {
 		document.getElementById("side-panel").innerHTML = "";
-		$(".app__wrapper").unbind("click", dataCollector);			
+		$(".app__wrapper").unbind("click", dataCollector);
 
 		// Alert reports disabled
 		$.notify("Reports disabled!", {
@@ -179,7 +181,7 @@ $("body").append(
 		$(window).keydown(function(event) {
 
 		  // Shortcut for Open/Close reports automator
-		  if(event.ctrlKey && event.shiftKey && event.keyCode == 79) { 
+		  if(event.ctrlKey && event.shiftKey && event.keyCode == 79) {
 		    console.log("Hey! Ctrl+Shift+O event captured!");
 		    openOrCloseReports();
 		    event.preventDefault();
