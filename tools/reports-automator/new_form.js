@@ -14,7 +14,7 @@ COURSES = {
 								"f8mcL", "zrZ6c", "TlhFi", "UuBLw", "WF0CF",
 								"jNuXw", "6merh"],
 	"Java": ["java"],
-	"JavaScript": ["javascript"],
+	"JavaScript": ["javascript", "spencer-sandbox"],
 	"jQuery": ["jquery", "bay3D", "GfjC6", "v6phg", "JwhI1",
 							"jtFIC"],
 	"Angular.js": ["angularjs"],
