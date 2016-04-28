@@ -13,6 +13,7 @@ COURSES = {
 	"HTML/CSS": ["html-css", "HZA3b", "LceTK", "y2Yjd", "9x6JW",
 								"f8mcL", "zrZ6c", "TlhFi", "UuBLw", "WF0CF",
 								"jNuXw", "6merh"],
+	"Java": ["java"],
 	"JavaScript": ["javascript"],
 	"jQuery": ["jquery", "bay3D", "GfjC6", "v6phg", "JwhI1",
 							"jtFIC"],
@@ -26,7 +27,6 @@ COURSES = {
 	"PHP": ["php", "StaFQ", "QF3Wb", "jZv2E", "8a35h", "L83Do",
 					"5YvPF", "7I7Xm", "RcIEe", "ZQQ64", "bH5s3",
 					"QnQrd"],
-	"Java": ["java"],
 	"Python": ["python"],
 	"Command Line": ["command-line"],
 	"Git": ["git"]
