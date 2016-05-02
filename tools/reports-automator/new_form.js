@@ -10,11 +10,13 @@
 
 // Can't figure out yet for PHP and User Onboarding
 COURSES = {
+	"NOT A CODE QUESTION": ["subscription_billing", "path"],
 	"HTML/CSS": ["html-css", "HZA3b", "LceTK", "y2Yjd", "9x6JW",
 								"f8mcL", "zrZ6c", "TlhFi", "UuBLw", "WF0CF",
 								"jNuXw", "6merh"],
 	"Java": ["java"],
-	"JavaScript": ["javascript", "spencer-sandbox"],
+	"JavaScript": ["javascript", "spencer-sandbox", "getting-started",
+								"address-book", "objects-ii", "super-makert"],
 	"jQuery": ["jquery", "bay3D", "GfjC6", "v6phg", "JwhI1",
 							"jtFIC"],
 	"Angular.js": ["angularjs"],
