@@ -213,7 +213,10 @@ chrome.runtime.onMessage.addListener(
 	// URL rating
 	else if (request.message == "got_rating_url") {
 		console.log("Received rating url: " + request.ratingURL);
+		$("div.tabs__discrete-tab__container a:first").click();
 		$(".conversation__text.composer-inbox p").text(request.ratingURL);
+		$(".conversation__text.composer-inbox p").select();
+		$("button.inbox__conversation-controls__button.o__primary").click();
 	}
   }
 );

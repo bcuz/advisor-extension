@@ -345,95 +345,11 @@ render: function(data) {
 
 		</script>
 	`);
-},
-
-
-/* Perform validation of fields */
-validate: function(data) {
-	var valid = true;
-
-	// Go through elements passed in the data
-	for (field in data) {
-
-		// Map this field in the form
-		var f = FORM[field];
-
-		// Check if field has a maximum value
-		if (f.Max != undefined) {
-			
-			// Validate against it
-			switch (f.Type) {
-
-				case "text":
-				case "longText":
-					if (data[field].length > f.Max) {
-						console.log(`Field ${field} has more than ${f.Max} characters`);
-						valid = false;
-					}
-					break;
-
-				case "number":
-					if (data[field] > f.Max) {
-						console.log(`Field ${field} is greater than ${f.Max}. It is ${data[field]}`);
-						valid = false;
-					}
-					break;
-
-				default:
-					break;
-			}
-		}
-
-		// Always validate numbers against minimum value (default is 0)
-		var minimum = (f.Min != undefined) ? f.Min : 0;
-		if (f.Type == "number") {
-			if (data[field] < minimum) {
-				console.log(`Field ${field} is smaller than ${minimum}. It is ${data[field]}`);
-				valid = false;
-			}
-		}
-
-
-		// Check if field is required
-		if (f.Required) {
-			// Need to validate its minimum value
-			var minimum = (f.Min != undefined) ? f.Min : 0;
-
-			switch (f.Type) {
-				case "number":
-					if (data[field] < minimum) {
-						console.log(`Field ${field} is smaller than ${minimum}. It is ${data[field]}`);
-						valid = false;
-					}
-					break;
-
-				case "text":
-				case "longText":
-					if (data[field].length == minimum) {
-						console.log(`Field ${field} has ${minimum} characters!`);
-						valid = false;
-					}
-					break;
-
-				default:
-					break;	
-			}
-		}
-	}
 }
+
 
 
 }
 
-
-function secondsToString(seconds) {
-	var numyears = Math.floor(seconds / 31536000);
-	var numdays = Math.floor((seconds % 31536000) / 86400); 
-	var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
-	var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
-	var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
-	return numyears + " years " +  numdays + " days " + numhours + " hours "
-		 + numminutes + " minutes " + numseconds + " seconds";
-}
 
 $("body").append(`<div id="side-panel"><div>`);
