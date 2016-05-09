@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Advisor Toolbox - Codecademy",
-	"version": "0.61",
+	"version": "0.62",
 	"devtools_page": "core/intercom-mapper/devtools.html",
 
 	"permissions": [
@@ -15,9 +15,7 @@
 			],
 
 			"js": [
-				"libs/jquery-2.1.4.js", "libs/notify.min.js",
-				"tools/reports-automator/content.js", "tools/reports-automator/side-panel.js", "tools/reports-automator/form.js",
-				"tools/reports-automator/new_form.js", "tools/utils/content.js"
+				"libs/jquery-2.1.4.js", "libs/notify.min.js", "deploy/content.js"
 			]
 		},
 		{
@@ -44,9 +42,7 @@
 
 	"background": {
 		"scripts": [
-			"tools/reports-automator/background.js", "tools/reports-automator/form.js", 
-			"tools/reports-automator/new_form.js",
-			"libs/jquery-2.1.4.js"
+			"libs/jquery-2.1.4.js", "deploy/background.js"
 		]
 	}
 }
