@@ -345,8 +345,11 @@ render: function(data) {
 
 		</script>
 	`);
-},
 
 }
+
+
+}
+
 
 $("body").append(`<div id="side-panel"><div>`);
