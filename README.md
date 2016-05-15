@@ -1,14 +1,7 @@
-STATUS 3/19/16: All ready for new form and display.
+STATUS 5/11/16: Released since a while ago, adding Saad's code for invoice generation
 
-Added ratings URL button and new form to be released for reports. Need to complete chat detection and analysis from intercom.
-
-## HOW TO USE (this is being updated as development goes) ##
-
-1.- Install the extension using instructions below
 
 IMPORTANT:
-
----------------------------------------------------------------------------
 
 Right after you install it, click the panda and select "Options". In the options page you have to put 2 values:
 
@@ -19,21 +12,8 @@ Right after you install it, click the panda and select "Options". In the options
 
 Then save it and continue with next steps. This is a one time only thing.
 
----------------------------------------------------------------------------
 
-2.- Make sure you are in your intercom inbox. Once you're there, reload the page (it's kind of long to explain why, it's the way intercom and chrome work, for now just do it).
-
-3.- Click the panda, then "Start/Stop"
-
-4.- You'll get an alert saying ("Reports Enabled"). While reports are enabled, any time you click a chat thread, the reports panel on the right side with the user information. URL is already loaded, so don't worry about it.
-
-TIP ->  If you put a note in the chat that starts with  "Summary: " (including the colon and space), and this note is last note in the chat thread, the panel will automatically take the text from the note and load it in the "Summary" field.
-
-4.5 ->  Fill the form, then click "Open Report" to submit it (it'll open a new  tab and fill the report, automatic submit is disabled for now). You'll get a notification if the submit succeeded or failed. If it succeeded, the panel for a user will show "Already submitted!" when you re-open it
-
-5.- To disable reports (stop showing panel on every click), click "start/stop" again, you'll get another alert saying "Reports disabled". Reloading or closing the intercom tab will also disable it.
-
-##########  DESCRIPTION  ##########
+## Description ##
 
 The idea of this extension is to automate the filling/submit of post-interaction reports
 (and make our lives easier, happier, healthier, longer and save our fingers from calluses)
