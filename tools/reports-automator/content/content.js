@@ -100,15 +100,22 @@ function dataCollector() {
 		  	console.log("Retrieved last visited link: " + lastVisitedLinkURL);
 
 			// Compare against pre-defined courses values in URL (check form.js)
+			var foundCourse = false;
 			for (key in COURSES) {
-        for (course_id in COURSES[key]) {
-        if (lastVisitedLinkURL.indexOf(COURSES[key][course_id]) > -1) {
-          console.log("Found the course " + key);
-          interactions[interactionID]["course"] = key;
-          break;
-        }
-      }
-      }
+				if (!foundCourse) {
+					for (course_id in COURSES[key]) {
+						if (lastVisitedLinkURL.indexOf(COURSES[key][course_id]) > -1) {
+							console.log("course_id is " + course_id + " and " + COURSES[key][course_id]);
+							console.log("Found the course " + key);
+							interactions[interactionID]["course"] = key;
+							foundCourse = true;
+							break;
+						}
+					}
+				}
+				else
+					break;
+			}
 
 		  	// Finally, render the panel. Do it at the end so all collected info is displayed
 			side_panel.render(interactions[interactionID]);
