@@ -1,4 +1,9 @@
 
+## DEPLOYMENT SCRIPT ##
+
+# Replace this variable with the location to google closure compiler in your local environemnt
+GOOGLE_COMPILER = 'C:\Users\rober\workspace\libs\java\compiler.jar'
+
 # Make sure deploy directory exists
 mkdir deploy 2>/dev/null
 
@@ -43,5 +48,5 @@ do
 	done
 done
 
-java -jar 'C:\Users\rober\workspace\libs\java\compiler.jar' --js $CONTENT_SCRIPTS --js_output_file deploy/content.js
-java -jar 'C:\Users\rober\workspace\libs\java\compiler.jar' --js $BACKGROUND_SCRIPTS --js_output_file deploy/background.js
+java -jar $GOOGLE_COMPILER --js $CONTENT_SCRIPTS --js_output_file deploy/content.js
+java -jar $GOOGLE_COMPILER --js $BACKGROUND_SCRIPTS --js_output_file deploy/background.js
