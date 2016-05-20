@@ -1,20 +1,27 @@
+
+# Make sure deploy directory exists
+mkdir deploy 2>/dev/null
+
 # Get all the content and background scripts to be compiled
 # Checking core and tools directories
 CONTENT_SCRIPTS=''
 BACKGROUND_SCRIPTS=''
 
-for component in $(ls core)
-do
-	for script in $(ls 'core/'$component'/content')
+if [[ -d core ]] ; then
+	echo "Compressing core scripts"
+	for component in $(ls core)
 	do
-		CONTENT_SCRIPTS='core/'$component'/content/'$script' '$CONTENT_SCRIPTS
-	done
+		for script in $(ls 'core/'$component'/content')
+		do
+			CONTENT_SCRIPTS='core/'$component'/content/'$script' '$CONTENT_SCRIPTS
+		done
 
-	for script in $(ls 'core/'$component'/background')
-	do
-		BACKGROUND_SCRIPTS='core/'$component'/background/'$script' '$BACKGROUND_SCRIPTS
+		for script in $(ls 'core/'$component'/background')
+		do
+			BACKGROUND_SCRIPTS='core/'$component'/background/'$script' '$BACKGROUND_SCRIPTS
+		done
 	done
-done
+fi
 
 for component in $(ls tools)
 do
@@ -27,7 +34,14 @@ do
 	do
 		BACKGROUND_SCRIPTS='tools/'$component'/background/'$script' '$BACKGROUND_SCRIPTS
 	done
+
+	# Add any extra scripts added for this tool that's not content nor background scripts
+	for extra in $(ls 'tools/'$component | grep -v content | grep -v background)
+	do
+		# Move them into deploy directory
+		cp -fr 'tools/'$component'/'$extra deploy
+	done
 done
 
-java -jar 'C:\Users\roberto\workspace\java_lib\compiler.jar' --js $CONTENT_SCRIPTS --js_output_file deploy/content.js
-java -jar 'C:\Users\roberto\workspace\java_lib\compiler.jar' --js $BACKGROUND_SCRIPTS --js_output_file deploy/background.js
+java -jar 'C:\Users\rober\workspace\libs\java\compiler.jar' --js $CONTENT_SCRIPTS --js_output_file deploy/content.js
+java -jar 'C:\Users\rober\workspace\libs\java\compiler.jar' --js $BACKGROUND_SCRIPTS --js_output_file deploy/background.js
