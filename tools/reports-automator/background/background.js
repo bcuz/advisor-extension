@@ -15,9 +15,13 @@ var timeBetweenScreensForm = "";
 function pullOptions() {
 	chrome.storage.sync.get({
 	    advisorName: '',
-	    timeBetweenScreensForm: "5"
+	    advisorAddress: '',
+	    advisorEmail: '',
+	    timeBetweenScreensForm: "2"
 	  }, function(items) {
 	    advisorName = items.advisorName;
+	    advisorAddress = items.advisorAddress;
+	    advisorEmail = items.advisorEmail;
 	    timeBetweenScreensForm = items.timeBetweenScreensForm;
 	    console.log("Options updated! Name: " + advisorName + " - time: " + timeBetweenScreensForm);
 	});

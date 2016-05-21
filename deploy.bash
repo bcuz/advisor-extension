@@ -2,7 +2,7 @@
 ## DEPLOYMENT SCRIPT ##
 
 # Replace this variable with the location to google closure compiler in your local environemnt
-GOOGLE_COMPILER = 'C:\Users\rober\workspace\libs\java\compiler.jar'
+GOOGLE_COMPILER='C:\Users\rober\workspace\libs\java\compiler.jar'
 
 # Make sure deploy directory exists
 mkdir deploy 2>/dev/null
@@ -11,6 +11,7 @@ mkdir deploy 2>/dev/null
 # Checking core and tools directories
 CONTENT_SCRIPTS=''
 BACKGROUND_SCRIPTS=''
+
 
 if [[ -d core ]] ; then
 	echo "Compressing core scripts"
