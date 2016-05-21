@@ -6,10 +6,9 @@
 		<style>
 			body {
 				overflow: hidden;
-				margin: 1%;
-				padding: 2%;
 				background: white;
-				width: 220px;
+				width: 350px;
+				margin: 0;
 			}
 
 			div {
@@ -22,22 +21,45 @@
 				background: #f8f8f8;
 				margin: 1px 3px;
 				padding: 2% 0;
+				font-size: 19px;
 			}
 
 			div:hover {
 				background: #5577ee;
 				color: white;
 			}
-			h2 {
+			h1 {
 			    text-align: center;
     			color: #040595;
+    			background: #43e1b6;
+			    margin: 0;
+			    padding: 9% 4%;
+			    font-family: "Palatino Linotype", "Book Antiqua", Palatino
+			}
+			.new::before {
+			    content: "new";
+			    float: left;
+			    font-size: 16px;
+			    padding: 0.6% 2%;
+			    background: #ea5506;
+			    color: white;
+			    border-radius: 15%;
+			    border: 1px solid red;
+			    animation-name: blink;
+    			animation-duration: 2s;
+    			animation-iteration-count: 7;
+			}
+			@keyframes blink {
+				0%  { opacity: 100; }
+				50% { opacity: 0; }
+				100% { opacity: 100; }
 			}
 		</style>
 	</head>
 	<body>
-		<h2> Advisor Toolbox - v0.62 </h2>
+		<h1> Advisor Toolbox - v1.0 </h1>
 		<div id="start-stop">Open/Close Reports Panel</div>
 		<div id="open-options">Options & How-To Guides</div>
-
+		<div class="new" id="open-invoice">Create Invoice</div>
 	</body>
 </html>

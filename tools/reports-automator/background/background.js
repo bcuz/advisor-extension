@@ -15,9 +15,13 @@ var timeBetweenScreensForm = "";
 function pullOptions() {
 	chrome.storage.sync.get({
 	    advisorName: '',
-	    timeBetweenScreensForm: "5"
+	    advisorAddress: '',
+	    advisorEmail: '',
+	    timeBetweenScreensForm: "2"
 	  }, function(items) {
 	    advisorName = items.advisorName;
+	    advisorAddress = items.advisorAddress;
+	    advisorEmail = items.advisorEmail;
 	    timeBetweenScreensForm = items.timeBetweenScreensForm;
 	    console.log("Options updated! Name: " + advisorName + " - time: " + timeBetweenScreensForm);
 	});
@@ -108,7 +112,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 				data[tab.id]["myName"] = advisorName;
 
 				chrome.tabs.executeScript(tab.id, {
-					file: "tools/reports-automator/form-fillers/form_filler_new.js",
+					file: "deploy/form-fillers/form_filler_new.js",
 					runAt: "document_end"
 				});
 			}
@@ -134,7 +138,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 	else if (request.message == "checkpoint") {
 		var requestorTabID = sender.tab.id;
 		// Script to load next
-		var script = "tools/reports-automator/form-fillers/form_filler_"+request.goingToPage + ".js";
+		var script = "deploy/form-fillers/form_filler_"+request.goingToPage + ".js";
 
 		console.log("Checkpoint - calling next in script in " + (timeBetweenScreensForm*1000));
 
@@ -214,7 +218,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 				convoURL = request.convoURL;
 
 				chrome.tabs.executeScript(tab.id, {
-					file: "tools/reports-automator/form-fillers/rating_filler.js",
+					file: "deploy/form-fillers/rating_filler.js",
 					runAt: "document_end"
 				});
 			}
