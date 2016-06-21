@@ -14,9 +14,9 @@ COURSES = {
 	"HTML/CSS": ["html-css", "HZA3b", "LceTK", "y2Yjd", "9x6JW",
 								"f8mcL", "zrZ6c", "TlhFi", "UuBLw", "WF0CF",
 								"jNuXw", "6merh"],
-	"Java": ["java"],
 	"JavaScript": ["javascript", "spencer-sandbox", "getting-started",
 								"address-book", "objects-ii", "super-makert"],
+	"Java": ["java"],
 	"jQuery": ["jquery", "bay3D", "GfjC6", "v6phg", "JwhI1",
 							"jtFIC"],
 	"Angular.js": ["angularjs"],
@@ -31,7 +31,9 @@ COURSES = {
 					"QnQrd"],
 	"Python": ["python"],
 	"Command Line": ["command-line"],
-	"Git": ["git"]
+	"Git": ["git"],
+	"Sass": ["sass"],
+	"ReactJS": ['reactjs']
 }
 
 /* Each 1st level element is a field, and has these properties:
