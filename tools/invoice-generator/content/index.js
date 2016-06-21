@@ -19,9 +19,11 @@ $invoiceButton.addEventListener('click', () => {
   	message: 'generate-invoice',
   	invoiceData: invoiceData
   }, (message) => {
-  	if (message == "done")
+  	if (message == "done") {
+  		success("Remember to export invoice to PDF to email it")
   		chrome.runtime.sendMessage({
 			message: 'close_tab'
 		});
+  	}
   })
 })

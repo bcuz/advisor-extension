@@ -125,7 +125,7 @@ function dataCollector() {
   	// Get the duration of this chat
 }
 
-function success(message) {
+success = function(message) {
 	$.notify(message, {
 		className: "success",
 		globalPosition: "top center",

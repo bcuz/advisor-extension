@@ -7,7 +7,7 @@ function ratings_url() {
 
 function unassign_and_close() {
 	$("div[data-content='Assign to teammate or team']").click();
-	$("span.dropdown__list-item")[0].click();
+	$("div.js__admin-list-item div")[1].click();
 	$("button.js__conversation-header__close-button").click();	
 }
 
