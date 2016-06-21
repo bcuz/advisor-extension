@@ -185,7 +185,9 @@ NEW_FORM =
 			"Python": "Python",
 			"PHP": "PHP",
 			"Command Line": "Command Line",
-			"Git": "Git"
+			"Git": "Git",
+			"Sass": "Sass",
+			"ReactJS": "ReactJS"
 		}
 	},
 
