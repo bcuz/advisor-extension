@@ -130,7 +130,7 @@ toggleReport = function() {
 		$intercom.getActiveChatItem().click();
 
 		// Alert that report mode is ON
-		$notifications.info("Reports enabled!");
+		$notifications.info("Report panel open!");
 
 	} else {
 		// Remove data collector function
@@ -138,7 +138,7 @@ toggleReport = function() {
 		$($intercom.UI_selectors.app).unbind("click", collectDataAndOpenReport);
 
 		// Alert reports disabled
-		$notifications.info("Reports disabled!");
+		$notifications.info("Report panel closed!");
 	}
 }
 
