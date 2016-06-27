@@ -13,21 +13,18 @@ CONTENT_SCRIPTS=''
 BACKGROUND_SCRIPTS=''
 
 
-if [[ -d core ]] ; then
-	echo "Compressing core scripts"
-	for component in $(ls core)
+for component in $(ls core)
+do
+	for script in $(ls 'core/'$component'/content')
 	do
-		for script in $(ls 'core/'$component'/content')
-		do
-			CONTENT_SCRIPTS='core/'$component'/content/'$script' '$CONTENT_SCRIPTS
-		done
-
-		for script in $(ls 'core/'$component'/background')
-		do
-			BACKGROUND_SCRIPTS='core/'$component'/background/'$script' '$BACKGROUND_SCRIPTS
-		done
+		CONTENT_SCRIPTS='core/'$component'/content/'$script' '$CONTENT_SCRIPTS
 	done
-fi
+
+	for script in $(ls 'core/'$component'/background')
+	do
+		BACKGROUND_SCRIPTS='core/'$component'/background/'$script' '$BACKGROUND_SCRIPTS
+	done
+done
 
 for component in $(ls tools)
 do
