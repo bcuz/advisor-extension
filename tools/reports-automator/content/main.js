@@ -1,12 +1,8 @@
+import $intercom from 'core/intercom/content/intercom'
+import $notifications from 'core/notifications/content/notifications'
+import $utils from 'core/utils/content/utils'
+
 var count = 0;
-
-var INTERCOM_URL_PREFIX = "https://app.intercom.io";
-
-/** Selectors from intercom chat website **/
-var chatSelector = ".conversation__inbox__list-wrapper";
-var chatItemSelector = ".conversation__list__item";
-var userLastVisitedLinkSelector = ".test__page-activity-link";
-
 
 /** Keep in memory data for all the users we'll have in this shift **/
 // This will be used later... during data collection
@@ -15,31 +11,14 @@ interactions = {};
 // Set the state of the extension in this tab
 var isRunning = false;
 
-
 /**
- *  Wait until something is loaded and ready to use it
+ *  Take the data we'll use
  */
-function executeWhenReady(executeThisFunction, condition, expectedValue, delay) {
-	var internalInterval = setInterval(function() {
-		if (condition != expectedValue) {
-			console.log("Condition: " + condition + " - Expected value: " + expectedValue);
-		}
-		else {
-			clearInterval(internalInterval);
-			executeThisFunction();
-		}
-	}, delay);
-}
-
-
-/**
- *  Take data from the chat and send it to the background
- */
-function dataCollector() {
+function collectDataAndOpenReport() {
 
 	/** Get the conversation URL, gotta use the last # as this interaction's ID */
 	// An interaction is the user-chat combination we have today
-	var conversationURL = $(this).attr("href");
+	var conversationURL = $intercom.getConversationURL();
 	var interactionID = conversationURL.split("/")[conversationURL.split("/").length - 1];
 
 	// Check if we already have something in memory for this interaction
@@ -48,31 +27,26 @@ function dataCollector() {
 		interactions[interactionID] = {};
 	}
 
+	// Get the clicked item
+	var clickedItem = $(this);
+
     // Get user's name
-    var userNameHeader = $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim();
-    var userNameLeftBox = this.querySelector(".avatar__container h3").innerHTML.trim();
+    var userNameHeader = $intercom.getUserNameHeader();
+    var userNameLeftBox = $intercom.getUserNameClickedChatItem(clickedItem);
 
 
     /*  Add user's name and conversation URL to our collected data object */
     interactions[interactionID]["Name"] = userNameLeftBox;
-    interactions[interactionID]["conversationURL"] = INTERCOM_URL_PREFIX + conversationURL;
+    interactions[interactionID]["conversationURL"] = conversationURL;
 
+    // Need to use this variable to correctly get data when the chat loads using executeWhenReady
+    var collectFromChat = {
+    	executeThisFunction: function() {
 
-    // Need to wait until the right chat is loaded in screen
-    // To do this, compare the user's name from the chat panel (the one that we're waiting for to load)...
-    // ... vs user's name on the left chat panel (the one that is already loaded and we can use as reference)
-    var interval = setInterval(function() {
-    	if (userNameHeader != userNameLeftBox) {
-    		userNameHeader = $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim();
-    	}
-    	else {
-    		// Once reached this point, chat is properly loaded in screen. No need to keep the loop alive
-    		clearInterval(interval);
-
-    		/**** Get summary from the chat  *****/
+	    	/**** Get summary from the chat  *****/
+	    	var possibleSummaryElement = $intercom.getLatestInternalNote();
 
 		    // Get the last note which might be our Summary of interaction
-		  	var possibleSummaryElement = $(".conversation__part .o__admin-note .conversation__text p").last();
 		  	if (possibleSummaryElement.length != 0)
 		  		var possibleSummary = possibleSummaryElement.html().split(":");
 		  	else
@@ -88,15 +62,13 @@ function dataCollector() {
 		  	// Add the summary to our panel
 		  	interactions[interactionID]["summary"] = summary;
 
-
 		  	/** Get report's course from the user's information panel (the one at the right of the chat)
 		  	 *  This field might not be correct 100% of the time,
 		  	 *  because link used here only shows the last visited page by user, and user might have go to a different course
 		  	 *  But, it's worth the try, and if it's wrong for the report then advisor will notice and fix it
 		  	 */
 
-		  	// TODO: Move this logic to a separate function
-		  	var lastVisitedLinkURL = $(userLastVisitedLinkSelector).attr("href");
+		  	var lastVisitedLinkURL = $intercom.getUserLastVisitedLink();
 		  	console.log("Retrieved last visited link: " + lastVisitedLinkURL);
 
 			// Compare against pre-defined courses values in URL (check form.js)
@@ -117,43 +89,29 @@ function dataCollector() {
 					break;
 			}
 
-		  	// Finally, render the panel. Do it at the end so all collected info is displayed
+			// Finally, render the panel. Do it at the end so all collected info is displayed
 			side_panel.render(interactions[interactionID]);
-    	}
-    }, 500);
+	    },
 
-  	// Get the duration of this chat
+	    condition: userNameHeader,
+	    expectedValue: userNameLeftBox,
+	    updateCondition: function(toUpdate) {
+	    	toUpdate.condition = $intercom.getUserNameHeader();
+	    	console.log("User in header updated to: " + userNameHeader);
+	    },
+	    delay: 500
+    }
+
+    // Need to wait until the right chat is loaded in screen
+    // To do this, compare the user's name from the chat panel (the one that we're waiting for to load)...
+    // ... vs user's name on the left chat panel (the one that is already loaded and we can use as reference)
+    $utils.executeWhenReady(collectFromChat);
 }
 
-success = function(message) {
-	$.notify(message, {
-		className: "success",
-		globalPosition: "top center",
-		hideAnimation: "slideUp",
-		autoHide: true,
-		autoHideDelay: 5000
-	});
-}
+toggleReport = function() {
 
-function failure(message) {
-	$.notify(message, {
-		className: "error",
-		globalPosition: "top center",
-		hideAnimation: "slideUp",
-		clickToHide: true,
-		autoHide: false
-	});
-}
-
-
-// If we're disabling it, unbind listeners
-openOrCloseReports = function() {
-
-	if ($(chatSelector).length == 0) {
-		$.notify("You are not in your inbox page!", {
-			className: "info",
-			globalPosition: "top center"
-		});
+	if ($($intercom.UI_selectors.chat).length == 0) {
+		$notifications.info("You are not in your inbox page!");
 		return;
 	}
 
@@ -162,27 +120,29 @@ openOrCloseReports = function() {
 
 	// Enable or disable reports
 	if (isRunning) {
-		// When a chat tab is clicked...
-		$(".app__wrapper").on("click", `${chatSelector} ${chatItemSelector}`, dataCollector);
-		$(chatSelector + " " + chatItemSelector + ".o__active").click();
+		// When a chat tab is clicked, run data collector
+		$($intercom.UI_selectors.app).on("click",
+			`${$intercom.UI_selectors.chat} ${$intercom.UI_selectors.chatItem}`, collectDataAndOpenReport);
+
+		console.log(`${$intercom.UI_selectors.chat} ${$intercom.UI_selectors.chatItem}`);
+
+		// Click the active tab to open
+		$intercom.getActiveChatItem().click();
 
 		// Alert that report mode is ON
-		$.notify("Reports enabled!", {
-			className: "info",
-			globalPosition: "top center"
-		});
+		$notifications.info("Reports enabled!");
+
 	} else {
+		// Remove data collector function
 		document.getElementById("side-panel").innerHTML = "";
-		$(".app__wrapper").unbind("click", dataCollector);
+		$($intercom.UI_selectors.app).unbind("click", collectDataAndOpenReport);
 
 		// Alert reports disabled
-		$.notify("Reports disabled!", {
-			className: "info",
-			globalPosition: "top center"
-		});
+		$notifications.info("Reports disabled!");
 	}
 }
 
+// Shortcut hack
 $("body").append(
 	`<script>
 		$(window).keydown(function(event) {
@@ -190,7 +150,7 @@ $("body").append(
 		  // Shortcut for Open/Close reports automator
 		  if(event.ctrlKey && event.shiftKey && event.keyCode == 79) {
 		    console.log("Hey! Ctrl+Shift+O event captured!");
-		    openOrCloseReports();
+		    toggleReport();
 		    event.preventDefault();
 		    event.stopPropagation();
 		  }
@@ -198,20 +158,20 @@ $("body").append(
 	 </script>`
 );
 
+
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if( request.message === "start-stop" ) {
-		openOrCloseReports();
+		toggleReport();
 	}
 
 	else if (request.message == "filling_failed") {
-		// Show notification about it
-		failure("Failed report for: " + request.userName);
+		$notifications.failure("Failed report for: " + request.userName);
 	}
 
 	else if (request.message == "filling_success") {
-		// Show notification about it
-		success("Success report for: " + request.userName);
+		$notifications.success("Success report for: " + request.userName);
 
 		// Update our list of success
 		interactions[request.interactionID]["success"] = true;

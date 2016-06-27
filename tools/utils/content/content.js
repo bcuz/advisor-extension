@@ -1,3 +1,7 @@
+import $intercom from 'core/intercom/content/intercom'
+import $notifications from 'core/notifications/content/notifications'
+import $utils from 'core/utils/content/utils'
+
 function ratings_url() {
 	chrome.runtime.sendMessage({
 		message: "url_rating",
@@ -36,7 +40,7 @@ $("body").append(
 );
 
 // ADD RATING URL QUICK HACK AND ONE-CLIK UNASSIGN & CLOSE QUICK HACK
-$(".app__wrapper").on("click", `${chatSelector} ${chatItemSelector}`, function() {
+$(".app__wrapper").on("click", `${$intercom.UI_selectors.chat} ${$intercom.UI_selectors.chatItem}`, function() {
 	var userNameHeader = $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim();
     var userNameLeftBox = this.querySelector(".avatar__container h3").innerHTML.trim();
     var interval = setInterval(function() {
