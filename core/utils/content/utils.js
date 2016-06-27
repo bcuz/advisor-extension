@@ -14,8 +14,22 @@ const $utils = {
 				params.executeThisFunction();
 			}
 		}, params.delay);
-	}
+	},
 
+	/**
+	 *  Set a new keyboard shortcut
+	 *  Any keyboard shortcut will be called using ctrl and shift by default
+	 */
+	 createKeyboardShortcut: function(executeThis, shortcutLetter) {
+		$(window).keydown(function(event) {
+		  // Create new shortcut
+		  if(event.ctrlKey && event.shiftKey && event.keyCode == shortcutLetter.charCodeAt(0)) {
+		    executeThis();
+		    event.preventDefault();
+		    event.stopPropagation();
+		  }
+		});
+	 }
 }
 
 export default $utils

@@ -142,48 +142,28 @@ toggleReport = function() {
 	}
 }
 
-// Shortcut hack
-$("body").append(
-	`<script>
-		$(window).keydown(function(event) {
+// Create shortcut for this tool
+$utils.createKeyboardShortcut(toggleReport, "O");
 
-		  // Shortcut for Open/Close reports automator
-		  if(event.ctrlKey && event.shiftKey && event.keyCode == 79) {
-		    console.log("Hey! Ctrl+Shift+O event captured!");
-		    toggleReport();
-		    event.preventDefault();
-		    event.stopPropagation();
-		  }
-		});
-	 </script>`
-);
+// Set listeners for this tool
+chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
+    switch(request.message) {
+    	case "start-stop":
+   			toggleReport();
+   			break
 
+		case "filling_failed":
+			$notifications.failure("Failed report for: " + request.userName);
+			break
 
+		case "filling_success":
+			$notifications.success("Success report for: " + request.userName);
+			// Update our list of success
+			interactions[request.interactionID]["success"] = true;
+			break
 
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if( request.message === "start-stop" ) {
-		toggleReport();
+		// Do nothing on default
+		default:
+			break
 	}
-
-	else if (request.message == "filling_failed") {
-		$notifications.failure("Failed report for: " + request.userName);
-	}
-
-	else if (request.message == "filling_success") {
-		$notifications.success("Success report for: " + request.userName);
-
-		// Update our list of success
-		interactions[request.interactionID]["success"] = true;
-	}
-
-	// URL rating
-	else if (request.message == "got_rating_url") {
-		console.log("Received rating url: " + request.ratingURL);
-		$("div.tabs__discrete-tab__container a:first").click();
-		$(".conversation__text.composer-inbox p").text(request.ratingURL);
-		$(".conversation__text.composer-inbox p").select();
-		$("button.inbox__conversation-controls__button.o__primary").click();
-	}
-  }
-);
+});

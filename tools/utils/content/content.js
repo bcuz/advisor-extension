@@ -1,5 +1,4 @@
 import $intercom from 'core/intercom/content/intercom'
-import $notifications from 'core/notifications/content/notifications'
 import $utils from 'core/utils/content/utils'
 
 function ratings_url() {
@@ -15,51 +14,27 @@ function unassign_and_close() {
 	$("button.js__conversation-header__close-button").click();	
 }
 
+// Disable intercom default shortcuts
 $("body").append(
 	`<script>
 		$(document).off("keydown");
-		$(window).keydown(function(event) {
-
-		  // Shortcut for Unassign & Close	
-		  if(event.ctrlKey && event.shiftKey && event.keyCode == 85) { 
-		    console.log("Hey! Ctrl+Shift+U event captured!");
-		    unassign_and_close();
-		    event.preventDefault();
-		    event.stopPropagation();
-		  }
-
-		  // Shortcut for Ratings URL
-		  else if (event.ctrlKey && event.shiftKey && event.keyCode == 82) {
-		  	console.log("Hey! Ctrl+Shift+T event captured!");
-		  	ratings_url();
-		  	event.preventDefault();
-		  	event.stopPropagation();
-		  }
-		});
 	 </script>`
 );
 
-// ADD RATING URL QUICK HACK AND ONE-CLIK UNASSIGN & CLOSE QUICK HACK
-$(".app__wrapper").on("click", `${$intercom.UI_selectors.chat} ${$intercom.UI_selectors.chatItem}`, function() {
-	var userNameHeader = $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim();
-    var userNameLeftBox = this.querySelector(".avatar__container h3").innerHTML.trim();
-    var interval = setInterval(function() {
-    	if (userNameHeader != userNameLeftBox) {
-    		userNameHeader = $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim();
-    	}
-    	else {
-    		// Once reached this point, chat is properly loaded in screen. No need to keep the loop alive
-    		clearInterval(interval);
-			
-			if ($('.URL-rating').length == 0) {
-				$(`.inbox__conversation-controls .tabs__discrete-tab__container .u__right`)
-					.append(`<a class='URL-rating quick-action' style="margin: 0 4px;"> <b>URL</b> </a>
-						     <a class='unassign-and-close quick-action' style="margin: 0 2px;"> <b>U&amp;C</b> </a>`);
+// Create new shortcuts for these 2 things
+$utils.createKeyboardShortcut(unassign_and_close, "U");
+$utils.createKeyboardShortcut(ratings_url, "R");
 
-				$(".URL-rating").click(function() { ratings_url() });
-
-				$(".unassign-and-close").click(function() { unassign_and_close() });
-			}
-		}
-	}, 500);
+// Add listener to put URL in the convo
+chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
+	if (request.message == "got_rating_url") {
+	   console.log("Received rating url: " + request.ratingURL);
+	   $("div.tabs__discrete-tab__container a:first").click();
+	   $(".conversation__text.composer-inbox p").text(request.ratingURL);
+	   $(".conversation__text.composer-inbox p").select();
+	   $("button.inbox__conversation-controls__button.o__primary").click();
+	}
 });
+
+
+// No need to add the buttons for these functions anymore, shortcuts make everything simpler
