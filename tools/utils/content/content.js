@@ -40,7 +40,8 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 // No need to add the buttons for these functions anymore, shortcuts make everything simpler
 
 // Add this release announcement
-$utils.announcement(`
+// Remember to update the version to show only once this message (it's important)
+/*$utils.announcement(`
 	<p>Hey there! This is Roberto, just wanted to let you know about a few important things. 
 	   You'll see this message only once.</p><br />
 	<p>First, thanks for trusting part your work to the code i once wrote on a drunk night at 3am, maybe the one who wrote your car drivers
@@ -60,4 +61,4 @@ $utils.announcement(`
 	    Just make sure the last internal note starts with "s: ", as in:
 	    "s: description that will be filled in the summary" </p><br />
 
-`)
+`, "1.1.0")*/

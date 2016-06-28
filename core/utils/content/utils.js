@@ -1,8 +1,5 @@
 const $utils = {
 
-	// For the announcement function, show only once
-	announcementShown: false,
-
 	/**
 	 *  Wait until something is loaded and ready to use it
 	 */
@@ -37,7 +34,10 @@ const $utils = {
 	 /**
 	  *  Show an announcement window
 	  */
-	announcement: function(message) {
+	announcement: function(message, version) {
+		// Check this version
+		if (localStorage.getItem("version") == version) return;
+
 		// Show only once
 		if ($utils.announcementShown) return;
 
@@ -76,7 +76,8 @@ const $utils = {
 			</div>
 		`);
 
-		$utils.announcementShown = true;
+		// Update version
+		localStorage.setItem("version", version);
 	}
 }
 
