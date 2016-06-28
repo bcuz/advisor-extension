@@ -38,3 +38,26 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 
 
 // No need to add the buttons for these functions anymore, shortcuts make everything simpler
+
+// Add this release announcement
+$utils.announcement(`
+	<p>Hey there! This is Roberto, just wanted to let you know about a few important things. 
+	   You'll see this message only once.</p><br />
+	<p>First, thanks for trusting part your work to the code i once wrote on a drunk night at 3am, maybe the one who wrote your car drivers
+	   did it in the same state as me, now you know how brave you are :D!</p><br />
+	<p>Now more seriously, this kind of popup announcement will be used from now on for every new features or important stuff to communicate</p><br />
+	<p>I'll be leaving this position sometime within the next month, so someone should pick up this extension's code 
+	   or it'll be lost forever (i don't mind if it turns out like that, it helped me while i was here so i'm happy)</p></br />
+	<p>Adam N. has been helping with fixes to various issues, and Saad originally wrote the invoice generator,
+	   If any of you guys wanna take this over or somebody else, message me up (@roberto)</p><br />
+	<p>Also, currently there are 3 keyboard shortcuts (in case you didn't know):</p>
+	<ul>
+	<li> Ctrl + Shift + O  -  Open/Close Report panel </li>
+	<li> Ctrl + Shift + R  -  Generate rating URL </li>
+	<li> Ctrl + Shift + U  -  Unassign & Close </li>
+	</ul>
+	<p> Also you can use your last note from a conversation as the summary for its report.
+	    Just make sure the last internal note starts with "s: ", as in:
+	    "s: description that will be filled in the summary" </p><br />
+
+`)
