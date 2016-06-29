@@ -35,6 +35,7 @@ const $utils = {
 	  *  Show an announcement window
 	  */
 	announcement: function(message, version) {
+
 		// Check this version
 		if (localStorage.getItem("version") == version) return;
 
@@ -50,11 +51,12 @@ const $utils = {
 				    left: 25%;
 				    height: auto;
 				    width: 650px;
-				    background: #e5ff8a;
+				    background: #e0f4f6;
 				    z-index: 2;
 				    padding: 2%;
 				    border: 3px solid #a1a273;
-				}				#close-announcement {
+				}	
+				#close-announcement {
 					font-size: 30px;
 				    float: right;
 				    margin: 1%;

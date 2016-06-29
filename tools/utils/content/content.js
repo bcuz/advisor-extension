@@ -41,11 +41,12 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 
 // Add this release announcement
 // Remember to update the version to show only once this message (it's important)
-/*$utils.announcement(`
+$utils.announcement(`
 	<p>Hey there! This is Roberto, just wanted to let you know about a few important things. 
 	   You'll see this message only once.</p><br />
-	<p>First, thanks for trusting part your work to the code i once wrote on a drunk night at 3am, maybe the one who wrote your car drivers
-	   did it in the same state as me, now you know how brave you are :D!</p><br />
+	<p>First, thanks for trusting part your work to the code i once wrote on a drunk night at 3am. 
+	   That's not as bad as it sounds, i mean, maybe the one who wrote the drivers for your car's software 
+	   did it in the same state as me, just to help you realize how brave you have been :)</p><br />
 	<p>Now more seriously, this kind of popup announcement will be used from now on for every new features or important stuff to communicate</p><br />
 	<p>I'll be leaving this position sometime within the next month, so someone should pick up this extension's code 
 	   or it'll be lost forever (i don't mind if it turns out like that, it helped me while i was here so i'm happy)</p></br />
@@ -61,4 +62,4 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 	    Just make sure the last internal note starts with "s: ", as in:
 	    "s: description that will be filled in the summary" </p><br />
 
-`, "1.1.0")*/
+`, "1.1.0")

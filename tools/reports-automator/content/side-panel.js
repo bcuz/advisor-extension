@@ -129,7 +129,7 @@ JS : function(data) {
       	});
 	});
 
-	/*** Bad hacks **/
+	/**************  Bad but useful hacks section  *************/
 
 	// Hack for checkboxes
 	\$("#side-panel input[type=checkbox]").change(function() {
@@ -147,8 +147,7 @@ JS : function(data) {
 		$("#"+\$(this).attr("name")).val(\$(this).val());
 	});
 
-	/**  Set useful default values  **/
-
+	// Set useful default values
 	$("input[name=user_rate][value=5]").click();
 	$("input[name=able_solve_issue][value=1]").click();
 	$("input[name=panic_button][value=1]").click();
@@ -156,6 +155,16 @@ JS : function(data) {
 	$("input[id=hours]").val("0");
 	$("input[id=seconds]").val("0");
 	$("input[name=convo_type][value=1]").click();
+
+
+	// Another useful thing, if anything different than Code/Concept Review or Bug Report is selected, check "Not a code question"
+	$("input[name=convo_type]").change(function() {
+    	if ($(this).val() != 1 && $(this).val() != 4)
+        	$("#issue_type_2").prop('checked', true);
+        else
+        	$("#issue_type_2").prop('checked', false);
+	});
+
 	`;
 },
 
