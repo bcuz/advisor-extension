@@ -26,7 +26,7 @@ The extension is still under my Chrome developer account, but as soon as someone
 
 ### How the code works? ###
 
-Read this document: 
+Read this document: https://docs.google.com/document/d/1S-x4XXNGUyvGn_newJ3gX0X7jdGgyiTe4HRXxp8EKwU/edit?usp=sharing
 
 ### Who do I talk to? ###
 Roberto Arias-Yacupoma (tag me in the slack channel, @roberto)
