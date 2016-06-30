@@ -42,24 +42,16 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 // Add this release announcement
 // Remember to update the version to show only once this message (it's important)
 $utils.announcement(`
-	<p>Hey there! This is Roberto, just wanted to let you know about a few important things. 
-	   You'll see this message only once.</p><br />
-	<p>First, thanks for trusting part your work to the code i once wrote on a drunk night at 3am. 
-	   That's not as bad as it sounds, i mean, maybe the one who wrote the drivers for your car's software 
-	   did it in the same state as me, just to help you realize how brave you have been :)</p><br />
-	<p>Now more seriously, this kind of popup announcement will be used from now on for every new features or important stuff to communicate</p><br />
-	<p>I'll be leaving this position sometime within the next month, so someone should pick up this extension's code 
-	   or it'll be lost forever (i don't mind if it turns out like that, it helped me while i was here so i'm happy)</p></br />
-	<p>Adam N. has been helping with fixes to various issues, and Saad originally wrote the invoice generator,
-	   If any of you guys wanna take this over or somebody else, message me up (@roberto)</p><br />
-	<p>Also, currently there are 3 keyboard shortcuts (in case you didn't know):</p>
-	<ul>
-	<li> Ctrl + Shift + O  -  Open/Close Report panel </li>
-	<li> Ctrl + Shift + R  -  Generate rating URL </li>
-	<li> Ctrl + Shift + U  -  Unassign & Close </li>
-	</ul>
-	<p> Also you can use your last note from a conversation as the summary for its report.
-	    Just make sure the last internal note starts with "s: ", as in:
-	    "s: description that will be filled in the summary" </p><br />
+	<p>Hey there! This is Roberto (Arias-Yacupoma) again, another announcement:</p><br />
+	<p>In the previous announcement I mentioned that I'll be leaving some day within next month.
+	   Well, that day is this Saturday July 2nd. That means no more support for the extension from my side :)</p><br />
+	<p>The code for this extension is in <a target="_blank" href="https://bitbucket.org/walom8868/codecademy-advisortoolbox/overview"> this bitbucket repo </a>.
+	   Check the README, there are the instructions on how to build, load in Chrome and how to publish to Chrome Store, and 
+	   there's also a full documentation of the code structure and what each file is/does</p><br />
+	<p>I'll stay around in the chat for a few more weeks until i slowly fade into the dark and leave :P
+	   If you want guidance or help understanding how the panda thing works, DM me in slack. 
+	   If you want to officially support the extension and take it over, let me know to pass it to you 
+	   (because this is still under my developer account in Chrome Store) </p><br />
+	<p>Anyway, great talking with you guys (online, but still... a few i got to meet in person though) and see ya'll</p><br />
 
-`, "1.1.0")
+`, "1.1.1")
