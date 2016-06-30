@@ -1,44 +1,32 @@
-STATUS 5/11/16: Released since a while ago, adding Saad's code for invoice generation
+# Toolbox for Codecademy Advisors #
 
+## Information for New Developers ##
+### **Setting up your development environment ** ###
 
-IMPORTANT:
+* Install Git, if you have Windows preferably use Git Bash instead of Windows cmd
+* Clone this project, use dev branch for development, master for releases
+* Download Google Closure Compiler from this link and unpackage it: https://dl.google.com/closure-compiler/compiler-latest.zip
+* In deploy.bash, change the value of the variable GOOGLE_COMPILER, use the location where you downloaded the google closure compiler's jar file in your machine.
 
-Right after you install it, click the panda and select "Options". In the options page you have to put 2 values:
+### Building and loading the extension in Chrome ###
 
-  - **Your name**,  make sure it is exactly the same as it is listed in the report google form (with spaces, capital letters and all of that, must be EXACTLY the same).
+The code for this extension is distributed into separate modules, separated in **core** and **tool** modules (in the folders with the same name.
 
-  - **Time between screens**, this is the # of seconds the extension will delay the filling of each page of the report. You must give enough time to the page to load, or the extension will fail. To be safe, set it initially to 4.
+Each module has its own folder, for example **reports-automator** is a tool and has its own folder inside tools/
 
+The **deploy.bash** script uses google closure compiler to "compile" and minify all the modules inside core/ and tools/, creating the minified versions in a new folder called **deploy/**. This is what gets loaded into Chrome (Check the manifest to see how it's defined)
 
-Then save it and continue with next steps. This is a one time only thing.
+So do this: from the project's root directory, run **deploy.bash**, after it completes then go into Chrome (make sure you have enabled Developer mode previously), click in **Load unpacked extension** and select the folder you have cloned from here.
 
+After you have loaded the extension once in this way, you only need to click **Reload** when you want to load any new changes you made in the source code (remember to run deploy.bash again, else the contents inside deploy/ won't change).
 
-## Description ##
+### About the version in the Chrome Store (the live one) ###
 
-The idea of this extension is to automate the filling/submit of post-interaction reports
-(and make our lives easier, happier, healthier, longer and save our fingers from calluses)
+The extension is still under my Chrome developer account, but as soon as someone agrees to take over this i can pass it to him/her. To update into a new version in Chrome store, you must create a ZIP file that includes: **deploy, img, libs, ui, manifest.json**. Make sure to also increase the version in **manifest.json** or Chrome store won't think it has been updated
 
+### How the code works? ###
 
-## How to load it ##
-
-Pull this repo, open chrome, go to Extensions, enable Developer Mode, click "Load unpacked extension", select directory you pulled from here, be happy.
-
-
-## Ideal scenario ##
-
-Ideally, we'll be able to only click 1 button, and the reports for all the threads we had on shift will be submitted automatically. For this, still need to improve:
-   
-- Collecting data from chat (and validate it)
-   
-- Collecting summary of interaction and additional notes (so that we make the least amount
-     of changes to the collected data)
-   
-- Track that all reports are submitted without issues
-   
-- Track any changes intercom might do to its interface that might affect the behavior of
-     this extension (and make the code fix itself >:D)
-
+Read this document: 
 
 ### Who do I talk to? ###
-
-Roberto (tag me in the slack channel)
+Roberto Arias-Yacupoma (tag me in the slack channel, @roberto)
