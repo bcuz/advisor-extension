@@ -1,8 +1,8 @@
 var side_panel = {
 
 
-    // Contains base HTML
-    HTML: `
+// Contains base HTML
+HTML : `
 	<script>
 	String.prototype.replaceAt=function(index, character) {
     	return this.substr(0, index) + character + this.substr(index+1, this.length);
@@ -15,8 +15,8 @@ var side_panel = {
 	</div>
 `,
 
-    // Contains panel's CSS
-    CSS: `
+// Contains panel's CSS
+CSS : `
 	#side-panel {
 		background: #f0f0f0;
 		height: 100%;
@@ -93,12 +93,12 @@ var side_panel = {
 	}
 `,
 
-    // Contains base JS
-    // Keeping this as a function 'cause need to pass dynamic retrieving of panel's data on click
-    // I'll make it static code, like the CSS field, when i figure out how to make this more cleaner
-    JS: function(data) {
+// Contains base JS
+// Keeping this as a function 'cause need to pass dynamic retrieving of panel's data on click
+// I'll make it static code, like the CSS field, when i figure out how to make this more cleaner
+JS : function(data) {
 
-        return `
+	return  `
 	/******  Assign the click listener to open panel on click of chat thread  ******/
 
 	document.getElementById("open-report").addEventListener("click", function() {
@@ -171,121 +171,120 @@ var side_panel = {
 	});
 
 	`;
-    },
+},
 
-    /* Render each field with its subfields */
-    // Used for recursive rendering, in case some fields depend on another one
-    renderField: function(FORM, data, extra) {
+/* Render each field with its subfields */
+// Used for recursive rendering, in case some fields depend on another one
+renderField: function(FORM, data, extra) {
 
-        // HTML and Javascript for each field to be rendered
-        var formHTMLandJS = [``, ``];
+	// HTML and Javascript for each field to be rendered
+	var formHTMLandJS = [ ``, `` ];
 
-        // Go through the FORM object and fill form's HTML
-        for (var field in FORM) {
+	// Go through the FORM object and fill form's HTML
+	for (var field in FORM) {
 
-            // Don't render conditions in subfields
-            if (field == "Condition")
-                continue;
+		// Don't render conditions in subfields
+		if (field == "Condition")
+			continue;
 
-            var fieldHTML = ``;
+		var fieldHTML = ``;
 
-            // Get passed value for this field. Mark empty if undefined
-            var fieldValue = (data[field] != undefined) ? data[field] : "";
+		// Get passed value for this field. Mark empty if undefined
+		var fieldValue = (data[field] != undefined) ? data[field] : "";
 
-            // Check if field is required
-            if (FORM[field].Required) {
-                var requiredLabel = "*";
-                var requiredClass = "required";
-            } else {
-                var requiredLabel = "";
-                var requiredClass = "";
-            }
-
+		// Check if field is required
+		if (FORM[field].Required) {
+			var requiredLabel = "*"; var requiredClass = "required";
+		}
+		else {
+			var requiredLabel = "";  var requiredClass = "";
+		}
 
 
-            // Render content based on the type of field this is
-            switch (FORM[field].Type) {
 
-                // If hidden, just need a hidden input, and continue to next field
-                case "hidden":
-                    formHTMLandJS[0] += `<input class="${ requiredClass }" id='${ field }' type="hidden" value='${fieldValue}' />`;
-                    dataFields += `${field} : \$("#${ field }").val(),`;
-                    continue;
-                    break;
+		// Render content based on the type of field this is
+		switch (FORM[field].Type) {
+
+			// If hidden, just need a hidden input, and continue to next field
+			case "hidden":
+				formHTMLandJS[0] += `<input class="${ requiredClass }" id='${ field }' type="hidden" value='${fieldValue}' />`;
+				dataFields += `${field} : \$("#${ field }").val(),`;
+				continue;
+				break;
 
 
-                    // If select, need the select box with options
-                case "select":
-                    // If this field is not required, we can include an empty option
-                    if (FORM[field].Required == undefined || FORM[field].Required == false)
-                        fieldHTML = fieldHTML + `<option value="">None</option>`;
+			// If select, need the select box with options
+			case "select":
+				// If this field is not required, we can include an empty option
+				if (FORM[field].Required == undefined || FORM[field].Required == false)
+					fieldHTML = fieldHTML + `<option value="">None</option>`;
 
-                    // Get all the options
-                    for (option in FORM[field].Options) {
-                        // If we have collected data for this field and know the value of this option, mark it here
-                        var test = (option === fieldValue) ? "selected" : "";
-                        fieldHTML += `<option value="${option}" ${test}>${FORM[field].Options[option]}</option>`;
-                    }
+				// Get all the options
+				for (option in FORM[field].Options) {
+					// If we have collected data for this field and know the value of this option, mark it here
+					var test = (option === fieldValue) ? "selected" : "";
+					fieldHTML += `<option value="${option}" ${test}>${FORM[field].Options[option]}</option>`;
+				}
 
-                    // Put them in the select field
-                    fieldHTML = `<select id="${ field }" ${test}>${fieldHTML}</select>`;
-                    break;
+				// Put them in the select field
+				fieldHTML = `<select id="${ field }" ${test}>${fieldHTML}</select>`;
+				break;
 
-                case "radio":
-                    // K is used to assign unique ids to each radio option, to use with its label
-                    var k = 0;
-                    for (option in FORM[field].Options) {
-                        fieldHTML += `<input name="${field}" id="${field}_${k}" type="radio" value="${option}">
+			case "radio":
+				// K is used to assign unique ids to each radio option, to use with its label
+				var k = 0;
+				for (option in FORM[field].Options) {
+					fieldHTML += `<input name="${field}" id="${field}_${k}" type="radio" value="${option}">
 								  <label data-for="radio" for="${field}_${k}">${FORM[field].Options[option]}</label>
 								  <br />`;
-                        k++;
-                    }
+					k++;
+				}
 
-                    fieldHTML += `<input type="hidden" id="${field}" value="${fieldValue}" />`;
-                    break;
+				fieldHTML += `<input type="hidden" id="${field}" value="${fieldValue}" />`;
+				break;
 
-                    // If text or number, put a regular input element
-                case "text":
-                case "number":
-                    fieldHTML += `<input class="${ requiredClass }" id="${ field }" type="text" value="${fieldValue}" />`;
-                    break;
+			// If text or number, put a regular input element
+			case "text":
+			case "number":
+				fieldHTML += `<input class="${ requiredClass }" id="${ field }" type="text" value="${fieldValue}" />`;
+				break;
 
-                    // If multiple selection
-                case "checkbox":
-                    // Fix fieldvalue
-                    if (fieldValue == "") fieldValue = "000";
+			// If multiple selection
+			case "checkbox":
+				// Fix fieldvalue
+				if (fieldValue == "") fieldValue = "000";
 
-                    var k = 0;
-                    for (option in FORM[field].Options) {
-                        fieldHTML += `
+				var k = 0;
+				for (option in FORM[field].Options) {
+					fieldHTML += `
 						<input id="${field}_${k}" type="checkbox" data-field="${field}" class="${ requiredClass }" value="${option}">
 						<label data-for="checkbox" for="${field}_${k}"> ${ FORM[field].Options[option] }</label>
 						<br />`;
-                        k++;
-                    }
+					k++;
+				}
 
-                    fieldHTML += `<input type="hidden" id="${ field }" value="${fieldValue}" />`;
+				fieldHTML += `<input type="hidden" id="${ field }" value="${fieldValue}" />`;
 
-                    break;
+				break;
 
-                    // If longText, put a textarea
-                case "longText":
-                    fieldHTML += `<textarea class="${ requiredClass }" id="${ field }" rows="4" cols="35">${fieldValue}</textarea>`;
-                    break;
+			// If longText, put a textarea
+			case "longText":
+				fieldHTML += `<textarea class="${ requiredClass }" id="${ field }" rows="4" cols="35">${fieldValue}</textarea>`;
+				break;
 
-                default:
-                    break;
-            }
+			default:
+				break;
+		}
 
-            // Render any subfields we find
-            var extraHTMLandJS = [``, ``];
-            var extraClass = ``;
+		// Render any subfields we find
+		var extraHTMLandJS = [ ``, `` ];
+		var extraClass = ``;
 
-            if (FORM[field].Extra != undefined) {
-                extraHTMLandJS = side_panel.renderField(FORM[field].Extra, data, true);
+		if (FORM[field].Extra != undefined) {
+			extraHTMLandJS = side_panel.renderField(FORM[field].Extra, data, true);
 
-                // Append field's javascript to the form
-                formHTMLandJS[1] += extraHTMLandJS[1] + `
+			// Append field's javascript to the form
+			formHTMLandJS[1] += extraHTMLandJS[1] + `
 				$("#${ field }").change(function() {
 					if ($(this).val() == ${ FORM[field].Extra.Condition })
 						$(this).parent().children(".extra").show();
@@ -293,14 +292,14 @@ var side_panel = {
 						$(this).parent().children(".extra").hide();
 				});
 			`;
-            }
+		}
 
-            // Mark this field as "extra"
-            if (extra != undefined && extra == true)
-                extraClass = `class="extra" style="display: none;"`;
+		// Mark this field as "extra"
+		if (extra != undefined && extra == true)
+			extraClass = `class="extra" style="display: none;"`;
 
-            // Append field to the form
-            formHTMLandJS[0] += `
+		// Append field to the form
+		formHTMLandJS[0] += `
 			<div ${extraClass}>
 				<label style="font-weight:bold;">${FORM[field].Label} <span style="display: inline-block; color: red;">${ requiredLabel }</span></label>
 				${ fieldHTML }
@@ -308,37 +307,37 @@ var side_panel = {
 			</div>
 		`;
 
-            // Add this field into the data to be passed from panel to report
-            // They'll be loaded as if they were retrieved using jquery
-            // Something like this:      myName: $("#myName").val(),
-            dataFields += `${field} : \$("#${ field }").val(),`;
-        }
+		// Add this field into the data to be passed from panel to report
+		// They'll be loaded as if they were retrieved using jquery
+		// Something like this:      myName: $("#myName").val(),
+		dataFields += `${field} : \$("#${ field }").val(),`;
+	}
 
-        return formHTMLandJS;
-    },
+	return formHTMLandJS;
+},
 
 
-    /* Render the panel, apply HTML, CSS and JS and render FORM*/
-    // Populate fields with data passed
-    render: function(data) {
+/* Render the panel, apply HTML, CSS and JS and render FORM*/
+// Populate fields with data passed
+render: function(data) {
 
-        // Data to be retrieved from panel, used later to fill reports
-        // Global 'cause it'll be modified in other functions
-        dataFields = `var data = { `;
+	// Data to be retrieved from panel, used later to fill reports
+	// Global 'cause it'll be modified in other functions
+	dataFields = `var data = { `;
 
-        // Recursive render of all fields and subfields in the form
-        var formHTMLandJS = side_panel.renderField(NEW_FORM, data);
+	// Recursive render of all fields and subfields in the form
+	var formHTMLandJS = side_panel.renderField(NEW_FORM, data);
 
-        // Remove trailing comma and close data object, it's full at this point
-        dataFields = dataFields.substring(0, dataFields.length - 1);
-        dataFields += ` }; `;
+	// Remove trailing comma and close data object, it's full at this point
+	dataFields = dataFields.substring(0, dataFields.length-1);
+	dataFields += ` }; `;
 
-        // Check if report for this user was already submitted
-        var alreadySubmitted = (data["success"]) ? "Already Submitted!" : "";
+	// Check if report for this user was already submitted
+	var alreadySubmitted = (data["success"]) ? "Already Submitted!" : "";
 
-        // Form HTML is ready, now render the entire thing
-        $("#side-panel").html("");
-        $("#side-panel").append(`
+	// Form HTML is ready, now render the entire thing
+	$("#side-panel").html("");
+	$("#side-panel").append(`
 		<style>
 			${ side_panel.CSS }
 		</style>
@@ -361,7 +360,7 @@ var side_panel = {
 		</script>
 	`);
 
-    }
+}
 
 
 }
