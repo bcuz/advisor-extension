@@ -157,12 +157,17 @@ JS : function(data) {
 	$("input[name=convo_type][value=1]").click();
 
 
-	// Another useful thing, if anything different than Code/Concept Review or Bug Report is selected, check "Not a code question"
+	// Another useful thing, if anything different than Code/Concept Review, Bug Report, or Personal Project is selected, check "Not a code question"
 	$("input[name=convo_type]").change(function() {
-    	if ($(this).val() != 1 && $(this).val() != 4)
-        	$("#issue_type_2").prop('checked', true);
-        else
-        	$("#issue_type_2").prop('checked', false);
+		var not_code_q = $("#issue_type_2");
+    	if ($(this).val() != 1 && $(this).val() != 4 && $(this).val() != 6) {
+				  not_code_q.data('clicked', true).click();
+       } else {
+       		if (not_code_q.data('clicked') === true) {
+     			not_code_q.trigger("click").data('clicked', false);
+       		}
+       }
+
 	});
 
 	`;
