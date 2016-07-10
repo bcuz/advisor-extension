@@ -11,7 +11,11 @@ function ratings_url() {
 function unassign_and_close() {
 	$("div[data-content='Assign to teammate or team']").click();
 	$("div.js__admin-list-item div")[1].click();
-	$("button.js__conversation-header__close-button").click();	
+	$("button.js__conversation-header__close-button").click();
+}
+
+function submit_press() {
+	$("#open-report").click();
 }
 
 // Disable intercom default shortcuts
@@ -24,6 +28,7 @@ $("body").append(
 // Create new shortcuts for these 2 things
 $utils.createKeyboardShortcut(unassign_and_close, "U");
 $utils.createKeyboardShortcut(ratings_url, "R");
+$utils.createKeyboardShortcut(submit_press, "S");
 
 // Add listener to put URL in the convo
 chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
@@ -42,13 +47,13 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 // Add this release announcement
 // Remember to update the version to show only once this message (it's important)
 $utils.announcement(`
-	<p>Hey there! This is Roberto, just wanted to let you know about a few important things. 
+	<p>Hey there! This is Roberto, just wanted to let you know about a few important things.
 	   You'll see this message only once.</p><br />
-	<p>First, thanks for trusting part your work to the code i once wrote on a drunk night at 3am. 
-	   That's not as bad as it sounds, i mean, maybe the one who wrote the drivers for your car's software 
+	<p>First, thanks for trusting part your work to the code i once wrote on a drunk night at 3am.
+	   That's not as bad as it sounds, i mean, maybe the one who wrote the drivers for your car's software
 	   did it in the same state as me, just to help you realize how brave you have been :)</p><br />
 	<p>Now more seriously, this kind of popup announcement will be used from now on for every new features or important stuff to communicate</p><br />
-	<p>I'll be leaving this position sometime within the next month, so someone should pick up this extension's code 
+	<p>I'll be leaving this position sometime within the next month, so someone should pick up this extension's code
 	   or it'll be lost forever (i don't mind if it turns out like that, it helped me while i was here so i'm happy)</p></br />
 	<p>Adam N. has been helping with fixes to various issues, and Saad originally wrote the invoice generator,
 	   If any of you guys wanna take this over or somebody else, message me up (@roberto)</p><br />
