@@ -59,7 +59,7 @@ NEW_FORM =
 	},
 
 	panic_button: {
-		Label: "Did you need to use @channel #panicbutton ?",
+		Label: "Did you need to use  @gobeau p0 ?",
 		Type: "radio",
 		Required: true,
 		formID: "5170217",
