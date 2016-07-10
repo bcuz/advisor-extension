@@ -18,6 +18,12 @@ function submit_press() {
 	$("#open-report").click();
 }
 
+// speed addict
+function submit_and_close() {
+	$("#open-report").click();
+	$("#close-side-panel").click();
+}
+
 // Disable intercom default shortcuts
 $("body").append(
 	`<script>
@@ -29,6 +35,7 @@ $("body").append(
 $utils.createKeyboardShortcut(unassign_and_close, "U");
 $utils.createKeyboardShortcut(ratings_url, "R");
 $utils.createKeyboardShortcut(submit_press, "S");
+$utils.createKeyboardShortcut(submit_and_close, "X");
 
 // Add listener to put URL in the convo
 chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
