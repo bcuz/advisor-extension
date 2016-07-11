@@ -8,7 +8,6 @@
  *  The keys are the values used in report, values are the keywords to look for in user's last visited URL
  */
 
-// Can't figure out yet for PHP and User Onboarding
 COURSES = {
 	"NOT A CODE QUESTION": ["subscription_billing", "path"],
 	"HTML/CSS": ["html-css", "HZA3b", "LceTK", "y2Yjd", "9x6JW",
