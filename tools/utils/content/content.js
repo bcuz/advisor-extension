@@ -57,16 +57,16 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 // Add this release announcement
 // Remember to update the version to show only once this message (it's important)
 $utils.announcement(`
-	<p>Hey there! This is Roberto (Arias-Yacupoma) again, another announcement:</p><br />
-	<p>In the previous announcement I mentioned that I'll be leaving some day within next month.
-	   Well, that day is this Saturday July 2nd. That means no more support for the extension from my side :)</p><br />
-	<p>The code for this extension is in <a target="_blank" href="https://bitbucket.org/walom8868/codecademy-advisortoolbox/overview"> this bitbucket repo </a>.
-	   Check the README, there are the instructions on how to build, load in Chrome and how to publish to Chrome Store, and
-	   there's also a full documentation of the code structure and what each file is/does</p><br />
-	<p>I'll stay around in the chat for a few more weeks until i slowly fade into the dark and leave :P
-	   If you want guidance or help understanding how the panda thing works, DM me in slack.
-	   If you want to officially support the extension and take it over, let me know to pass it to you
-	   (because this is still under my developer account in Chrome Store) </p><br />
-	<p>Anyway, great talking with you guys (online, but still... a few i got to meet in person though) and see ya'll</p><br />
+	<p>Hi! This is Adam N (@adam) with an announcement:</p><br />
+	<p>Just wanted to officially mention that Elise now owns the extension and I've been making
+	 some changes to it here and there. There are two new shortcuts:</p><br />
+	<p><strong>Ctrl + Shift + X</strong> will submit the report, close the panel, unassign convo, and close the convo.
+	This is the shortcut to use if you are 100% confident that your report is going to pass.
+	 Otherwise, you may have to fish it out of closed unassigned to redo the report -> don't be that guy/gal ;)<br>
+	<strong>Ctrl + Shift + S</strong> will just submit the report. Use this or manually press the submit button
+	when not using Ctrl + Shift + X.
+</p><br />
+	<p>If you find a problem with the extension, feel free to
+	<a href="https://bitbucket.org/walom8868/codecademy-advisortoolbox/issues?status=new&status=open"> create an issue on BitBucket</a> or DM me on slack.</p><br />
 
 `, "1.1.1")
