@@ -58,7 +58,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 // Remember to update the version to show only once this message (it's important)
 $utils.announcement(`
 	<p>Hi! This is Adam N (@adam) with an announcement:</p><br />
-	<p>Just wanted to officially mention that Elise now owns the extension and I've been making
+	<p>Just wanted to officially mention that Elise(@elise9876) now owns the extension and I've been making
 	 some changes to it here and there. There are two new shortcuts:</p><br />
 	<p><strong>Ctrl + Shift + X</strong> will submit the report, close the panel, unassign convo, and close the convo.
 	This is the shortcut to use if you are 100% confident that your report is going to pass.
