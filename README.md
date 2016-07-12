@@ -29,4 +29,4 @@ The extension is still under my Chrome developer account, but as soon as someone
 Read this document: https://docs.google.com/document/d/1S-x4XXNGUyvGn_newJ3gX0X7jdGgyiTe4HRXxp8EKwU/edit?usp=sharing
 
 ### Who do I talk to? ###
-Roberto Arias-Yacupoma originally created the extension. Elise and Adam N are currently maintaining/extending it (in the slack channel we're @roberto, @elise9876, and @adam)
+Roberto Arias-Yacupoma originally created the extension. Elise and Adam N are currently maintaining/extending it (in the slack channel we're roberto, elise9876, and adam)
