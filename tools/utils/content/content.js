@@ -69,4 +69,4 @@ $utils.announcement(`
 	<p>If you find a problem with the extension, feel free to
 	<a href="https://bitbucket.org/walom8868/codecademy-advisortoolbox/issues?status=new&status=open"> create an issue on BitBucket</a> or DM me on slack.</p><br />
 
-`, "1.1.1")
+`, "1.1.4")
