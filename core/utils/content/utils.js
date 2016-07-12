@@ -37,10 +37,10 @@ const $utils = {
 	announcement: function(message, version) {
 
 		// Check this version
-		if (localStorage.getItem("version") == version) return;
+		// if (localStorage.getItem("version") == version) return;
 
 		// Show only once
-		if ($utils.announcementShown) return;
+		// if ($utils.announcementShown) return;
 
 		$("body").append(`
 			<div id="announcement">
@@ -55,7 +55,7 @@ const $utils = {
 				    z-index: 2;
 				    padding: 2%;
 				    border: 3px solid #a1a273;
-				}	
+				}
 				#close-announcement {
 					font-size: 30px;
 				    float: right;
