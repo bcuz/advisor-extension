@@ -2,7 +2,7 @@
 ## BUILD SCRIPT ##
 
 # Replace this variable with the location to google closure compiler in your local environemnt
-GOOGLE_COMPILER='F:\cc\compiler-latest\compiler.jar'
+GOOGLE_COMPILER='/Users/eliseharris/Downloads/compiler-latest/compiler.jar'
 
 # Make sure deploy directory exists
 mkdir deploy 2>/dev/null
