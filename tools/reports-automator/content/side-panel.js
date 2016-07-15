@@ -182,7 +182,11 @@ JS : function(data) {
 	$("input[name=convo_type]").change(function() {
 		var not_code_q = $("#issue_type_2");
     	if ($(this).val() != 1 && $(this).val() != 4 && $(this).val() != 6) {
-				  not_code_q.data('clicked', true).click();
+    			if (not_code_q.data('clicked') === true) {
+    				// do nothing
+    			} else {
+					  not_code_q.data('clicked', true).click();
+    			}
        } else {
        		if (not_code_q.data('clicked') === true) {
      			not_code_q.trigger("click").data('clicked', false);
