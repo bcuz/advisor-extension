@@ -14,9 +14,8 @@ function unassign_and_close() {
 	$("button.js__conversation-header__close-button").click();
 }
 
-function submit_and_close() {
+function submit_press() {
 	$("#open-report").click();
-	$("#close-side-panel").click();
 }
 
 // speed addict
@@ -38,7 +37,7 @@ $("body").append(
 // Create new shortcuts for these 2 things
 $utils.createKeyboardShortcut(unassign_and_close, "U");
 $utils.createKeyboardShortcut(ratings_url, "R");
-$utils.createKeyboardShortcut(submit_and_close, "S");
+$utils.createKeyboardShortcut(submit_press, "S");
 $utils.createKeyboardShortcut(submit_close_unassign, "X");
 
 // Add listener to put URL in the convo
