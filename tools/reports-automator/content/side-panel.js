@@ -91,6 +91,9 @@ CSS : `
 	#side-panel input[type=radio], #side-panel label[data-for=radio] {
 		display: inline-block !important;
 	}
+	#minutes {
+		background-color: #EFA2AD;
+	}
 `,
 
 // Contains base JS
@@ -166,6 +169,12 @@ JS : function(data) {
 	$("#hours, #minutes, #seconds").click(function() {
 			$(this).select();
 		})
+
+	// background of minutes input field stays red until
+	// something is entered inside of it
+	$("#minutes").keypress(function() {
+		$(this).css("background-color", "#fff")
+	})
 
 
 	// Another useful thing, if anything different than Code/Concept Review, Bug Report, or Personal Project is selected, check "Not a code question"
