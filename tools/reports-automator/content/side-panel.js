@@ -183,12 +183,17 @@ JS : function(data) {
 		var not_code_q = $("#issue_type_2");
     	if ($(this).val() != 1 && $(this).val() != 4 && $(this).val() != 6) {
     			if (not_code_q.data('clicked') === true) {
+    				// if not a code q is already checked, and
+    				// another not a code q type of thing is selected
     				// do nothing
     			} else {
+    				// clicks on not a code q checkbox, sets data to clicked
 					  not_code_q.data('clicked', true).click();
     			}
        } else {
        		if (not_code_q.data('clicked') === true) {
+       			// if a code q IS selected, and not a code q
+       			// is checked, unclick it, and mark it as not clicked
      			not_code_q.data('clicked', false).click();
        		}
        }
