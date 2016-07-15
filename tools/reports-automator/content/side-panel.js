@@ -110,7 +110,11 @@ JS : function(data) {
 		data["user_name"] = $("#user_name").html();
 
 		// Fix the time issue for 1 digit in minutes and seconds
-		if (data.minutes.length == 1) data.minutes = "0" + data.minutes;
+		if (data.minutes.length == 1) {
+			data.minutes = "0" + data.minutes;
+		} else if (data.minutes.length == 0){
+			data.minutes = undefined
+		}
 		if (data.seconds.length == 1) data.seconds = "0" + data.seconds;
 
 		// Send the message to open report tab
