@@ -127,8 +127,8 @@ chrome.runtime.sendMessage({
 
 	// Time
 	fillTextAndValidate(`[aria-label*="Hours"]`, `hours`);
-	fillTextAndValidate(`[aria-label*="Minutes"]`, `minutes`);
 	fillTextAndValidate(`[aria-label*="Seconds"]`, `seconds`);
+	fillTextAndValidate(`[aria-label*="Minutes"]`, `minutes`);
 
 	// Continue to next confirmation page
 	chrome.runtime.sendMessage({
