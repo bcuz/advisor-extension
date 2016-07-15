@@ -160,8 +160,14 @@ JS : function(data) {
 	$("input[name=panic_button][value=1]").click();
 	$("input[name=suggestion_or_bug][value=3]").click();
 	$("input[id=hours]").val("0");
+	$("input[id=minutes]").val("0");
 	$("input[id=seconds]").val("0");
 	$("input[name=convo_type][value=1]").click();
+
+		// select text within time input fields on mouse click
+	$("#hours, #minutes, #seconds").click(function() {
+			$(this).select();
+		})
 
 
 	// Another useful thing, if anything different than Code/Concept Review, Bug Report, or Personal Project is selected, check "Not a code question"
