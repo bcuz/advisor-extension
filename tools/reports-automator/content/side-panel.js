@@ -189,7 +189,7 @@ JS : function(data) {
     			}
        } else {
        		if (not_code_q.data('clicked') === true) {
-     			not_code_q.trigger("click").data('clicked', false);
+     			not_code_q.data('clicked', false).click();
        		}
        }
 
