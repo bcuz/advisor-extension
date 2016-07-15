@@ -112,10 +112,13 @@ JS : function(data) {
 		// Fix the time issue for 1 digit in minutes and seconds
 		if (data.minutes.length == 1) {
 			data.minutes = "0" + data.minutes;
-		} else if (data.minutes.length == 0){
+		} else if (data.minutes.length == 0) {
 			data.minutes = undefined;
 		}
 		if (data.seconds.length == 1) data.seconds = "0" + data.seconds;
+		if (data.hours === "0" && data.minutes === "00" && data.seconds === "00") {
+			 data.minutes = undefined;
+			}
 
 		// Send the message to open report tab
 		chrome.runtime.sendMessage({
