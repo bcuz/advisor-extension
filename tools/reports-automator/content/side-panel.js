@@ -168,13 +168,14 @@ JS : function(data) {
 		// select text within time input fields on mouse click
 	$("#hours, #minutes, #seconds").click(function() {
 			$(this).select();
-		})
-
+		}).keypress(function() {
 	// background of minutes input field stays red until
-	// something is entered inside of it
-	$("#minutes").keypress(function() {
-		$(this).css("background-color", "#fff")
+	// something is entered into any of the time stuff
+	// made minutes red because that's usually what will need
+	// to be input
+		$("#minutes").css("background-color", "#fff")
 	})
+
 
 
 	// Another useful thing, if anything different than Code/Concept Review, Bug Report, or Personal Project is selected, check "Not a code question"
