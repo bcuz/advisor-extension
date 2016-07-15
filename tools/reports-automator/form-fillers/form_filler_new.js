@@ -28,7 +28,7 @@ function fillTextAndValidate(selector, field) {
 			"value": data[field]
 		});
 
-		throw false;		
+		throw false;
 	}
 }
 
@@ -100,14 +100,9 @@ chrome.runtime.sendMessage({
 	var id_to_check = "group_767547732_" + data.panic_button;
 	checkAndValidate(`[id="${id_to_check}"]`, `panic_button`);
 
-	// Product suggestion - Bug report 
+	// Product suggestion - Bug report
 	var id_to_check = "group_1424754551_" + data.suggestion_or_bug;
 	checkAndValidate(`[id="${id_to_check}"]`, `suggestion_or_bug`);
-
-	// Time
-	fillTextAndValidate(`[aria-label*="Hours"]`, `hours`);
-	fillTextAndValidate(`[aria-label*="Minutes"]`, `minutes`);
-	fillTextAndValidate(`[aria-label*="Seconds"]`, `seconds`);
 
 	// Type of Conversation
 	var id_to_check = "group_260280481_" + data.convo_type;
@@ -127,9 +122,14 @@ chrome.runtime.sendMessage({
 	// Course
 	fillTextAndValidate(`[name="entry.856943265"]`, `course`);
 
-	// Additional notes 
+	// Additional notes
 	fillTextAndValidate(`[name="entry.1525920400"]`, `other_notes`);
-	
+
+	// Time
+	fillTextAndValidate(`[aria-label*="Hours"]`, `hours`);
+	fillTextAndValidate(`[aria-label*="Seconds"]`, `seconds`);
+	fillTextAndValidate(`[aria-label*="Minutes"]`, `minutes`);
+
 	// Continue to next confirmation page
 	chrome.runtime.sendMessage({
 		"message": "checkpoint",
@@ -138,7 +138,7 @@ chrome.runtime.sendMessage({
 
 	// Click Submit
 	document.querySelector(`[type="submit"]`).click();
-	
+
 	// Notify that this report is successful
 	/*chrome.runtime.sendMessage({
 		"message": "report-success"

@@ -110,8 +110,13 @@ JS : function(data) {
 		data["user_name"] = $("#user_name").html();
 
 		// Fix the time issue for 1 digit in minutes and seconds
-		if (data.minutes.length == 1) data.minutes = "0" + data.minutes;
+		if (data.minutes.length == 1) {
+			data.minutes = "0" + data.minutes;
+		}
 		if (data.seconds.length == 1) data.seconds = "0" + data.seconds;
+		if (data.hours === "0" && data.minutes === "00" && data.seconds === "00") {
+			 data.minutes = undefined;
+			}
 
 		// Send the message to open report tab
 		chrome.runtime.sendMessage({
@@ -153,8 +158,14 @@ JS : function(data) {
 	$("input[name=panic_button][value=1]").click();
 	$("input[name=suggestion_or_bug][value=3]").click();
 	$("input[id=hours]").val("0");
+	$("input[id=minutes]").val("0");
 	$("input[id=seconds]").val("0");
 	$("input[name=convo_type][value=1]").click();
+
+		// select text within time input fields on mouse click
+	$("#hours, #minutes, #seconds").click(function() {
+			$(this).select();
+		})
 
 
 	// Another useful thing, if anything different than Code/Concept Review, Bug Report, or Personal Project is selected, check "Not a code question"
