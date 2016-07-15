@@ -113,7 +113,7 @@ JS : function(data) {
 		if (data.minutes.length == 1) {
 			data.minutes = "0" + data.minutes;
 		} else if (data.minutes.length == 0){
-			data.minutes = undefined
+			data.minutes = undefined;
 		}
 		if (data.seconds.length == 1) data.seconds = "0" + data.seconds;
 
