@@ -119,7 +119,7 @@ JS : function(data) {
 		if (data.hours === "0" && data.minutes === "00") {
 			 data.minutes = undefined;
 			}
-		data.seconds = "00"
+		data.seconds = "00";
 
 		// Send the message to open report tab
 		chrome.runtime.sendMessage({
