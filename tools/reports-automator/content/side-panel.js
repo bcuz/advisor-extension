@@ -116,10 +116,10 @@ JS : function(data) {
 		if (data.minutes.length == 1) {
 			data.minutes = "0" + data.minutes;
 		}
-		if (data.seconds.length == 1) data.seconds = "0" + data.seconds;
-		if (data.hours === "0" && data.minutes === "00" && data.seconds === "00") {
+		if (data.hours === "0" && data.minutes === "00") {
 			 data.minutes = undefined;
 			}
+		data.seconds = "00";
 
 		// Send the message to open report tab
 		chrome.runtime.sendMessage({
