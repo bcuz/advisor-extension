@@ -112,14 +112,14 @@ JS : function(data) {
 		// Add the user name too
 		data["user_name"] = $("#user_name").html();
 
-		data.seconds = "00"
 		// Fix the time issue for 1 digit in minutes and seconds
 		if (data.minutes.length == 1) {
 			data.minutes = "0" + data.minutes;
 		}
-		if (data.hours === "0" && data.minutes === "00" && data.seconds === "00") {
+		if (data.hours === "0" && data.minutes === "00") {
 			 data.minutes = undefined;
 			}
+		data.seconds = "00"
 
 		// Send the message to open report tab
 		chrome.runtime.sendMessage({
