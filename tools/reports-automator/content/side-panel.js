@@ -169,7 +169,7 @@ JS : function(data) {
 			$(this).select();
 		}).keypress(function() {
 	// background of minutes input field stays red until
-	// something is entered into any of the time stuff
+	// something is entered into hour or minutes
 	// made minutes red because that's usually what will need
 	// to be input
 		$("#minutes").css("background-color", "#fff")
