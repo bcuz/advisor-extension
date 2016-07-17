@@ -135,13 +135,13 @@ NEW_FORM =
 		Max: 59
 	},
 
-	seconds: {
-		Label: "Seconds:",
-		Type: "number",
-		formID: "1272130761",
-		Required: true,
-		Max: 59
-	},
+	// seconds: {
+	// 	Label: "Seconds:",
+	// 	Type: "number",
+	// 	formID: "1272130761",
+	// 	Required: true,
+	// 	Max: 59
+	// },
 
 
 	convo_type: {
