@@ -9,7 +9,6 @@
  */
 
 COURSES = {
-	"NOT A CODE QUESTION": ["subscription_billing", "path"],
 	"HTML/CSS": ["html-css", "HZA3b", "LceTK", "y2Yjd", "9x6JW",
 								"f8mcL", "zrZ6c", "TlhFi", "UuBLw", "WF0CF",
 								"jNuXw", "6merh"],
@@ -32,7 +31,8 @@ COURSES = {
 	"Command Line": ["command-line"],
 	"Git": ["git"],
 	"Sass": ["sass"],
-	"ReactJS": ['reactjs']
+	"ReactJS": ['reactjs'],
+	"NOT A CODE QUESTION": ["subscription_billing", "path"]
 }
 
 /* Each 1st level element is a field, and has these properties:
