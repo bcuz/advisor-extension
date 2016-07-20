@@ -116,6 +116,9 @@ JS : function(data) {
 		if (data.minutes.length == 1) {
 			data.minutes = "0" + data.minutes;
 		}
+		// essentially force failing the report if no time data
+		// is entered. Think the fact that on the post interaction
+		// time dropdowns don't have a blank state makes things weird
 		if (data.hours === "0" && data.minutes === "00") {
 			 data.minutes = undefined;
 			}
