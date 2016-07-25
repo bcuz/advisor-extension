@@ -60,9 +60,7 @@ $utils.announcement(`
 	<p>Hi! This is Adam N (@adam) with an announcement:</p><br />
 	<p>Just wanted to officially mention that Elise(@elise9876) now owns the extension and I've been making
 	 some changes to it here and there. There are two new shortcuts:</p><br />
-	<p><strong>Ctrl + Shift + X</strong> will submit the report, close the panel, unassign convo, and close the convo.
-	This is the shortcut to use if you are 100% confident that your report is going to pass.
-	 Otherwise, you may have to fish it out of closed unassigned to redo the report -> don't be that guy/gal ;)<br>
+	<p><strong>Ctrl + Shift + X</strong> will submit the report, close the panel, unassign convo, and close the convo.<br>
 	<strong>Ctrl + Shift + S</strong> will just submit the report. Use this or manually press the submit button
 	when not using Ctrl + Shift + X.
 </p><br />
