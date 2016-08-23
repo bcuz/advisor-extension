@@ -19,6 +19,7 @@ COURSES = {
 	"jQuery": ["jquery", "bay3D", "GfjC6", "v6phg", "JwhI1",
 							"jtFIC"],
 	"Angular.js": ["angularjs"],
+	"Git": ["git"],
 	"Ruby": ["ruby"],
 	"Rails": ["learn-rails"],
 	"Rails Authentication": ["rails-auth"],
@@ -30,7 +31,6 @@ COURSES = {
 					"QnQrd"],
 	"Python": ["python"],
 	"Command Line": ["command-line"],
-	"Git": ["git"],
 	"Sass": ["sass"],
 	"ReactJS": ['reactjs'],
 	"NOT A CODE QUESTION": ["subscription_billing", "path"]
