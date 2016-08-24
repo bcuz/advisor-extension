@@ -156,12 +156,6 @@ NEW_FORM =
 		}
 	},
 
-	other:{
-		Label: "If you selected \"other\" please fill this out",
-		Type: "text",
-		
-	}
-
 	course: {
 		Label: "What language did you help with?",
 		Type: "select",
