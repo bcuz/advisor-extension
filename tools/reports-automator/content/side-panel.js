@@ -159,10 +159,10 @@ JS : function(data) {
 	});
 
 	// Set useful default values
-	$("input[name=user_rate][value=5]").click();
-	$("input[name=able_solve_issue][value=1]").click();
-	$("input[name=panic_button][value=1]").click();
-	$("input[name=suggestion_or_bug][value=3]").click();
+	//$("input[name=user_rate][value=5]").click();
+	//$("input[name=able_solve_issue][value=1]").click();
+	//$("input[name=panic_button][value=1]").click();
+	//$("input[name=suggestion_or_bug][value=3]").click();
 	$("input[id=hours]").val("0");
 	$("input[id=minutes]").val("0");
 	$("input[name=convo_type][value=1]").click();
@@ -181,26 +181,26 @@ JS : function(data) {
 
 
 	// Another useful thing, if anything different than Code/Concept Review, Bug Report, or Personal Project is selected, check "Not a code question"
-	$("input[name=convo_type]").change(function() {
-		var not_code_q = $("#issue_type_2");
-    	if ($(this).val() != 1 && $(this).val() != 4 && $(this).val() != 6) {
-    			if (not_code_q.data('clicked') === true) {
-    				// if not a code q is already checked, and
-    				// another not a code q type of thing is selected
-    				// do nothing
-    			} else {
-    				// clicks on not a code q checkbox, sets data to clicked
-					  not_code_q.data('clicked', true).click();
-    			}
-       } else {
-       		if (not_code_q.data('clicked') === true) {
-       			// if a code q IS selected, and not a code q
-       			// is checked, unclick it, and mark it as not clicked
-     			not_code_q.data('clicked', false).click();
-       		}
-       }
+	// $("input[name=convo_type]").change(function() {
+	// 	var not_code_q = $("#issue_type_2");
+ //    	if ($(this).val() != 1 && $(this).val() != 4 && $(this).val() != 6) {
+ //    			if (not_code_q.data('clicked') === true) {
+ //    				// if not a code q is already checked, and
+ //    				// another not a code q type of thing is selected
+ //    				// do nothing
+ //    			} else {
+ //    				// clicks on not a code q checkbox, sets data to clicked
+	// 				  not_code_q.data('clicked', true).click();
+ //    			}
+ //       } else {
+ //       		if (not_code_q.data('clicked') === true) {
+ //       			// if a code q IS selected, and not a code q
+ //       			// is checked, unclick it, and mark it as not clicked
+ //     			not_code_q.data('clicked', false).click();
+ //       		}
+ //       }
 
-	});
+	// });
 
 	`;
 },

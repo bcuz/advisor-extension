@@ -32,6 +32,7 @@ COURSES = {
 	"Python": ["python"],
 	"Command Line": ["command-line"],
 	"Sass": ["sass"],
+	"ReactJS": ['reactjs'],
 	"ReactJS": ['react'],
 	"NOT A CODE QUESTION": ["subscription_billing", "path"]
 }
@@ -58,67 +59,67 @@ NEW_FORM =
 		formID: "432135478"
 	},
 
-	panic_button: {
-		Label: "Did you need to use  @gobeau p0 ?",
-		Type: "radio",
-		Required: true,
-		formID: "5170217",
-		Options: {
-			1 : "No",
-			2 : "Yes"
-		}
-	},
+	// panic_button: {
+	// 	Label: "Did you need to use  @gobeau p0 ?",
+	// 	Type: "radio",
+	// 	Required: true,
+	// 	formID: "5170217",
+	// 	Options: {
+	// 		1 : "No",
+	// 		2 : "Yes"
+	// 	}
+	// },
 
-	able_solve_issue: {
-		Label: "Were you able to solve the user's issue?",
-		Type: "radio",
-		formID: "244902865",
-		Required: true,
-		Options: {
-			1: "Yes",
-			2: "No"
-		}
-	},
+	// able_solve_issue: {
+	// 	Label: "Were you able to solve the user's issue?",
+	// 	Type: "radio",
+	// 	formID: "244902865",
+	// 	Required: true,
+	// 	Options: {
+	// 		1: "Yes",
+	// 		2: "No"
+	// 	}
+	// },
 
-	user_rate: {
-		Label: "How would you rate your interaction with the user?",
-		Type: "radio",
-		Required: true,
-		formID: "5170217",
-		Options: {
-			"5": "5 - Very Easy",
-			"4": "4 - Easy",
-			"3": "3 - Neutral",
-			"2": "2 - Difficult",
-			"1": "1 - Very Difficult"
-		}
-	},
+	// user_rate: {
+	// 	Label: "How would you rate your interaction with the user?",
+	// 	Type: "radio",
+	// 	Required: true,
+	// 	formID: "5170217",
+	// 	Options: {
+	// 		"5": "5 - Very Easy",
+	// 		"4": "4 - Easy",
+	// 		"3": "3 - Neutral",
+	// 		"2": "2 - Difficult",
+	// 		"1": "1 - Very Difficult"
+	// 	}
+	// },
 
-	user_rate_notes: {
-		Label: "Why did you choose this rating?",
-		Type: "longText",
-		formID: "1328304469"
-	},
+	// user_rate_notes: {
+	// 	Label: "Why did you choose this rating?",
+	// 	Type: "longText",
+	// 	formID: "1328304469"
+	// },
 
-	suggestion_or_bug: {
-		Label: "Did you submit a product suggestion or bug report?",
-		Type: "radio",
-		Required: true,
-		formID: "5170217",
-		Options: {
-			1 : "Bug Report",
-			2 : "Product Suggestion",
-			3 : "Neither",
-			4 : "Both"
-		}
-	},
+	// suggestion_or_bug: {
+	// 	Label: "Did you submit a product suggestion or bug report?",
+	// 	Type: "radio",
+	// 	Required: true,
+	// 	formID: "5170217",
+	// 	Options: {
+	// 		1 : "Bug Report",
+	// 		2 : "Product Suggestion",
+	// 		3 : "Neither",
+	// 		4 : "Both"
+	// 	}
+	// },
 
-	summary: {
-		Label: "Brief summary of this conversation:",
-		Type: "longText",
-		formID: "1667357959",
-		Required: true
-	},
+	// summary: {
+	// 	Label: "Brief summary of this conversation:",
+	// 	Type: "longText",
+	// 	formID: "1667357959",
+	// 	Required: true
+	// },
 
 	hours: {
 		Label: "Hours: (Max. 72)",
@@ -137,22 +138,29 @@ NEW_FORM =
 	},
 
 	convo_type: {
-		Label: "What type of conversation was this?",
-		Type: "radio",
+		Label: "What did you do in this conversation?",
+		Type: "checkbox",
 		Required: true,
-		formID: "677684700",
+		formID: "",
 		Options: {
-			1: "Code or Concept Review (Specify in Summary)",
-			2: "Onboarding",
-			3: "Learner Guidance (What to learn next?)",
-			4: "Bug Report",
-			5: "Product Suggestion",
-			6: "Personal Project (Off-Platform)",
-			7: "Cancellation/Account question",
-			8: "Follow up",
-			9: "Other (Explain in summary)"
+			1: "I explained a concept",
+			2: "I corrected a syntax error",
+			3: "I onboarded a new user",
+			4: "I directed a user on what to learn next",
+			5: "I gave career or undustry advice",
+			6: "I received and filed a bug report",
+			7: " I received a product suggestion",
+			8: "It was a Personal Project (Off-Platform)",
+			9: "I re-directed to customer service",
+			10: "Other"
 		}
 	},
+
+	other:{
+		Label: "If you selected \"other\" please fill this out",
+		Type: "text",
+		
+	}
 
 	course: {
 		Label: "What language did you help with?",
@@ -163,35 +171,36 @@ NEW_FORM =
 			"NOT A CODE QUESTION": "NOT A CODE QUESTION",
 			"HTML/CSS": "HTML/CSS",
 			"JavaScript": "Javascript",
-			"jQuery": "jQuery",
-			"Angular.js": "Angular.js",
+			"Python": "Python",
 			"Ruby": "Ruby",
+			"Java": "Java",
+			"SQL": "SQL",
+			"SQL Business Metrics": "SQL Business Metrics",
+			"jQuery": "jQuery",
 			"Rails": "Rails",
-			"Rails Authentication": "Rails Auth",
+			"Angular.js": "Angular.js",
+			"Command Line": "Command Line",
 			"Make a Website": "Make a Website",
 			"Make an Interactive Website": "Make an Interactive Website",
-			"SQL": "SQL",
-			"Java": "Java",
-			"Python": "Python",
 			"PHP": "PHP",
-			"Command Line": "Command Line",
 			"Git": "Git",
+			"Rails Authentication": "Rails Auth",
 			"Sass": "Sass",
 			"ReactJS": "ReactJS"
 		}
 	},
 
-	issue_type: {
-		Label: "If the user had trouble with their code, which of the following did you need to do?",
-		Type: "checkbox",
-		Required: true,
-		formID: "",
-		Options: {
-			1: "I reviewed a concept",
-			2: "I helped fix a syntax error",
-			3: "This wasn't a code question"
-		}
-	},
+	// issue_type: {
+	// 	Label: "If the user had trouble with their code, which of the following did you need to do?",
+	// 	Type: "checkbox",
+	// 	Required: true,
+	// 	formID: "",
+	// 	Options: {
+	// 		1: "I reviewed a concept",
+	// 		2: "I helped fix a syntax error",
+	// 		3: "This wasn't a code question"
+	// 	}
+	// },
 
 	other_notes: {
 		Label: "Any other comments?",

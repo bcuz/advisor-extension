@@ -80,44 +80,52 @@ chrome.runtime.sendMessage({
 	fillTextAndValidate(`[name='entry.995604322']`, `conversationURL`);
 
 	// Able to solve user issue
-	if (response.data.able_solve_issue != "") {
-		id_to_check = "group_1819799503_" + response.data.able_solve_issue;
-		checkAndValidate(`[id="${id_to_check}"]`, `able_solve_issue`);
-	}
+	// if (response.data.able_solve_issue != "") {
+	// 	id_to_check = "group_1819799503_" + response.data.able_solve_issue;
+	// 	checkAndValidate(`[id="${id_to_check}"]`, `able_solve_issue`);
+	// }
 
 
 	// User rate
-	var id_to_check = "group_1881757241_" + data.user_rate;
-	checkAndValidate(`[id="${id_to_check}"]`, `user_rate`);
+	// var id_to_check = "group_1881757241_" + data.user_rate;
+	// checkAndValidate(`[id="${id_to_check}"]`, `user_rate`);
 
 	// User rate notes
-	fillTextAndValidate(`[name="entry.748200867"]`, `user_rate_notes`);
+	//fillTextAndValidate(`[name="entry.748200867"]`, `user_rate_notes`);
 
 	// Summary
-	fillTextAndValidate(`[name="entry.1090271664"]`, `summary`);
+	//fillTextAndValidate(`[name="entry.1090271664"]`, `summary`);
 
 	// Panic button
-	var id_to_check = "group_767547732_" + data.panic_button;
-	checkAndValidate(`[id="${id_to_check}"]`, `panic_button`);
+	// var id_to_check = "group_767547732_" + data.panic_button;
+	// checkAndValidate(`[id="${id_to_check}"]`, `panic_button`);
 
 	// Product suggestion - Bug report
-	var id_to_check = "group_1424754551_" + data.suggestion_or_bug;
-	checkAndValidate(`[id="${id_to_check}"]`, `suggestion_or_bug`);
+	// var id_to_check = "group_1424754551_" + data.suggestion_or_bug;
+	// checkAndValidate(`[id="${id_to_check}"]`, `suggestion_or_bug`);
 
 	// Type of Conversation
-	var id_to_check = "group_260280481_" + data.convo_type;
-	checkAndValidate(`[id="${id_to_check}"]`, `convo_type`);
-
-	// Code trouble (hack for checkbox)
-	for (var i = 0; i < data.issue_type.length; i++) {
-		var buffer = data.issue_type[i];
-		console.log(buffer);
-		if (buffer == 1) {
-			var id_to_check = "group_1265779157_" + (i+1);
-			console.log(id_to_check);
+	// var id_to_check = "group_260280481_" + data.convo_type;
+	// checkAndValidate(`[id="${id_to_check}"]`, `convo_type`);
+	for(var i = 0; i < data.convo_type.length; i++){
+		var buffer = data.convo_type[i];
+		if(buffer == 1){
+			var id_to_check = "group_260280481_" + (i+1);
+	 		console.log(id_to_check);
 			document.querySelector(`[id="${id_to_check}"]`).checked = true;
 		}
 	}
+
+	// Code trouble (hack for checkbox)
+	// for (var i = 0; i < data.issue_type.length; i++) {
+	// 	var buffer = data.issue_type[i];
+	// 	console.log(buffer);
+	// 	if (buffer == 1) {
+	// 		var id_to_check = "group_1265779157_" + (i+1);
+	// 		console.log(id_to_check);
+	// 		document.querySelector(`[id="${id_to_check}"]`).checked = true;
+	// 	}
+	// }
 
 	// Course
 	fillTextAndValidate(`[name="entry.856943265"]`, `course`);
@@ -137,7 +145,7 @@ chrome.runtime.sendMessage({
 	});
 
 	// Click Submit
-	document.querySelector(`[type="submit"]`).click();
+	//document.querySelector(`[type="submit"]`).click();
 
 	// Notify that this report is successful
 	/*chrome.runtime.sendMessage({

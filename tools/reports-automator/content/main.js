@@ -44,23 +44,23 @@ function collectDataAndOpenReport() {
     	executeThisFunction: function() {
 
 	    	/**** Get summary from the chat  *****/
-	    	var possibleSummaryElement = $intercom.getLatestInternalNote();
+	    	//var possibleSummaryElement = $intercom.getLatestInternalNote();
 
 		    // Get the last note which might be our Summary of interaction
-		  	if (possibleSummaryElement.length != 0)
-		  		var possibleSummary = possibleSummaryElement.html().split(":");
-		  	else
-		  		var possibleSummary = [];
+		  	// if (possibleSummaryElement.length != 0)
+		  	// 	var possibleSummary = possibleSummaryElement.html().split(":");
+		  	// else
+		  	// 	var possibleSummary = [];
 
 		  	// Get the summary text from our previous last note/possible summary note
-		  	if (possibleSummary[1] != undefined && (possibleSummary[0].toLowerCase() == "summary"
-		  		|| possibleSummary[0].toLowerCase() == "s"))
-		  		var summary = possibleSummary[1].trim();
-		  	else
-		  		var summary = "";
+		  	// if (possibleSummary[1] != undefined && (possibleSummary[0].toLowerCase() == "summary"
+		  	// 	|| possibleSummary[0].toLowerCase() == "s"))
+		  	// 	var summary = possibleSummary[1].trim();
+		  	// else
+		  	// 	var summary = "";
 
 		  	// Add the summary to our panel
-		  	interactions[interactionID]["summary"] = summary;
+		  	//interactions[interactionID]["summary"] = summary;
 
 		  	/** Get report's course from the user's information panel (the one at the right of the chat)
 		  	 *  This field might not be correct 100% of the time,
