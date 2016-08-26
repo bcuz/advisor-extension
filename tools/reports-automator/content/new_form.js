@@ -147,7 +147,7 @@ NEW_FORM =
 			2: "I corrected a syntax error",
 			3: "I onboarded a new user",
 			4: "I directed a user on what to learn next",
-			5: "I gave career or undustry advice",
+			5: "I gave career or industry advice",
 			6: "I received and filed a bug report",
 			7: " I received a product suggestion",
 			8: "It was a Personal Project (Off-Platform)",
