@@ -91,7 +91,10 @@ CSS : `
 	#side-panel input[type=radio], #side-panel label[data-for=radio] {
 		display: inline-block !important;
 	}
-	#minutes {
+	#minutes{
+		background-color: #EFA2AD;
+	}
+	.red{
 		background-color: #EFA2AD;
 	}
 `,
@@ -142,11 +145,29 @@ JS : function(data) {
 
 	/**************  Bad but useful hacks section  *************/
 
+	// disable "other" field until the checkbox is clicked
+	$("#other").prop("disabled", true);
+
 	// Hack for checkboxes
 	\$("#side-panel input[type=checkbox]").change(function() {
 		var value = (\$(this).prop("checked") == true) ? 1 : 0;
 		var str_tmp = \$("#"+\$(this).attr("data-field")).val();
 		var index = \$(this).val() - 1;
+
+		// enable and disable the "other" textbox, and switch the background color between 
+		// red and default based on whether it's checked or not
+		if(index == "9"){
+			$("#other").prop("disabled", function(){
+				return ! $(this).prop("disabled");
+			});
+			if($("#other").prop("disabled")){
+				$("#other").val("");
+				$("#other").removeClass("red");
+			}else{
+				$("#other").addClass("red");
+			}
+		}
+
 		console.log(value);
 		console.log(str_tmp);
 		console.log(index);
@@ -176,7 +197,10 @@ JS : function(data) {
 	// made minutes red because that's usually what will need
 	// to be input
 		$("#minutes").css("background-color", "#fff")
-	})
+	});
+
+	// remove the red background when text is entered
+	$("#other").keypress(function(){ $(this).removeClass("red"); });
 
 
 
@@ -284,7 +308,7 @@ renderField: function(FORM, data, extra) {
 			// If multiple selection
 			case "checkbox":
 				// Fix fieldvalue
-				if (fieldValue == "") fieldValue = "000";
+				if (fieldValue == "") fieldValue = "0000000000"; // needs as many zeros as there are checkboxes it seems
 
 				var k = 0;
 				for (option in FORM[field].Options) {

@@ -156,6 +156,12 @@ NEW_FORM =
 		}
 	},
 
+	other: {
+		Label: "If you selected \"Other\", please describe:",
+		Type: "text",
+		formID:"",
+	},
+
 	course: {
 		Label: "What language did you help with?",
 		Type: "select",

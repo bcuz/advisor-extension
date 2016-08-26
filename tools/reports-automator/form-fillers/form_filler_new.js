@@ -127,6 +127,9 @@ chrome.runtime.sendMessage({
 	// 	}
 	// }
 
+	// Other 
+	fillTextAndValidate(`[name="entry.260280481.other_option_response"]`, `other`);
+
 	// Course
 	fillTextAndValidate(`[name="entry.856943265"]`, `course`);
 
