@@ -146,9 +146,7 @@ JS : function(data) {
 	/**************  Bad but useful hacks section  *************/
 
 	// disable "other" field until the checkbox is clicked
-	// $("#other").prop("disabled", true);
-
-	// if other has text, click other
+	$("#other").prop("disabled", true);
 
 	// Hack for checkboxes
 	\$("#side-panel input[type=checkbox]").change(function() {
@@ -158,17 +156,17 @@ JS : function(data) {
 
 		// enable and disable the "other" textbox, and switch the background color between
 		// red and default based on whether it's checked or not
-		// if(index == "9"){
-		// 	$("#other").prop("disabled", function(){
-		// 		return ! $(this).prop("disabled");
-		// 	});
-		// 	if($("#other").prop("disabled")){
-		// 		$("#other").val("");
-		// 		$("#other").removeClass("red");
-		// 	}else{
-		// 		$("#other").addClass("red");
-		// 	}
-		// }
+		if(index == "9"){
+			$("#other").prop("disabled", function(){
+				return ! $(this).prop("disabled");
+			});
+			if($("#other").prop("disabled")){
+				$("#other").val("");
+				$("#other").removeClass("red");
+			}else{
+				$("#other").addClass("red");
+			}
+		}
 
 		console.log(value);
 		console.log(str_tmp);
@@ -181,8 +179,10 @@ JS : function(data) {
 		$("#"+\$(this).attr("name")).val(\$(this).val());
 	});
 
+// if other has text, click other
 	if ($("#other").val().length !== 0) {
 		$("#convo_type_9").click()
+		$("#other").removeClass("red");
 	}
 
 	// Set useful default values
@@ -192,7 +192,7 @@ JS : function(data) {
 	//$("input[name=suggestion_or_bug][value=3]").click();
 	$("input[id=hours]").val("0");
 	$("input[id=minutes]").val("0");
-	$("input[name=convo_type][value=1]").click();
+	// $("input[name=convo_type][value=1]").click();
 
 		// select text within time input fields on mouse click
 	$("#hours, #minutes").click(function() {

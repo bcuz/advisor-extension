@@ -45,25 +45,25 @@ function collectDataAndOpenReport() {
     		// this needs to be cleaned up to account for the fact
     		// that this deals with the other category now as oppposed to summary stuff
 	    	/**** Get summary from the chat  *****/
-	    	var possibleSummaryElement = $intercom.getLatestInternalNote();
+	    	var possibleOtherElement = $intercom.getLatestInternalNote();
 
 		    // Get the last note which might be our Summary of interaction
-		  	if (possibleSummaryElement.length != 0)
-		  		var possibleSummary = possibleSummaryElement.html().split(":");
+		  	if (possibleOtherElement.length != 0)
+		  		var possibleOther = possibleOtherElement.html().split(":");
 		  	else
-		  		var possibleSummary = [];
+		  		var possibleOther = [];
 
 		  	// Get the summary text from our previous last note/possible summary note
-		  	if (possibleSummary[1] != undefined && (possibleSummary[0].toLowerCase() == "other"
-		  		|| possibleSummary[0].toLowerCase() == "o")) {
-		  		var summary = possibleSummary[1].trim();
+		  	if (possibleOther[1] != undefined && (possibleOther[0].toLowerCase() == "other"
+		  		|| possibleOther[0].toLowerCase() == "o")) {
+		  		var other = possibleOther[1].trim();
 		  	}
 		  	else {
-		  		var summary = "";
+		  		var other = "";
 		  	}
 
 		  	// Add the summary to our panel
-		  	interactions[interactionID]["other"] = summary;
+		  	interactions[interactionID]["other"] = other;
 
 		  	/** Get report's course from the user's information panel (the one at the right of the chat)
 		  	 *  This field might not be correct 100% of the time,
