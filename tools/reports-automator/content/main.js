@@ -53,8 +53,8 @@ function collectDataAndOpenReport() {
 		  		var possibleSummary = [];
 
 		  	// Get the summary text from our previous last note/possible summary note
-		  	if (possibleSummary[1] != undefined && (possibleSummary[0].toLowerCase() == "summary"
-		  		|| possibleSummary[0].toLowerCase() == "s"))
+		  	if (possibleSummary[1] != undefined && (possibleSummary[0].toLowerCase() == "other"
+		  		|| possibleSummary[0].toLowerCase() == "o"))
 		  		var summary = possibleSummary[1].trim();
 		  	else
 		  		var summary = "";
