@@ -158,17 +158,17 @@ JS : function(data) {
 
 		// enable and disable the "other" textbox, and switch the background color between
 		// red and default based on whether it's checked or not
-		if(index == "9"){
-			$("#other").prop("disabled", function(){
-				return ! $(this).prop("disabled");
-			});
-			if($("#other").prop("disabled")){
-				$("#other").val("");
-				$("#other").removeClass("red");
-			}else{
-				$("#other").addClass("red");
-			}
-		}
+		// if(index == "9"){
+		// 	$("#other").prop("disabled", function(){
+		// 		return ! $(this).prop("disabled");
+		// 	});
+		// 	if($("#other").prop("disabled")){
+		// 		$("#other").val("");
+		// 		$("#other").removeClass("red");
+		// 	}else{
+		// 		$("#other").addClass("red");
+		// 	}
+		// }
 
 		console.log(value);
 		console.log(str_tmp);
