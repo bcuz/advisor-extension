@@ -54,10 +54,12 @@ function collectDataAndOpenReport() {
 
 		  	// Get the summary text from our previous last note/possible summary note
 		  	if (possibleSummary[1] != undefined && (possibleSummary[0].toLowerCase() == "other"
-		  		|| possibleSummary[0].toLowerCase() == "o"))
+		  		|| possibleSummary[0].toLowerCase() == "o")) {
 		  		var summary = possibleSummary[1].trim();
-		  	else
+		  	}
+		  	else {
 		  		var summary = "";
+		  	}
 
 		  	// Add the summary to our panel
 		  	interactions[interactionID]["other"] = summary;

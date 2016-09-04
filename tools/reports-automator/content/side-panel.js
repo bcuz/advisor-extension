@@ -146,7 +146,13 @@ JS : function(data) {
 	/**************  Bad but useful hacks section  *************/
 
 	// disable "other" field until the checkbox is clicked
-	$("#other").prop("disabled", true);
+	// $("#other").prop("disabled", true);
+
+	// if other has text, click other
+
+	if ($("#other").val().length !== 0) {
+		$("#convo_type_9").click()
+	}
 
 	// Hack for checkboxes
 	\$("#side-panel input[type=checkbox]").change(function() {
@@ -154,7 +160,7 @@ JS : function(data) {
 		var str_tmp = \$("#"+\$(this).attr("data-field")).val();
 		var index = \$(this).val() - 1;
 
-		// enable and disable the "other" textbox, and switch the background color between 
+		// enable and disable the "other" textbox, and switch the background color between
 		// red and default based on whether it's checked or not
 		if(index == "9"){
 			$("#other").prop("disabled", function(){
