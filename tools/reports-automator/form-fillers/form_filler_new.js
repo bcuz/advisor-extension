@@ -148,10 +148,10 @@ chrome.runtime.sendMessage({
 	});
 
 	// Click Submit
-	//document.querySelector(`[type="submit"]`).click();
+	document.querySelector(`[type="submit"]`).click();
 
 	// Notify that this report is successful
-	/*chrome.runtime.sendMessage({
+	chrome.runtime.sendMessage({
 		"message": "report-success"
-	});*/
+	});
 });
