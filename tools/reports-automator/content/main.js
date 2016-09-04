@@ -60,7 +60,7 @@ function collectDataAndOpenReport() {
 		  		var summary = "";
 
 		  	// Add the summary to our panel
-		  	interactions[interactionID]["summary"] = summary;
+		  	interactions[interactionID]["other"] = summary;
 
 		  	/** Get report's course from the user's information panel (the one at the right of the chat)
 		  	 *  This field might not be correct 100% of the time,
