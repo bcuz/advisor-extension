@@ -146,7 +146,9 @@ JS : function(data) {
 	/**************  Bad but useful hacks section  *************/
 
 	// disable "other" field until the checkbox is clicked
-	$("#other").prop("disabled", true);
+	// $("#other").prop("disabled", true);
+
+	// if other has text, click other
 
 	// Hack for checkboxes
 	\$("#side-panel input[type=checkbox]").change(function() {
@@ -154,19 +156,19 @@ JS : function(data) {
 		var str_tmp = \$("#"+\$(this).attr("data-field")).val();
 		var index = \$(this).val() - 1;
 
-		// enable and disable the "other" textbox, and switch the background color between 
+		// enable and disable the "other" textbox, and switch the background color between
 		// red and default based on whether it's checked or not
-		if(index == "9"){
-			$("#other").prop("disabled", function(){
-				return ! $(this).prop("disabled");
-			});
-			if($("#other").prop("disabled")){
-				$("#other").val("");
-				$("#other").removeClass("red");
-			}else{
-				$("#other").addClass("red");
-			}
-		}
+		// if(index == "9"){
+		// 	$("#other").prop("disabled", function(){
+		// 		return ! $(this).prop("disabled");
+		// 	});
+		// 	if($("#other").prop("disabled")){
+		// 		$("#other").val("");
+		// 		$("#other").removeClass("red");
+		// 	}else{
+		// 		$("#other").addClass("red");
+		// 	}
+		// }
 
 		console.log(value);
 		console.log(str_tmp);
@@ -178,6 +180,10 @@ JS : function(data) {
 	\$("#side-panel input[type=radio]").click(function() {
 		$("#"+\$(this).attr("name")).val(\$(this).val());
 	});
+
+	if ($("#other").val().length !== 0) {
+		$("#convo_type_9").click()
+	}
 
 	// Set useful default values
 	//$("input[name=user_rate][value=5]").click();
