@@ -154,7 +154,7 @@ JS : function(data) {
 		var str_tmp = \$("#"+\$(this).attr("data-field")).val();
 		var index = \$(this).val() - 1;
 
-		// enable and disable the "other" textbox, and switch the background color between 
+		// enable and disable the "other" textbox, and switch the background color between
 		// red and default based on whether it's checked or not
 		if(index == "9"){
 			$("#other").prop("disabled", function(){
@@ -178,6 +178,12 @@ JS : function(data) {
 	\$("#side-panel input[type=radio]").click(function() {
 		$("#"+\$(this).attr("name")).val(\$(this).val());
 	});
+
+// if other has text, click other
+	if ($("#other").val().length !== 0) {
+		$("#convo_type_9").click()
+		$("#other").removeClass("red");
+	}
 
 	// Set useful default values
 	//$("input[name=user_rate][value=5]").click();
