@@ -148,8 +148,6 @@ JS : function(data) {
 	// disable "other" field until the checkbox is clicked
 	// $("#other").prop("disabled", true);
 
-	// if other has text, click other
-
 	// Hack for checkboxes
 	\$("#side-panel input[type=checkbox]").change(function() {
 		var value = (\$(this).prop("checked") == true) ? 1 : 0;
@@ -181,6 +179,7 @@ JS : function(data) {
 		$("#"+\$(this).attr("name")).val(\$(this).val());
 	});
 
+// if other has text, click other
 	if ($("#other").val().length !== 0) {
 		$("#convo_type_9").click()
 	}
