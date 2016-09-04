@@ -150,10 +150,6 @@ JS : function(data) {
 
 	// if other has text, click other
 
-	if ($("#other").val().length !== 0) {
-		$("#convo_type_9").click()
-	}
-
 	// Hack for checkboxes
 	\$("#side-panel input[type=checkbox]").change(function() {
 		var value = (\$(this).prop("checked") == true) ? 1 : 0;
@@ -184,6 +180,10 @@ JS : function(data) {
 	\$("#side-panel input[type=radio]").click(function() {
 		$("#"+\$(this).attr("name")).val(\$(this).val());
 	});
+
+	if ($("#other").val().length !== 0) {
+		$("#convo_type_9").click()
+	}
 
 	// Set useful default values
 	//$("input[name=user_rate][value=5]").click();
