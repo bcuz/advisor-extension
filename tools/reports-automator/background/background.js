@@ -42,7 +42,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 			// Start/stop the report data collection
 			if (request.id == "start-stop") {
 				console.log("received start-stop");
-				
+
 				/* GARBAGE COLLECTION */
 				// Before rendering panel, check if there's any data older than 12 hours from current time
 				if (data.lastTimeUpdated != undefined) {
@@ -67,7 +67,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 					chrome.tabs.sendMessage(activeTab.id, {
 						"message": "start-stop",
 					});
-				});				
+				});
 
 			}
 
