@@ -1,6 +1,4 @@
-var reportURL = "https://docs.google.com/forms/d/1RlohZ5t3mKU7KoCNz9Uh4z2Ytghw1n1qWqabfihXVlI/viewform";
-var newReportURL = "https://docs.google.com/forms/d/1xsr7MktdvKWqkMgA4oU1dg3Gb3rKlBwunZpDz-YzBeY/viewform";
-var newNewReportURL = "https://docs.google.com/forms/d/e/1FAIpQLSdf8UJxP5m3eHoVKY1ufhRffOZr2ul5ExrJxKFXw3Qzeyw-cg/viewform";
+var reportURL = "https://docs.google.com/forms/d/e/1FAIpQLSdf8UJxP5m3eHoVKY1ufhRffOZr2ul5ExrJxKFXw3Qzeyw-cg/viewform";
 
 // Hold the data shared between intercom and report tabs
 var data = {};
@@ -42,7 +40,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 			// Start/stop the report data collection
 			if (request.id == "start-stop") {
 				console.log("received start-stop");
-				
+
 				/* GARBAGE COLLECTION */
 				// Before rendering panel, check if there's any data older than 12 hours from current time
 				if (data.lastTimeUpdated != undefined) {
@@ -67,7 +65,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 					chrome.tabs.sendMessage(activeTab.id, {
 						"message": "start-stop",
 					});
-				});				
+				});
 
 			}
 
@@ -89,7 +87,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 			}
 
 			chrome.tabs.create({
-				url: newNewReportURL,
+				url: reportURL,
 				active: false
 				}, function(tab) {
 					reportTab = tab;
