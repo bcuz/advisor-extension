@@ -1,4 +1,4 @@
-var newNewReportURL = "https://docs.google.com/forms/d/e/1FAIpQLSdf8UJxP5m3eHoVKY1ufhRffOZr2ul5ExrJxKFXw3Qzeyw-cg/viewform";
+var reportURL = "https://docs.google.com/forms/d/e/1FAIpQLSdf8UJxP5m3eHoVKY1ufhRffOZr2ul5ExrJxKFXw3Qzeyw-cg/viewform";
 
 // Hold the data shared between intercom and report tabs
 var data = {};
