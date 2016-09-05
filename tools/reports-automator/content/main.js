@@ -42,7 +42,8 @@ function collectDataAndOpenReport() {
     // Need to use this variable to correctly get data when the chat loads using executeWhenReady
     var collectFromChat = {
     	executeThisFunction: function() {
-
+    		// this needs to be cleaned up to account for the fact
+    		// that this deals with the other category now as oppposed to summary stuff
 	    	/**** Get summary from the chat  *****/
 	    	var possibleOtherElement = $intercom.getLatestInternalNote();
 

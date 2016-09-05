@@ -1,4 +1,3 @@
-
 ## BUILD SCRIPT ##
 
 # Replace this variable with the location to google closure compiler in your local environemnt

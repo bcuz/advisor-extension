@@ -5,7 +5,7 @@
 	"devtools_page": "core/intercom-mapper/devtools.html",
 
 	"permissions": [
-		"tabs","declarativeWebRequest", "*://*/*", "storage", "webRequest",
+		"tabs","declarativeWebRequest", "*://*/*", "storage", "webRequest", "notifications", "<all_urls>",
 		"activeTab", "downloads", "https://ajax.googleapis.com/"
 	],
 
@@ -45,7 +45,11 @@
 
 	"background": {
 		"scripts": [
-			"libs/jquery-2.1.4.js", "deploy/background.js"
+			"libs/jquery-2.1.4.js", "libs/moment.min.js", "deploy/background.js"
 		]
-	}
+	},
+
+	"web_accessible_resources": [
+		"img/error.png", "img/panda-48x48.png"
+	]
 }
