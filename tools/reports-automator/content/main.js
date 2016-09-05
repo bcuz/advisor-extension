@@ -49,21 +49,41 @@ function collectDataAndOpenReport() {
 
 		    // Get the last note which might be our Summary of interaction
 		  	if (possibleOtherElement.length != 0)
-		  		var possibleOther = possibleOtherElement.html().split(":");
+		  		var possibleOther = possibleOtherElement.html().split(/[;\:]/);
 		  	else
 		  		var possibleOther = [];
 
-		  	// Get the summary text from our previous last note/possible summary note
-		  	if (possibleOther[1] != undefined && (possibleOther[0].toLowerCase() == "other"
-		  		|| possibleOther[0].toLowerCase() == "o")) {
-		  		var other = possibleOther[1].trim();
+		  	// clean up the text
+		  	for(var i in possibleOther){
+		  		var temp = possibleOther[i];
+		  		possibleOther[i] = temp.trim();
 		  	}
-		  	else {
+		  	console.log(possibleOther);
+		  	// Get the minutes, hours, and other text from the last note
+		  	if (possibleOther.length > 1){
+			  	for(var i = 0; i < possibleOther.length; i++){
+			  		if(possibleOther[i] == 'o' || possibleOther[i] == "other"){
+			  			var other = possibleOther[i+1];
+			  		}else if(possibleOther[i] == 'm' || possibleOther[i] == "minutes"){
+			  			var mins = possibleOther[i+1];
+			  		}else if(possibleOther[i] == 'h' || possibleOther[i] == "hours"){
+			  			var hours = possibleOther[i+1];
+			  		}
+			  	}
+		  	}
+		  	if(!other)
 		  		var other = "";
-		  	}
+		  	if(!mins)
+		  		var mins = "0";
+		  	if(!hours)
+		  		var hours = "0";
 
-		  	// Add the summary to our panel
+		  	// Add the other to our panel
 		  	interactions[interactionID]["other"] = other;
+		  	// add minutes to panel
+		  	interactions[interactionID]["minutes"] = mins;
+		  	// add hours to the panel
+		  	interactions[interactionID]["hours"] = hours;
 
 		  	/** Get report's course from the user's information panel (the one at the right of the chat)
 		  	 *  This field might not be correct 100% of the time,

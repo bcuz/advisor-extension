@@ -185,14 +185,19 @@ JS : function(data) {
 		$("#other").removeClass("red");
 	}
 
+	// if minutes has text, change background-color
+	if($("#minutes").length !== 0){
+		$("#minutes").css("background-color", "#fff");
+	}
+
 	// Set useful default values
 	//$("input[name=user_rate][value=5]").click();
 	//$("input[name=able_solve_issue][value=1]").click();
 	//$("input[name=panic_button][value=1]").click();
 	//$("input[name=suggestion_or_bug][value=3]").click();
-	$("input[id=hours]").val("0");
-	$("input[id=minutes]").val("0");
-	// $("input[name=convo_type][value=1]").click();
+	//$("input[id=hours]").val("0");
+	//$("input[id=minutes]").val("0");
+	//$("input[name=convo_type][value=1]").click();
 
 		// select text within time input fields on mouse click
 	$("#hours, #minutes").click(function() {
