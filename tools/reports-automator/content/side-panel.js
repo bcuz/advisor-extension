@@ -91,9 +91,6 @@ CSS : `
 	#side-panel input[type=radio], #side-panel label[data-for=radio] {
 		display: inline-block !important;
 	}
-	#minutes{
-		background-color: #EFA2AD;
-	}
 	.unchanged{
 		background-color: #EFA2AD;
 	}
@@ -185,23 +182,9 @@ JS : function(data) {
 		$("#other").removeClass("unchanged");
 	}
 
-	// if minutes has text, change background-color
-	if($("#minutes").length !== 0){
-		$("#minutes").css("background-color", "#fff");
-	}
-
 	// Set useful default values
 	//$("input[id=hours]").val("0");
 	//$("input[id=minutes]").val("0");
-
-		// select text within time input fields on mouse click
-	$("#hours, #minutes").click(function() {
-			$(this).select();
-		}).keypress(function() {
-	// background of minutes input field stays red until
-	// something is entered into hour or minutes
-		$("#minutes").css("background-color", "#fff")
-	});
 
 	// remove the red background when text is entered
 	$("#other").keypress(function(){ $(this).removeClass("unchanged"); });
