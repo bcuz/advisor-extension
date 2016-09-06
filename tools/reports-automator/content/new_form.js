@@ -59,68 +59,6 @@ NEW_FORM =
 		formID: "432135478"
 	},
 
-	// panic_button: {
-	// 	Label: "Did you need to use  @gobeau p0 ?",
-	// 	Type: "radio",
-	// 	Required: true,
-	// 	formID: "5170217",
-	// 	Options: {
-	// 		1 : "No",
-	// 		2 : "Yes"
-	// 	}
-	// },
-
-	// able_solve_issue: {
-	// 	Label: "Were you able to solve the user's issue?",
-	// 	Type: "radio",
-	// 	formID: "244902865",
-	// 	Required: true,
-	// 	Options: {
-	// 		1: "Yes",
-	// 		2: "No"
-	// 	}
-	// },
-
-	// user_rate: {
-	// 	Label: "How would you rate your interaction with the user?",
-	// 	Type: "radio",
-	// 	Required: true,
-	// 	formID: "5170217",
-	// 	Options: {
-	// 		"5": "5 - Very Easy",
-	// 		"4": "4 - Easy",
-	// 		"3": "3 - Neutral",
-	// 		"2": "2 - Difficult",
-	// 		"1": "1 - Very Difficult"
-	// 	}
-	// },
-
-	// user_rate_notes: {
-	// 	Label: "Why did you choose this rating?",
-	// 	Type: "longText",
-	// 	formID: "1328304469"
-	// },
-
-	// suggestion_or_bug: {
-	// 	Label: "Did you submit a product suggestion or bug report?",
-	// 	Type: "radio",
-	// 	Required: true,
-	// 	formID: "5170217",
-	// 	Options: {
-	// 		1 : "Bug Report",
-	// 		2 : "Product Suggestion",
-	// 		3 : "Neither",
-	// 		4 : "Both"
-	// 	}
-	// },
-
-	// summary: {
-	// 	Label: "Brief summary of this conversation:",
-	// 	Type: "longText",
-	// 	formID: "1667357959",
-	// 	Required: true
-	// },
-
 	hours: {
 		Label: "Hours: (Max. 72)",
 		Type: "number",
@@ -189,18 +127,6 @@ NEW_FORM =
 			"ReactJS": "ReactJS"
 		}
 	},
-
-	// issue_type: {
-	// 	Label: "If the user had trouble with their code, which of the following did you need to do?",
-	// 	Type: "checkbox",
-	// 	Required: true,
-	// 	formID: "",
-	// 	Options: {
-	// 		1: "I reviewed a concept",
-	// 		2: "I helped fix a syntax error",
-	// 		3: "This wasn't a code question"
-	// 	}
-	// },
 
 	other_notes: {
 		Label: "Any other comments?",
