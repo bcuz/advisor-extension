@@ -22,7 +22,7 @@ After you have loaded the extension once in this way, you only need to click **R
 
 ### About the version in the Chrome Store (the live one) ###
 
-The extension is still under my Chrome developer account, but as soon as someone agrees to take over this i can pass it to him/her. To update into a new version in Chrome store, you must create a ZIP file that includes: **deploy, img, libs, ui, manifest.json**. Make sure to also increase the version in **manifest.json** or Chrome store won't think it has been updated
+To update into a new version in Chrome store, you must create a ZIP file that includes: **deploy, img, libs, ui, manifest.json**. Make sure to also increase the version in **manifest.json** or Chrome store won't think it has been updated
 
 ### How the code works? ###
 
