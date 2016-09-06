@@ -1,31 +1,32 @@
 # Toolbox for Codecademy Advisors #
 
+## Information for New Developers ##
+### **Setting up your development environment ** ###
 
-### Extended version of the [Codecademy Advisor Toolbox](https://bitbucket.org/walom8868/codecademy-advisortoolbox) ###
+* Install Git, if you have Windows preferably use Git Bash instead of Windows cmd
+* Clone this project, use dev branch for development, master for releases
+* Download Google Closure Compiler from this link and unpackage it: https://dl.google.com/closure-compiler/compiler-latest.zip
+* In deploy.bash, change the value of the variable GOOGLE_COMPILER, use the location where you downloaded the google closure compiler's jar file in your machine.
 
-#### My Additions: ####
+### Building and loading the extension in Chrome ###
 
-1. Clock In / Out function (tools/clock-in-out)
-2. Conversations per hour counter
-	* Ctrl+Shift+X now performs all the old functions and also increments the counter
-	* Ctrl+Shift+L just increments the counter
-3. Updated the UI to include these features
-4. Added link to other advisor tools
+The code for this extension is distributed into separate modules, separated in **core** and **tool** modules (in the folders with the same name.
 
-#### Changelog ####
+Each module has its own folder, for example **reports-automator** is a tool and has its own folder inside tools/
 
-1. Added the clock-in-out module in tools. This includes:
-	* slack.js - injected by background.js into Slack to post the clock in / out message
-	* login.js - injected by background.js into TrackSmart to clock in / out
-	* background/background.js - handles clock in / out functions, opens / closes tabs, and stores / retrieves user data.
-2. Added moment.min.js in libs - used to handle time calculations
-3. Modified popup.html to include the new featues
-4. Modified popup.js to handle the new UI features including:
-	* Calculating and showing the conversations per hour informations
-	* Call the neccessary functions when clocking in / out
-5. Modified options.html to include information on how to use the added features
-6. Modified tools/utils/background.js to also check for other messages and call functions accordingly
-7. Minor changes to tools/utils/content/content.js to handle the new keyboard shortcuts
-8. Modified manifest.json to include the new scripts
+The **deploy.bash** script uses google closure compiler to "compile" and minify all the modules inside core/ and tools/, creating the minified versions in a new folder called **deploy/**. This is what gets loaded into Chrome (Check the manifest to see how it's defined)
 
--- First commit is the original version, second shows my changes --
+So do this: from the project's root directory, run **deploy.bash**, after it completes then go into Chrome (make sure you have enabled Developer mode previously), click in **Load unpacked extension** and select the folder you have cloned from here.
+
+After you have loaded the extension once in this way, you only need to click **Reload** when you want to load any new changes you made in the source code (remember to run deploy.bash again, else the contents inside deploy/ won't change).
+
+### About the version in the Chrome Store (the live one) ###
+
+The extension is still under my Chrome developer account, but as soon as someone agrees to take over this i can pass it to him/her. To update into a new version in Chrome store, you must create a ZIP file that includes: **deploy, img, libs, ui, manifest.json**. Make sure to also increase the version in **manifest.json** or Chrome store won't think it has been updated
+
+### How the code works? ###
+
+Read this document: https://docs.google.com/document/d/1S-x4XXNGUyvGn_newJ3gX0X7jdGgyiTe4HRXxp8EKwU/edit?usp=sharing
+
+### Who do I talk to? ###
+Roberto Arias-Yacupoma originally created the extension. Elise and Adam N are currently maintaining/extending it (in the slack channel we're **roberto**, **elise9876**, and **adam**)
