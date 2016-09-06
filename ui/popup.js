@@ -115,9 +115,4 @@ $(document).ready(function(){
   // $('.averageAllTime').text( allTimeAvg + " /Hr")
   // $('.totalAllTime').text(bgPage.userData.totalClosedConvos);
 
-  // other tools button
-  $('#other-tools').click(function(){
-    window.open("https://sites.google.com/a/codecademy.com/codecademy-advisors/tools/file", "_blank");
-  })
-
 });
