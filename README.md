@@ -29,4 +29,4 @@ To update into a new version in Chrome store, you must create a ZIP file that in
 Read this document: https://docs.google.com/document/d/1S-x4XXNGUyvGn_newJ3gX0X7jdGgyiTe4HRXxp8EKwU/edit?usp=sharing
 
 ### Who do I talk to? ###
-Roberto Arias-Yacupoma originally created the extension. Jake B, Elise and Adam N are currently maintaining/extending it (in the slack channel we're **jakebrisk**, **elise9876**, **adam**, and  **roberto**)
+Jake B, Elise and Adam N are currently maintaining/extending the extension. Roberto Arias-Yacupoma originally created it. (in slack we're **jakebrisk**, **elise9876**, **adam**, and  **roberto**)
