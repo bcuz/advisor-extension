@@ -94,7 +94,7 @@ CSS : `
 	#minutes{
 		background-color: #EFA2AD;
 	}
-	.red{
+	.unchanged{
 		background-color: #EFA2AD;
 	}
 `,
@@ -162,9 +162,9 @@ JS : function(data) {
 			});
 			if($("#other").prop("disabled")){
 				$("#other").val("");
-				$("#other").removeClass("red");
+				$("#other").removeClass("unchanged");
 			}else{
-				$("#other").addClass("red");
+				$("#other").addClass("unchanged");
 			}
 		}
 
@@ -182,7 +182,7 @@ JS : function(data) {
 // if other has text, click other
 	if ($("#other").val().length !== 0) {
 		$("#convo_type_9").click()
-		$("#other").removeClass("red");
+		$("#other").removeClass("unchanged");
 	}
 
 	// if minutes has text, change background-color
@@ -204,7 +204,7 @@ JS : function(data) {
 	});
 
 	// remove the red background when text is entered
-	$("#other").keypress(function(){ $(this).removeClass("red"); });
+	$("#other").keypress(function(){ $(this).removeClass("unchanged"); });
 
 
 
