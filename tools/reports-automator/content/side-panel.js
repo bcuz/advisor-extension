@@ -94,7 +94,7 @@ CSS : `
 	#minutes{
 		background-color: #EFA2AD;
 	}
-	.red{
+	.unchanged{
 		background-color: #EFA2AD;
 	}
 `,
@@ -162,9 +162,9 @@ JS : function(data) {
 			});
 			if($("#other").prop("disabled")){
 				$("#other").val("");
-				$("#other").removeClass("red");
+				$("#other").removeClass("unchanged");
 			}else{
-				$("#other").addClass("red");
+				$("#other").addClass("unchanged");
 			}
 		}
 
@@ -182,7 +182,7 @@ JS : function(data) {
 // if other has text, click other
 	if ($("#other").val().length !== 0) {
 		$("#convo_type_9").click()
-		$("#other").removeClass("red");
+		$("#other").removeClass("unchanged");
 	}
 
 	// if minutes has text, change background-color
@@ -191,13 +191,8 @@ JS : function(data) {
 	}
 
 	// Set useful default values
-	//$("input[name=user_rate][value=5]").click();
-	//$("input[name=able_solve_issue][value=1]").click();
-	//$("input[name=panic_button][value=1]").click();
-	//$("input[name=suggestion_or_bug][value=3]").click();
 	//$("input[id=hours]").val("0");
 	//$("input[id=minutes]").val("0");
-	//$("input[name=convo_type][value=1]").click();
 
 		// select text within time input fields on mouse click
 	$("#hours, #minutes").click(function() {
@@ -205,13 +200,11 @@ JS : function(data) {
 		}).keypress(function() {
 	// background of minutes input field stays red until
 	// something is entered into hour or minutes
-	// made minutes red because that's usually what will need
-	// to be input
 		$("#minutes").css("background-color", "#fff")
 	});
 
 	// remove the red background when text is entered
-	$("#other").keypress(function(){ $(this).removeClass("red"); });
+	$("#other").keypress(function(){ $(this).removeClass("unchanged"); });
 
 
 

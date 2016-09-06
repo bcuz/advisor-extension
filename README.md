@@ -22,11 +22,11 @@ After you have loaded the extension once in this way, you only need to click **R
 
 ### About the version in the Chrome Store (the live one) ###
 
-The extension is still under my Chrome developer account, but as soon as someone agrees to take over this i can pass it to him/her. To update into a new version in Chrome store, you must create a ZIP file that includes: **deploy, img, libs, ui, manifest.json**. Make sure to also increase the version in **manifest.json** or Chrome store won't think it has been updated
+To update into a new version in Chrome store, you must create a ZIP file that includes: **deploy, img, libs, ui, manifest.json**. Make sure to also increase the version in **manifest.json** or Chrome store won't think it has been updated
 
 ### How the code works? ###
 
 Read this document: https://docs.google.com/document/d/1S-x4XXNGUyvGn_newJ3gX0X7jdGgyiTe4HRXxp8EKwU/edit?usp=sharing
 
 ### Who do I talk to? ###
-Roberto Arias-Yacupoma originally created the extension. Elise and Adam N are currently maintaining/extending it (in the slack channel we're **roberto**, **elise9876**, and **adam**)
+Jake B, Elise and Adam N are currently maintaining/extending the extension. Roberto Arias-Yacupoma originally created it. (in slack we're **jakebrisk**, **elise9876**, **adam**, and  **roberto**)

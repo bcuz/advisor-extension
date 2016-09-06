@@ -79,31 +79,6 @@ chrome.runtime.sendMessage({
 	// URL
 	fillTextAndValidate(`[name='entry.995604322']`, `conversationURL`);
 
-	// Able to solve user issue
-	// if (response.data.able_solve_issue != "") {
-	// 	id_to_check = "group_1819799503_" + response.data.able_solve_issue;
-	// 	checkAndValidate(`[id="${id_to_check}"]`, `able_solve_issue`);
-	// }
-
-
-	// User rate
-	// var id_to_check = "group_1881757241_" + data.user_rate;
-	// checkAndValidate(`[id="${id_to_check}"]`, `user_rate`);
-
-	// User rate notes
-	//fillTextAndValidate(`[name="entry.748200867"]`, `user_rate_notes`);
-
-	// Summary
-	//fillTextAndValidate(`[name="entry.1090271664"]`, `summary`);
-
-	// Panic button
-	// var id_to_check = "group_767547732_" + data.panic_button;
-	// checkAndValidate(`[id="${id_to_check}"]`, `panic_button`);
-
-	// Product suggestion - Bug report
-	// var id_to_check = "group_1424754551_" + data.suggestion_or_bug;
-	// checkAndValidate(`[id="${id_to_check}"]`, `suggestion_or_bug`);
-
 	// Type of Conversation
 	// var id_to_check = "group_260280481_" + data.convo_type;
 	// checkAndValidate(`[id="${id_to_check}"]`, `convo_type`);
