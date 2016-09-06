@@ -194,7 +194,6 @@ JS : function(data) {
 	//$("input[id=hours]").val("0");
 	//$("input[id=minutes]").val("0");
 
-
 		// select text within time input fields on mouse click
 	$("#hours, #minutes").click(function() {
 			$(this).select();
