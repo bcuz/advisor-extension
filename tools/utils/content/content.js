@@ -34,7 +34,7 @@ $("body").append(
 	 </script>`
 );
 
-// Create new shortcuts for these 2 things
+// Create shortcuts
 $utils.createKeyboardShortcut(unassign_and_close, "U");
 $utils.createKeyboardShortcut(ratings_url, "R");
 $utils.createKeyboardShortcut(submit_press, "S");
