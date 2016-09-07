@@ -51,11 +51,8 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 	}
 });
 
-
-// No need to add the buttons for these functions anymore, shortcuts make everything simpler
-
-// Add this release announcement
-// Remember to update the version to show only once this message (it's important)
+// Release announcement
+// Remember to update the version to only show this message once
 $utils.announcement(`
 	<p>Hi! This is Adam N (@adam) with an announcement:</p><br />
 	<p>Just wanted to officially mention that Elise(@elise9876) now owns the extension and I've been making
