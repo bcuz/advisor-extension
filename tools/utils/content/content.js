@@ -19,7 +19,7 @@ function submit_press() {
 }
 
 // speed addict
-function submit_close_unassign() {
+function submit_unassign_close() {
 	$("#open-report").click();
 	$("#close-side-panel").click();
 	$("div[data-content='Assign to teammate or team']").click();
@@ -28,17 +28,18 @@ function submit_close_unassign() {
 }
 
 // Disable intercom default shortcuts
+// don't think this works
 $("body").append(
 	`<script>
 		$(document).off("keydown");
 	 </script>`
 );
 
-// Create new shortcuts for these 2 things
+// Create shortcuts
 $utils.createKeyboardShortcut(unassign_and_close, "U");
 $utils.createKeyboardShortcut(ratings_url, "R");
 $utils.createKeyboardShortcut(submit_press, "S");
-$utils.createKeyboardShortcut(submit_close_unassign, "X");
+$utils.createKeyboardShortcut(submit_unassign_close, "X");
 
 // Add listener to put URL in the convo
 chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
