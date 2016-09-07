@@ -28,6 +28,7 @@ function submit_unassign_close() {
 }
 
 // Disable intercom default shortcuts
+// don't think this works
 $("body").append(
 	`<script>
 		$(document).off("keydown");
