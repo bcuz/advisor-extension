@@ -40,10 +40,12 @@ jQuery(document).ready(function($){
 	clockInOut = function(){
 		// wait 5 seconds to give page time to finish loading
 		setTimeout(function(){
+			if (document.getElementById('message-input') !== null) {
 			document.getElementById('message-input').value = actionString;
+			}
 			var result = $('#message-input').val();
 			$('#submit-button').trigger("click");
-			// check if it was successful 
+			// check if it was successful
 			if(result == actionString && clicked){
 				chrome.runtime.sendMessage({message: "success-slack", closeTab: closeTab});
 			}else{
