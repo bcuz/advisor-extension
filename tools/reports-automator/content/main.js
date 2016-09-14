@@ -99,7 +99,7 @@ function collectDataAndOpenReport() {
 			for (key in COURSES) {
 				if (!foundCourse) {
 					for (course_id in COURSES[key]) {
-						if (lastVisitedLinkURL.indexOf(COURSES[key][course_id]) > -1) {
+						if (lastVisitedLinkURL !== undefined && lastVisitedLinkURL.indexOf(COURSES[key][course_id]) > -1) {
 							console.log("course_id is " + course_id + " and " + COURSES[key][course_id]);
 							console.log("Found the course " + key);
 							interactions[interactionID]["course"] = key;
