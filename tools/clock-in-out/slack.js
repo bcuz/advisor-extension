@@ -40,6 +40,8 @@ jQuery(document).ready(function($){
 	clockInOut = function(){
 		// wait 5 seconds to give page time to finish loading
 		setTimeout(function(){
+			// ensures you get the slack fail message
+			// when not logged into slack
 			if (document.getElementById('message-input') !== null) {
 			document.getElementById('message-input').value = actionString;
 			}
