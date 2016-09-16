@@ -34,7 +34,7 @@ COURSES = {
 	"Command Line": ["command-line"],
 	"Sass": ["sass"],
 	"ReactJS": ['react'],
-	"NOT A CODE QUESTION": ["subscription_billing", "path"]
+	"NOT A CODE QUESTION": ["subscription_billing", "path", "lrn"]
 }
 
 /* Each 1st level element is a field, and has these properties:
