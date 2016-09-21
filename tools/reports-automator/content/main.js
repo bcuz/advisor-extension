@@ -161,7 +161,8 @@ toggleReport = function() {
 		$($intercom.UI_selectors.app).unbind("click", collectDataAndOpenReport);
 
 		// Alert reports disabled
-		$notifications.info("Report panel closed!");
+		// i think this is redundant
+		// $notifications.info("Report panel closed!");
 	}
 }
 
