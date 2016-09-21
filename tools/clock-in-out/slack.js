@@ -60,10 +60,10 @@ jQuery(document).ready(function($){
 
 chrome.runtime.onMessage.addListener(function(request, sender){
 	if(request.message == "clock-in"){
-		actionString = "Here for " + hourNow;
+		actionString = "Here for " + hourNow + " ~";
 		closeTab = false;
 	}else if(request.message == "clock-out"){
-		actionString = "Clocking out";
+		actionString = "Clocking out ~";
 		closeTab = true;
 	}
 })

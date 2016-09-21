@@ -2,7 +2,8 @@ const $notifications = {
 	info: function(message) {
 		$.notify(message, {
 			className: "info",
-			globalPosition: "top center"
+			globalPosition: "top center",
+			autoHideDelay: 3000
 		});
 	},
 
