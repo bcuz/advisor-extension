@@ -22,8 +22,8 @@ const $notifications = {
 			className: "error",
 			globalPosition: "top center",
 			hideAnimation: "slideUp",
-			clickToHide: true,
-			autoHide: false
+			autoHide: true,
+			autoHideDelay: 20000
 		});
 	}
 }
