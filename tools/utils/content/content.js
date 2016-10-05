@@ -48,7 +48,11 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 	   $("div.tabs__discrete-tab__container a:first").click();
 	   $(".conversation__text.composer-inbox p").text(request.ratingURL);
 	   $(".conversation__text.composer-inbox p").select();
-	   $("button.inbox__conversation-controls__button.o__primary").click();
+	   // Automatically send URL
+	   $(".conversation__text.composer-inbox").focus();
+	   setTimeout(function(){ 
+	   	$("button.inbox__conversation-controls__button.o__primary").click();
+	   }, 500);
 	}
 });
 
