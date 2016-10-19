@@ -60,7 +60,7 @@ function clockIn(){
 			});
 		}
 	);
-	chrome.tabs.create({url: "https://app.intercom.io/a/apps/wft4jxth/inbox/unassigned/conversations"}, function(){
+	chrome.tabs.create({url: "https://app.intercom.io/a/apps/wft4jxth/inbox/a/unassigned"}, function(){
 		if(chrome.runtime.lastError){
 			console.log(chrome.runtime.lastError);
 		}
