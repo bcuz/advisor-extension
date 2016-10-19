@@ -120,11 +120,11 @@ NEW_FORM =
 			"Python": "Python",
 			"Rails": "Rails",
 			"Rails Authentication": "Rails Auth",
-			"ReactJS": "ReactJS"
+			"ReactJS": "ReactJS",
 			"Ruby": "Ruby",
 			"Sass": "Sass",
 			"SQL": "SQL",
-			"SQL Business Metrics": "SQL Business Metrics",
+			"SQL Business Metrics": "SQL Business Metrics"
 		}
 	},
 
