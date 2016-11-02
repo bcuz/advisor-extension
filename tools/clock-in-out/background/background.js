@@ -34,7 +34,7 @@ function clockIn(){
 	chrome.tabs.create({active: false, url: "https://timeclock.tracksmart.com/app/time"},
 		function(tab){
 			chrome.tabs.executeScript(tab.id,{
-				file: "deploy/login.js",
+				file: "deploy/tracksmart.js",
 				runAt: "document_end"
 			}, function(){
 				chrome.tabs.sendMessage(tab.id, {message: "clock-in"});
@@ -104,7 +104,7 @@ function clockOut(){
 	chrome.tabs.create({active: false, url: "https://timeclock.tracksmart.com/app/time"},
 		function(tab){
 			chrome.tabs.executeScript(tab.id,{
-				file: "deploy/login.js",
+				file: "deploy/tracksmart.js",
 				runAt: "document_end"
 			}, function(){
 				chrome.tabs.sendMessage(tab.id, {message: "clock-out"});
