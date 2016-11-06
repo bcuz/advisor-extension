@@ -1,30 +1,23 @@
 // automatic "here for --" message in Slack
 
-// figure out user's timezone, and get a time in EST. Will have to be edited for EDT
-var userZone = new Date().getTimezoneOffset();
-if(userZone > 300){
-	userZone = userZone - 300;
-}else if(userZone < 300){
-	userZone = 300 - userZone;
-}else if(userZone == 300){
-	userZone = 0;
+// check if DST
+var offset;
+if(moment().isDST()){
+  offset = -240; // if DST, UTC offset in ET is -4 hours
+}else{
+  offset = -300; // if not, UTC offset in ET is -5 hours
 }
-var EDTtime = moment().utcOffset(userZone);
-var hour24 = EDTtime._d.getHours();
-var hourNow = hour24;
-if(hourNow > 12){
-	hourNow -= 12;
-}else if(hourNow == 0){
-	hourNow = 12;
-}
-var minNow = EDTtime._d.getMinutes();
+// get eastern time
+var eTime = moment().utcOffset(offset);
+var hourNow = parseInt(eTime.format("h"));
+var minNow = parseInt(eTime.format("mm"));
 if(minNow > 45){
-	hourNow += 1;
+  if(hourNow === 12) hourNow = 1;
+  else hourNow += 1;
 }
 
 var actionString = null;
-var clockInOut;
-var clicked;
+var clicked = false;
 var closeTab = false;
 
 $.noConflict();
@@ -33,29 +26,22 @@ jQuery(document).ready(function($){
 	$(document).on('click', '#submit-button', function(){
 		clicked = true;
 	});
-	// dynamically add a submit button to the form, and then click it
-	var button = '<input type="submit" value="Submit" id="submit-button">'
-	$('#message-form').append(button);
-	// post a clock in / clock out message on slack
-	clockInOut = function(){
-		// wait 5 seconds to give page time to finish loading
-		setTimeout(function(){
-			// ensures you get the slack fail message
-			// when not logged into slack
-			if (document.getElementById('message-input') !== null) {
-			document.getElementById('message-input').value = actionString;
-			}
-			var result = $('#message-input').val();
-			$('#submit-button').trigger("click");
-			// check if it was successful
-			if(result == actionString && clicked){
-				chrome.runtime.sendMessage({message: "success-slack", closeTab: closeTab});
-			}else{
-				chrome.runtime.sendMessage({message: "error-slack", closeTab: closeTab});
-			}
-		}, 5000);
-	}
-	clockInOut();
+	// Add a submit button to the form, and then click it
+	$('#message-form').append('<input type="submit" value="Submit" id="submit-button">');
+ 	// First wait 3 seconds to give page time to finish loading
+	setTimeout(function(){
+		if ($('#message-input').length > 0) {
+			$('#message-input').val(actionString);
+		}
+		var result = $('#message-input').val();
+		$('#submit-button').trigger("click");
+		// check if it was successful
+		if(result == actionString && clicked){
+			chrome.runtime.sendMessage({message: "success-slack", closeTab: closeTab});
+		}else{
+			chrome.runtime.sendMessage({message: "error-slack", closeTab: closeTab});
+		}
+	}, 3000);
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender){
@@ -66,4 +52,3 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 		closeTab = true;
 	}
 })
-
