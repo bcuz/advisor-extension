@@ -1,12 +1,12 @@
 // automatic "here for --" message in Slack
 
-// figure out user's timezone, and get a time in EDT. Will have to be edited for EST
+// figure out user's timezone, and get a time in EST. Will have to be edited for EDT
 var userZone = new Date().getTimezoneOffset();
-if(userZone > 240){
-	userZone = userZone - 240;
-}else if(userZone < 240){
-	userZone = 240 - userZone;
-}else if(userZone == 240){
+if(userZone > 300){
+	userZone = userZone - 300;
+}else if(userZone < 300){
+	userZone = 300 - userZone;
+}else if(userZone == 300){
 	userZone = 0;
 }
 var EDTtime = moment().utcOffset(userZone);
