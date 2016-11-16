@@ -64,9 +64,9 @@ function collectDataAndOpenReport() {
 			  	for(var i = 0; i < possibleOther.length; i++){
 			  		if(possibleOther[i] == 'o' || possibleOther[i] == "other"){
 			  			var other = possibleOther[i+1];
-			  		}else if(possibleOther[i] == 'm' || possibleOther[i] == "minutes"){
+			  		}else if(possibleOther[i].toLowerCase() == 'm' || possibleOther[i] == "minutes"){
 			  			var mins = possibleOther[i+1];
-			  		}else if(possibleOther[i] == 'h' || possibleOther[i] == "hours"){
+			  		}else if(possibleOther[i].toLowerCase() == 'h' || possibleOther[i] == "hours"){
 			  			var hours = possibleOther[i+1];
 			  		}
 			  	}
