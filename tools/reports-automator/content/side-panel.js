@@ -28,6 +28,7 @@ CSS : `
 		bottom: 0;
 		-webkit-box-shadow: -5px 0 6px -4px black;
 		box-shadow: -5px 0 6px -4px black;
+		z-index: 5000;
 	}
 	#close-side-panel {
 		width: 25%;
