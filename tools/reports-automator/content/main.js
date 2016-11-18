@@ -62,7 +62,7 @@ function collectDataAndOpenReport() {
 		  	// Get the minutes, hours, and other text from the last note
 		  	if (possibleOther.length > 1){
 			  	for(var i = 0; i < possibleOther.length; i++){
-			  		if(possibleOther[i] == 'o' || possibleOther[i] == "other"){
+			  		if(possibleOther[i].toLowerCase() == 'o' || possibleOther[i] == "other"){
 			  			var other = possibleOther[i+1];
 			  		}else if(possibleOther[i].toLowerCase() == 'm' || possibleOther[i] == "minutes"){
 			  			var mins = possibleOther[i+1];
