@@ -45,6 +45,29 @@ const $intercom = {
 
 	getUserLastVisitedLink: function() {
 		return $($intercom.UI_selectors.userLastVisitedLink).attr("href");
+	},
+
+	/** 
+	 *	Try to get the last time the conversation was reassigned. Hopefully this is when the advisor 
+  	 * 	responded to the conversation. This won't work for longer conversations / conversations with many 
+  	 *	messages because the conversation__action element is no longer on the page. It also does not work 
+  	 *	if someone else manually assigns the convo to another advisor.
+  	 */
+	getLastReassignedTime: function(){
+		if($('.conversation__action div a').length > 0){ 
+			// last conversation__action element. Hopefully the "replied and assigned to" one
+			var timeElmt = $('.conversation__action div').last();
+			// Confirm it is the right element.
+			// First check for auto-assigned
+			if((timeElmt.text().indexOf("replied and auto-assigned") !== -1) || 
+				/* Check for advisor self assigned to themselves */
+				(timeElmt.text().indexOf("assigned this conversation to") !== -1 && 
+					timeElmt.find('a.js__href-to.c__deemphasized-text').text().indexOf("yourself") !== -1)) {
+
+				return timeElmt.find('.js__overlay-opener time').attr('datetime');
+			}
+		}
+		return null;
 	}
 }
 

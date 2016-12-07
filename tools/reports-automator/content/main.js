@@ -59,31 +59,55 @@ function collectDataAndOpenReport() {
 		  		possibleOther[i] = temp.trim();
 		  	}
 		  	console.log(possibleOther);
+		  	var mins, hours, other;
 		  	// Get the minutes, hours, and other text from the last note
 		  	if (possibleOther.length > 1){
 			  	for(var i = 0; i < possibleOther.length; i++){
 			  		if(possibleOther[i].toLowerCase() == 'o'){
-			  			var other = possibleOther[i+1];
+			  			other = possibleOther[i+1];
 			  		}else if(possibleOther[i].toLowerCase() == 'm'){
-			  			var mins = possibleOther[i+1];
+			  			mins = possibleOther[i+1];
 			  		}else if(possibleOther[i].toLowerCase() == 'h'){
-			  			var hours = possibleOther[i+1];
+			  			hours = possibleOther[i+1];
 			  		}
 			  	}
 		  	}
 		  	if(!other)
-		  		var other = "";
-		  	if(!mins)
-		  		var mins = "0";
-		  	if(!hours)
-		  		var hours = "0";
+		  		other = "";
 
 		  	// Add the other to our panel
 		  	interactions[interactionID]["other"] = other;
+
+		  	// If the duration is not in the last note, try to automatically calculate it.
+		  	if(!mins && !hours){
+		  		// get the last time the convo was reassigned
+				var possibleDuration = $intercom.getLastReassignedTime();
+				// try to calculate conversation duration
+				if(possibleDuration !== undefined && possibleDuration !== null){
+					var time = new Date(possibleDuration), time2 = new Date();
+					time = time.getTime();
+					time2 = time2.getTime();
+					var difference = time2 - time;
+					mins = ((difference / (1000*60)) %60);
+					hours = ((difference / (1000*60*60)) %24);
+					mins = mins.toFixed();
+					hours = Math.floor(hours);
+					console.log("Got the convo duration: " + hours + " hours, " + mins + " minutes.");
+				}
+		  	}
+
+		  	// not in the note, and couldn't be calculated 
+		  	if(!mins)
+		  		mins = "0";
+		  	if(!hours)
+		  		hours = "0";
+
 		  	// add minutes to panel
 		  	interactions[interactionID]["minutes"] = mins;
 		  	// add hours to the panel
 		  	interactions[interactionID]["hours"] = hours;
+		  	
+
 
 		  	/** Get report's course from the user's information panel (the one at the right of the chat)
 		  	 *  This field might not be correct 100% of the time,
