@@ -20,7 +20,7 @@ So do this: from the project's root directory, run **deploy.bash**, after it com
 
 After you have loaded the extension once in this way, you only need to click **Reload** when you want to load any new changes you made in the source code (remember to run deploy.bash again, else the contents inside deploy/ won't change).
 
-### About the version in the Chrome Store (the live one) ###
+### About the version in the [Chrome Store](https://chrome.google.com/webstore/detail/advisor-toolbox-codecadem/apmnodoihmnkmbmlafeoggpbkckapaol) (the live one) ###
 
 To update into a new version in Chrome store, you must create a ZIP file that includes: **deploy, img, libs, ui, manifest.json**. Make sure to also increase the version in **manifest.json** or Chrome store won't think it has been updated
 
