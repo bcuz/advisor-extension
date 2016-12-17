@@ -13,6 +13,7 @@
 		{
 			"matches": [
 				"https://app.intercom.io/a/apps/*",
+				"https://app.intercom.com/a/apps/*",
 				"http://timeclock.tracksmart.com/app/time/manage/*",
 				"https://timeclock.tracksmart.com/app/time/manage/*"
 			],

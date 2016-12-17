@@ -2,9 +2,11 @@ import $intercom from 'core/intercom/content/intercom'
 import $utils from 'core/utils/content/utils'
 
 function ratings_url() {
+	// Temporary fix. Switch .com to .io till intercom gets their act together
+	let domain = "https://app.intercom.io" + document.location.pathname;
 	chrome.runtime.sendMessage({
 		message: "url_rating",
-		convoURL: document.URL
+		convoURL: domain
 	});
 }
 
