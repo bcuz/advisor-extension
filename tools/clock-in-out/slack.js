@@ -27,13 +27,13 @@ jQuery(document).ready(function($){
 		clicked = true;
 	});
 	// Add a submit button to the form, and then click it
-	$('#message-form').append('<input type="submit" value="Submit" id="submit-button">');
+	$('#msg_form').append('<input type="submit" value="" id="submit-button" style="display:none">');
  	// First wait 3 seconds to give page time to finish loading
 	setTimeout(function(){
-		if ($('#message-input').length > 0) {
-			$('#message-input').val(actionString);
+		if ($('#msg_input').length > 0) {
+			$('#msg_input').val(actionString);
 		}
-		var result = $('#message-input').val();
+		var result = $('#msg_input').val();
 		$('#submit-button').trigger("click");
 		// check if it was successful
 		if(result == actionString && clicked){
