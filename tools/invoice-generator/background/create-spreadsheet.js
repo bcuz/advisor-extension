@@ -36,104 +36,104 @@ function generateTable({ userName, advisorEmail, advisorAddress, totalHours, sta
   const template = `
     <table style="${styles.table}" cellpadding="5" border="1" bordercolor="EEEEEE">
       <tr>
-        <td style="${styles.topHeader}" colspan="5">Please make sure to submit your invoice as a PDF (File > Save As > PDF)</td>
+        <td style="${styles.topHeader}" colspan="6">Please make sure to submit your invoice as a PDF (File > Save As > PDF)</td>
       </tr>
       <tr>
-        <td style="${styles.subHeaders.top}" colspan="5"><em>*Invoices should be emailed directly to Codecademy@bill.com or faxed to 646.365.7939</em></td>
+        <td style="${styles.subHeaders.top}" colspan="6"><em>*Invoices should be emailed directly to Codecademy@bill.com or faxed to 646.365.7939</em></td>
       </tr>
       <tr>
-        <td style="${styles.subHeaders.bottom}" colspan="5"><em>*If you're a new advisor, please be sure to attach your W-9 form!</em></td>
+        <td style="${styles.subHeaders.bottom}" colspan="6"><em>*If you're a new advisor, please be sure to attach your W-9 form!</em></td>
       </tr>
+      ${emptyRow()}
       <tr>
         <td><strong>To: Codecademy</strong></td>
-        ${emptyCols(4)}
+        ${emptyCols(5)}
       </tr>
       <tr>
         <td><strong>49 West 27th Street - 4th Floor</strong></td>
-        ${emptyCols(4)}
+        ${emptyCols(5)}
       </tr>
       <tr>
         <td><strong>New York, NY 10001</strong></td>
-        ${emptyCols(4)}
+        ${emptyCols(5)}
       </tr>
       ${emptyRow()}
       <tr>
-        <td><strong>YOUR NAME:</strong></td>
-        <td>${userName}</td>
-        ${emptyCols(3)}
+        <td><strong>${userName}</strong></td>
+        ${emptyCols(5)}
       </tr>
       <tr>
-        <td><strong>YOUR EMAIL:</strong></td>
-        <td>${advisorEmail || 'REPLACE THIS'}</td>
-        ${emptyCols(3)}
+        <td><strong>${advisorEmail || 'YOUR EMAIL HERE'}</strong></td>
+        ${emptyCols(5)}
       </tr>
       <tr>
-        <td><strong>YOUR ADDRESS:</strong></td>
-        <td>${advisorAddress || 'REPLACE THIS'}</td>
-        ${emptyCols(3)}
-      </tr>
-      <tr style="${styles.invoiceDetails}">
-        <td><strong>INVOICING DETAILS</strong></td>
-        <td colspan="3"><strong>DESCRIPTION OVERVIEW</strong></td>
-        <td><strong>AMOUNT</strong></td>
-      </tr>
-      <tr>
-        <td style="${styles.faded}"><em>Item 1</em></td>
-        <td style="${styles.faded}" colspan="3"><em>i.e. Training Hours</em></td>
-        <td style="${styles.alignFix} ${styles.faded}"><strong>$0.00</strong></td>
-      </tr>
-      <tr>
-        <td><em>Item 2</em></td>
-        <td colspan="3"><em>i.e. Advisor Shifts</em></td>
-        <td style="${styles.alignFix}"><strong>$${totalAmount}</strong></td>
-      </tr>
-      <tr>
-        <td style="${styles.faded}"><em>Item 3</em></td>
-        <td style="${styles.faded}" colspan="3"><em>i.e. Content Hours</em></td>
-        <td style="${styles.alignFix} ${styles.faded}"><strong>$0.00</strong></td>
-      </tr>
-      <tr style="${styles.amountRequested}">
-        <td colspan="4"><strong>TOTAL AMOUNT REQUESTED ($)</strong></td>
-        <td style="${styles.alignFix}"><strong>$${totalAmount}</strong></td>
+        <td><strong>${advisorAddress || 'YOUR ADDRESS HERE'}</strong></td>
+        ${emptyCols(5)}
       </tr>
       ${emptyRow()}
-      <tr>
-        <td><strong>INVOICE PERIOD</strong></td>
-        ${emptyCols(3)}
-        <td><strong>${startDate} - ${endDate}</strong></td>
-      </tr>
-      <tr>
-        <td><strong>DUE DATE</strong></td>
-        ${emptyCols(3)}
-        <td style="${styles.alignFix}"><strong>${new Date().toLocaleDateString()}</strong></td>
-      </tr>
-      <tr>
-        <td><strong>TOTAL HOURS WORKED</strong></td>
-        ${emptyCols(3)}
-        <td style="${styles.alignFix}"><strong>${hoursNum}</strong></td>
-      </tr>
-      <tr>
-        <td><strong>HOURLY RATE ($/HR)</strong></td>
-        ${emptyCols(3)}
-        <td><strong>$15.00/HR</strong></td>
-      </tr>
       <tr>
         <td><strong>DESCRIPTION OF SERVICES</strong></td>
-        ${emptyCols(3)}
-        <td><strong>Codecademy Consultant</strong></td>
+        <td colspan="5" style="${styles.alignFix}"><strong>Codecademy Consultant</strong></td>
+      </tr>
+      <tr>
+        <td><strong>BILLING PERIOD DATES</strong></td>
+        <td colspan="5"><strong>${startDate} - ${endDate}</strong></td>
+      </tr>
+      <tr>
+        <td><strong>INVOICE DUE DATE</strong></td>
+        <td colspan="5" style="${styles.alignFix}"><strong>${new Date().toLocaleDateString()}</strong></td>
       </tr>
       <tr>
         <td><strong>MANAGER</strong></td>
-        ${emptyCols(3)}
-        <td><strong>Daniella Kisza</strong></td>
+        <td colspan="5" style="${styles.alignFix}"><strong>Daniella Kisza</strong></td>
       </tr>
-      ${emptyRow()}
+      <tr>
+        <td style="${styles.heightFix}"><strong>TOTAL HOURS WORKED / <br style="mso-data-placement:same-cell;" >CLOCKED IN ON TRACKSMART</strong></td>
+        <td colspan="5" style="${styles.alignFix}"><strong>${hoursNum}</strong></td>
+      </tr>
+      <tr>
+        <td><strong>HOURLY COMPENSATION RATE ($/HR)</strong></td>
+        <td colspan="5" style="${styles.alignFix}"><strong>$15.00</strong></td>
+      </tr>
+      <tr>
+        <td style="${styles.heightFix}"><strong>OVERTIME (time and a half) <br style="mso-data-placement:same-cell;">HOURLY COMPENSATION RATE ($/HR)</strong></td>
+        <td colspan="5" style="${styles.alignFix}"><strong>$22.50</strong></td>
+      </tr>
+      <tr style="${styles.subHeaders.top}">
+        <td><strong>TOTAL AMOUNT</strong></td>
+        <td colspan="5" style="${styles.alignFix}"><strong>$ ${totalAmount}</strong></td>
+      </tr>
       <tr style="${styles.shiftInfo}">
-        ${emptyCols(1)}
-        <td colspan="1"><strong>DETAILED DESCRIPTION</strong></td>
-        <td><strong>DATE</strong></td>
-        <td><strong>TIME</strong></td>
-        <td><strong>HOURS</strong></td>
+        <td colspan="5" style="${styles.alignFix}"><strong>Activity Overview</strong></td>
+        <td style="${styles.heightFix}"><strong>TOTAL <br style="mso-data-placement:same-cell;" >Length / Duration <br style="mso-data-placement:same-cell;" >(Hours, Minutes)</strong></td>
+      </tr>
+      <tr>
+        <td><em>ITEM 1 (i.e. Onboarding Hours)</em></td>
+        <td colspan="4"></td>
+        <td style="${styles.alignFix}"><strong>0.00</strong></td>
+      </tr>
+      <tr>
+        <td><em>ITEM 2 (i.e. Advisor Shifts)</em></td>
+        <td colspan="4"></td>
+        <td style="${styles.alignFix}"><strong>${hoursNum}</strong></td>
+      </tr>
+      <tr>
+        <td><em>ITEM 3 (i.e. Advisor Shifts - Overtime Hours)</em></td>
+        <td colspan="4"></td>
+        <td style="${styles.alignFix}"><strong>0.00</strong></td>
+      </tr>
+      <tr>
+        <td><em>ITEM 4 (i.e. Mentor Hours)</em></td>
+        <td colspan="4"></td>
+        <td style="${styles.alignFix}"><strong>0.00</strong></td>
+      </tr>
+      <tr style="${styles.shiftInfo}">
+        <td><strong>Detailed Description / Note</strong></td>
+        <td><strong>Role / Location</strong></td>
+        <td><strong>Date</strong></td>
+        <td><strong>Clock In</strong></td>
+        <td><strong>Clock Out</strong></td>
+        <td style="${styles.heightFix}"><strong>Length / Duration <br style="mso-data-placement:same-cell;"> (Hours, Minutes)</strong></td>
       </tr>
       ${getShiftRows(shifts)}
     </table>

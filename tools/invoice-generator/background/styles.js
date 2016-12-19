@@ -18,7 +18,12 @@ const styles = {
   faded: `color: ${colors.gray};`,
   amountRequested: `background-color: ${colors.lightGray};`,
   alignFix: 'text-align: left;',
-  shiftInfo: `background-color: ${colors.midGray}; text-align: left;`
+  shiftInfo: `background-color: ${colors.midGray}; text-align: left;`,
+  breakRow: {
+    row: `background-color: ${colors.midGray};`,
+    col: `height:5px;`
+  },
+  heightFix: `vertical-align: middle;`
 }
 
 export default styles

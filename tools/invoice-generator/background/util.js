@@ -11,14 +11,15 @@ function getShiftRows(shifts) {
   let shiftRows = ''
 
   shifts.forEach((shift, i) => {
-    const { date, startTime, endTime, duration } = shift
+    const { location, date, startTime, endTime, duration } = shift
 
     shiftRows += `
       <tr style="${styles.alignFix}">
-        ${emptyCols(1)}
-        <td>Shift ${i + 1}</td>
+        <td>Advisor shift ${i+1}</td>
+        <td>${location}</td>
         <td>${date}</td>
-        <td>${startTime} - ${endTime}</td>
+        <td>${startTime}</td>
+        <td>${endTime}</td>
         <td>${duration}</td>
       </tr>
     `
@@ -34,12 +35,8 @@ function getShiftRows(shifts) {
  */
 function emptyRow() {
   return `
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+    <tr style="${styles.breakRow.row}">
+      <td colspan="6" style="${styles.breakRow.col}"></td>
     </tr>
   `
 }
