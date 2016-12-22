@@ -96,7 +96,7 @@ function generateTable({ userName, advisorEmail, advisorAddress, totalHours, sta
         <td colspan="5" style="${styles.alignFix}"><strong>$15.00</strong></td>
       </tr>
       <tr>
-        <td style="${styles.heightFix}"><strong>OVERTIME (time and a half) <br style="mso-data-placement:same-cell;">HOURLY COMPENSATION RATE ($/HR)</strong></td>
+        <td style="${styles.heightFix}"><strong>HOLIDAY (time and a half) <br style="mso-data-placement:same-cell;">HOURLY COMPENSATION RATE ($/HR)</strong></td>
         <td colspan="5" style="${styles.alignFix}"><strong>$22.50</strong></td>
       </tr>
       <tr style="${styles.subHeaders.top}">
@@ -118,7 +118,7 @@ function generateTable({ userName, advisorEmail, advisorAddress, totalHours, sta
         <td style="${styles.alignFix}"><strong>${hoursNum}</strong></td>
       </tr>
       <tr>
-        <td><em>ITEM 3 (i.e. Advisor Shifts - Overtime Hours)</em></td>
+        <td><em>ITEM 3 (i.e. Advisor Shifts - Holiday Hours)</em></td>
         <td colspan="4"></td>
         <td style="${styles.alignFix}"><strong>0.00</strong></td>
       </tr>
