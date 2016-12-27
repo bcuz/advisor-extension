@@ -37,6 +37,13 @@ function restore_options() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', restore_options);
+// Sets the name and version in the options page
+function set_name_and_version(){
+  let manifest = chrome.runtime.getManifest();
+  document.getElementById('about_details').innerHTML = manifest.name + " v" + manifest.version;
+}
+
+document.addEventListener('DOMContentLoaded', function(){restore_options(); set_name_and_version();});
 document.getElementById('save').addEventListener('click',
     save_options);
+
