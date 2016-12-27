@@ -49,7 +49,7 @@ function clockIn(){
 		function(tab){
 			//slackTab = tab;
 			chrome.tabs.executeScript(tab.id, {file: "libs/moment.min.js"}, function(){
-				chrome.tabs.executeScript(tab.id, { file: "libs/jquery-2.1.4.js"}, function(){
+				chrome.tabs.executeScript(tab.id, { file: "libs/jquery-3.1.1.min.js"}, function(){
 					chrome.tabs.executeScript(tab.id, { file: "deploy/slack.js", runAt: "document_end" }, function(){
 						chrome.tabs.sendMessage(tab.id, {message: "clock-in"});
 						if(chrome.runtime.lastError){
@@ -88,7 +88,7 @@ function clockOut(){
 	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/details/"},
 		function(tab){
 			chrome.tabs.executeScript(tab.id, {file: "libs/moment.min.js"}, function(){
-				chrome.tabs.executeScript(tab.id, { file: "libs/jquery-2.1.4.js"}, function(){
+				chrome.tabs.executeScript(tab.id, { file: "libs/jquery-3.1.1.min.js"}, function(){
 					chrome.tabs.executeScript(tab.id, { file: "deploy/slack.js", runAt: "document_end" }, function(){
 						chrome.tabs.sendMessage(tab.id, {message: "clock-out"});
 						if(chrome.runtime.lastError){
