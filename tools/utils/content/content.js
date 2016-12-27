@@ -12,7 +12,8 @@ function ratings_url() {
 
 function unassign_and_close() {
 	$("div[data-content='Assign to teammate or team']").click();
-	$("div.js__admin-list-item div")[1].click();
+	if($("div.js__admin-list-item div span").first().text().indexOf("Nobody") !== -1)
+		$("div.js__admin-list-item div")[1].click();
 	$("button.js__conversation-header__close-button").click();
 }
 
