@@ -24,7 +24,8 @@ const styles = {
     row: `background-color: ${colors.midGray};`,
     col: `height:5px;`
   },
-  heightFix: `vertical-align: middle;`
+  heightFix: `vertical-align: middle;`,
+  brFix: `mso-data-placement:same-cell;`
 }
 
 export default styles

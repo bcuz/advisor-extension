@@ -92,15 +92,19 @@ function generateTable({ userName, advisorEmail, advisorAddress, totalHours, sta
         <td colspan="5" style="${styles.alignFix}"><strong>${hoursNum}</strong></td>
       </tr>
       <tr>
-        <td><strong>YOUR HOURLY COMPENSATION RATE ($/HR)</strong></td>
+        <td><strong>YOUR HOURLY COMPENSATION RATE ($/hour)</strong></td>
         <td colspan="5" style="${styles.alignFix}"><strong>$15.00</strong></td>
       </tr>
       <tr style="${styles.amountRequested}">
         <td style="${styles.rightAlign}"><strong>Subtotal</strong></td>
-        <td colspan="5" style="${styles.alignFix}"><strong>${totalAmount}</strong></td>
+        <td colspan="5" style="${styles.alignFix}"><strong>$ ${totalAmount}</strong></td>
       </tr>
       <tr>
         <td style="${styles.heightFix}"><strong>HOURS - Holiday (time and a half)</strong></td>
+        <td colspan="5" style="${styles.alignFix}"><strong>0.00</strong></td>
+      </tr>
+      <tr>
+        <td style="${styles.heightFix}"><strong>HOLIDAY COMPENSATION RATE ($/hour)</strong></td>
         <td colspan="5" style="${styles.alignFix}"><strong>$22.50</strong></td>
       </tr>
       <tr style="${styles.amountRequested}">
@@ -113,7 +117,7 @@ function generateTable({ userName, advisorEmail, advisorAddress, totalHours, sta
       </tr>
       <tr style="${styles.shiftInfo}">
         <td colspan="5" style="${styles.alignFix}"><strong>Activity Overview</strong></td>
-        <td style="${styles.heightFix}"><strong>TOTAL <br style="mso-data-placement:same-cell;" >Length / Duration <br style="mso-data-placement:same-cell;" >(Hours, Minutes)</strong></td>
+        <td style="${styles.heightFix}"><strong>TOTAL <br style="${styles.brFix}" >Length / Duration <br style="{styles.brFix}" >(Hours, Minutes)</strong></td>
       </tr>
       <tr>
         <td><em>ITEM 1 (i.e. Onboarding Hours)</em></td>
@@ -141,7 +145,7 @@ function generateTable({ userName, advisorEmail, advisorAddress, totalHours, sta
         <td><strong>Date</strong></td>
         <td><strong>Clock In</strong></td>
         <td><strong>Clock Out</strong></td>
-        <td style="${styles.heightFix}"><strong>Length / Duration <br style="mso-data-placement:same-cell;"> (Hours, Minutes)</strong></td>
+        <td style="${styles.heightFix}"><strong>Length / Duration <br style="{styles.brFix}"> (Hours, Minutes)</strong></td>
       </tr>
       ${getShiftRows(shifts)}
     </table>
