@@ -88,16 +88,24 @@ function generateTable({ userName, advisorEmail, advisorAddress, totalHours, sta
         <td colspan="5" style="${styles.alignFix}"><strong>Daniella Kisza</strong></td>
       </tr>
       <tr>
-        <td style="${styles.heightFix}"><strong>TOTAL HOURS WORKED / <br style="mso-data-placement:same-cell;" >CLOCKED IN ON TRACKSMART</strong></td>
+        <td style="${styles.heightFix}"><strong>HOURS - Standard</strong></td>
         <td colspan="5" style="${styles.alignFix}"><strong>${hoursNum}</strong></td>
       </tr>
       <tr>
-        <td><strong>HOURLY COMPENSATION RATE ($/HR)</strong></td>
+        <td><strong>YOUR HOURLY COMPENSATION RATE ($/HR)</strong></td>
         <td colspan="5" style="${styles.alignFix}"><strong>$15.00</strong></td>
       </tr>
+      <tr style="${styles.amountRequested}">
+        <td style="${styles.rightAlign}"><strong>Subtotal</strong></td>
+        <td colspan="5" style="${styles.alignFix}"><strong>${totalAmount}</strong></td>
+      </tr>
       <tr>
-        <td style="${styles.heightFix}"><strong>HOLIDAY (time and a half) <br style="mso-data-placement:same-cell;">HOURLY COMPENSATION RATE ($/HR)</strong></td>
+        <td style="${styles.heightFix}"><strong>HOURS - Holiday (time and a half)</strong></td>
         <td colspan="5" style="${styles.alignFix}"><strong>$22.50</strong></td>
+      </tr>
+      <tr style="${styles.amountRequested}">
+        <td style="${styles.rightAlign}"><strong>Subtotal</strong></td>
+        <td colspan="5" style="${styles.alignFix}"><strong>$0.00</strong></td>
       </tr>
       <tr style="${styles.subHeaders.top}">
         <td><strong>TOTAL AMOUNT</strong></td>

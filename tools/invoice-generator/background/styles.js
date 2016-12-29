@@ -18,6 +18,7 @@ const styles = {
   faded: `color: ${colors.gray};`,
   amountRequested: `background-color: ${colors.lightGray};`,
   alignFix: 'text-align: left;',
+  rightAlign: `text-align: right;`,
   shiftInfo: `background-color: ${colors.midGray}; text-align: left;`,
   breakRow: {
     row: `background-color: ${colors.midGray};`,
