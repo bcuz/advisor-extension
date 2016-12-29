@@ -114,8 +114,6 @@ function clockOut(){
 			});
 		}
 	);
-	// open the post shift report tab
-	// chrome.tabs.create({active: false, url: "https://docs.google.com/forms/d/e/1FAIpQLSciPORNy-a1iO-75rLK_suwJaBfWGzA-GlQPVVLAvRNQ_DW5w/viewform"});
 	// update the total convos (totalHours is updated by popup.js)
 	//userData.totalClosedConvos += userData.closedThisShift;
 	// store data for later use
@@ -130,8 +128,84 @@ function clockOut(){
 	// clean up unused variables
 	userData.clockInTime = null;
 	userData.closedThisShift = 0;
-	slackTab = null;
+	//slackTab = null;
 }
+
+chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
+	switch(request.message) {
+		case "get-user-data":
+			sendResponse({data: userData});
+			break;
+		case "clock-user-in":
+			clockIn();
+			break;
+		case "clock-user-out":
+			clockOut();
+			break;
+		// successfully clocked in / out on tracksmart
+		case "success-tracksmart":
+			trackSmartResponse = 1;
+			chrome.tabs.remove(sender.tab.id);
+			break;
+		// error clocking in / out on tracksmart
+		case "error-tracksmart":
+			trackSmartResponse = 0;
+			// error meesage notification
+			var options ={
+				type: "basic",
+				title: "Error on TrackSmart",
+				message: "We encountered a problem on TrackSmart, please clock in/out manually.",
+				iconUrl: "img/error.png",
+				priority: 2,
+				requireInteraction: true
+			}
+			chrome.notifications.create(options);
+			break;
+		// successfully posted to slack
+		case "success-slack":
+			slackResponse = 1;
+			if(request.closeTab){
+				chrome.tabs.remove(sender.tab.id);
+			}
+			break;
+		// error posting to slack
+		case "error-slack":
+			slackResponse = 0;
+			// error message notification
+			var options ={
+				type: "basic",
+				title: "Error Posting to Slack",
+				message: "There was a problem with posting to slack, please post manually.",
+				iconUrl: "img/error.png",
+				priority: 2,
+				requireInteraction: true
+			}
+			chrome.notifications.create(options);
+			break;
+		default:
+			break;
+	}
+
+	// if all went well, notify the user
+	if(trackSmartResponse && slackResponse){
+		var opt ={
+			type: "basic",
+			title: "Success",
+			message: "You're good to go!",
+			iconUrl: "img/panda-48x48.png"
+		}
+		chrome.notifications.create(opt);
+		trackSmartResponse = null;
+		slackResponse = null;
+	}
+
+});
+
+// close notification on click
+chrome.notifications.onClicked.addListener(function(notificationId){
+	chrome.notifications.clear(notificationId);
+});
+
 
 
 

@@ -15,25 +15,24 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 $(document).ready(function(){
-  // get the background page so we can read some of the data (there's probably a better way to do this)
-  var bgPage = chrome.extension.getBackgroundPage();
-  // clocked in / out status
-  var working = bgPage.userData.working;
+  let userData = null;
+  let working = null;
+  // get the status from the background page
+  chrome.runtime.sendMessage({message: "get-user-data"}, function(response){
+    userData = response.data;
+    working = userData.working;
+  })
   // var hoursThisShift;
   // var interval;
 
   // handles clock in / clock out button click.
   $('#clock-in-out').click(function(){
     if($(this).hasClass('start')){
-      bgPage.clockIn();
+      chrome.runtime.sendMessage({message: "clock-user-in"});
       workingNow();
-      //var returnVal = calcDuration();
-      //$('.hourCounter h3').text("You're " + returnVal + " into your shift");
     }else if($(this).hasClass('stop')){
-      //clearInterval(interval);
       clockedOut();
-      //showReport();
-      bgPage.clockOut();
+      chrome.runtime.sendMessage({message: "clock-user-out"});
     }
   });
 
@@ -76,7 +75,7 @@ $(document).ready(function(){
 
   // when the user is clocked out, modify the ui
   function clockedOut(){
-    $('.hourCounter h3').text("You're not currently working");
+    //$('.hourCounter h3').text("You're not currently working");
     $('#clock-in-out').addClass('start');
     $('#clock-in-out h1').text("Clock In");
     //$('.shiftNumbers').hide();
