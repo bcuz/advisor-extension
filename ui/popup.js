@@ -17,13 +17,21 @@ document.addEventListener('DOMContentLoaded', function () {
 $(document).ready(function(){
   let userData = null;
   let working = null;
-  // get the status from the background page
+  // whenever the use opens up the popup, check if they're clocked in or not and perform actions accordingly.
   chrome.runtime.sendMessage({message: "get-user-data"}, function(response){
-    userData = response.data;
-    working = userData.working;
+    if(response !== null && response !== undefined){
+      userData = response.data;
+      working = userData.working;
+    }else{
+      working = false;
+    }
+
+    if(!working){
+      clockedOut();
+    }else if(working){
+      workingNow();
+    }
   })
-  // var hoursThisShift;
-  // var interval;
 
   // handles clock in / clock out button click.
   $('#clock-in-out').click(function(){
@@ -90,24 +98,6 @@ $(document).ready(function(){
   //     "and closed " + bgPage.userData.closedThisShift + " conversations, for an average of " + calcAverage("shift") +
   //     " conversations per hour");
   // }
-
-  // whenever the use opens up the popup, check if they're clocked in or not and perform actions accordingly.
-  if(!working){
-    clockedOut();
-  }else if(working){
-    // var returnVal = calcDuration();
-    // $('.hourCounter h3').text("You're " +  returnVal + " into your shift");
-    workingNow();
-    // var avg = calcAverage("shift");
-    // $('.averageThisShift').text(avg + " /Hr");
-
-    // interval = setInterval(function(){
-    //   var returnVal  = calcDuration();
-    //   $('.hourCounter h3').text("You're " +  returnVal + " into your shift");
-    //   var avg = calcAverage("shift");
-    //   $('.averageThisShift').text(avg + " /Hr");
-    //},1000);
-  }
 
   // show all time convo info
   // var allTimeAvg = calcAverage("all");
