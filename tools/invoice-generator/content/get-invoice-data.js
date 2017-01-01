@@ -10,21 +10,21 @@ function getInvoiceData() {
   const rows = Array.from($tbody.getElementsByTagName('tr'))
 
   rows.forEach(row => {
-    const shiftCells = Array.from(row.getElementsByTagName('td')).slice(4)
+    const shiftCells = Array.from(row.getElementsByTagName('td')).slice(3)
     const shiftText = shiftCells.map(cell => cell.textContent)
-    const [ date, startTime, endTime, duration ] = shiftText
+    const [ location, date, startTime, endTime, duration ] = shiftText
 
     if (!duration) {
       return
     }
 
     const shift = {
+      location,
       date,
       startTime,
       endTime,
       duration
     }
-
     shifts.push(shift)
   })
 

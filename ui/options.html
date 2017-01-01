@@ -10,7 +10,7 @@
       }
       body div * {
         display: block;
-        padding: 1% 0;
+        padding: .5em 0;
       }
       label {
         font-size: 1.6em;
@@ -21,19 +21,24 @@
       }
       ol {
         list-style: decimal;
-        margin: 0;
+        margin: 0 0 0 1em;
       }
       p {
         padding: 0;
+        margin:0;
+        font-size: 14px;
       }
       ul {
-        margin: 0;
+        margin: 0 0 0 1em;
       }
       span {
         text-decoration: underline;
       }
       #how-to {
         font-size: 14px;
+      }
+      .about_section a{
+        display: inline;
       }
     </style>
   </head>
@@ -73,20 +78,29 @@
       <span> Using Reports Automator </span>
       <ol>
         <li> 1. Make sure you set your name and # of seconds in the fields above. Make sure your name matches (including casing) the one listed in the <a style="display:inline;" href="https://docs.google.com/a/codecademy.com/forms/d/e/1FAIpQLSdf8UJxP5m3eHoVKY1ufhRffOZr2ul5ExrJxKFXw3Qzeyw-cg/viewform">post-interaction report form</a></li>
-        <li> 2. Being in the intercom tab, click the panda icon, then "Open/Close Reports Panel" (or use shortcut Ctrl + Shift + O). This will open the panel for your active conversation. Try it out!</li>
+        <li> 2. While in the intercom tab, click the panda icon, then "Open/Close Reports Panel" (or use shortcut Ctrl + Shift + O). This will open the panel for your active conversation. Try it out!</li>
         <li> 3. Fill the required fields and submit. Real report form will automatically be filled, submitted and closed. You'll get a notification whether the report suceeded or failed.</li>
         <li> 4. If you've already submitted a report for a conversation, you'll see a notification about this in the panel (to avoid double entries).</li>
-        <li> 5. After saving your address and email on this page, it will be saved, but won't visually show up in the input fields again</li>
+        <!-- <li> 5. After saving your address and email on this page, it will be saved, but won't visually show up in the input fields again</li> -->
       </ol>
       <span>Tips</span>
       <ol>
-        <p>You can use the following in a note to populate some of the panel fields:</p>
+        <p>You can use the following in a note to populate some of the report panel fields:</p>
         <li>1. m: - fills in the minutes field</li>
         <li>2. h: - fills in the hours field</li>
         <li>3. o: - checks the "other" checkbox, and fills in the corresponding text field</li>
         <li>4. Use a semicolon between each if using more than one </li>
         <li>Example: <em>m: 2; o: reset Java exercise</em></li>
       </ol>
+    </div>
+    <div class="about_section">
+      <h1 style="font-size: 20px; font-weight: bold;"> About </h1>
+      <h3 id="about_details"></h3>
+      <p>The extension was created by Roberto Arias-Yacupoma. It is currently maintained by Adam N, Elise H, and Jake B. <br>
+        On Slack we are <a href="https://codecademy.slack.com/team/roberto">roberto</a>, <a href="https://codecademy.slack.com/team/adam">adam</a>, <a href="https://codecademy.slack.com/team/elise9876">elise9876</a>, and
+        <a href="https://codecademy.slack.com/team/jakebrisk">jakebrisk</a>. 
+      </p>
+      <a href="https://bitbucket.org/walom8868/codecademy-advisortoolbox">Source code</a>
     </div>
 
     <script src="options.js"></script>

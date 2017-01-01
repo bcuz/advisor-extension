@@ -15,25 +15,32 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 $(document).ready(function(){
-  // get the background page so we can read some of the data (there's probably a better way to do this)
-  var bgPage = chrome.extension.getBackgroundPage();
-  // clocked in / out status
-  var working = bgPage.userData.working;
-  // var hoursThisShift;
-  // var interval;
+  let userData = null;
+  let working = null;
+  // whenever the use opens up the popup, check if they're clocked in or not and perform actions accordingly.
+  chrome.runtime.sendMessage({message: "get-user-data"}, function(response){
+    if(response !== null && response !== undefined){
+      userData = response.data;
+      working = userData.working;
+    }else{
+      working = false;
+    }
+
+    if(!working){
+      clockedOut();
+    }else if(working){
+      workingNow();
+    }
+  })
 
   // handles clock in / clock out button click.
   $('#clock-in-out').click(function(){
     if($(this).hasClass('start')){
-      bgPage.clockIn();
+      chrome.runtime.sendMessage({message: "clock-user-in"});
       workingNow();
-      //var returnVal = calcDuration();
-      //$('.hourCounter h3').text("You're " + returnVal + " into your shift");
     }else if($(this).hasClass('stop')){
-      //clearInterval(interval);
       clockedOut();
-      //showReport();
-      bgPage.clockOut();
+      chrome.runtime.sendMessage({message: "clock-user-out"});
     }
   });
 
@@ -76,7 +83,7 @@ $(document).ready(function(){
 
   // when the user is clocked out, modify the ui
   function clockedOut(){
-    $('.hourCounter h3').text("You're not currently working");
+    //$('.hourCounter h3').text("You're not currently working");
     $('#clock-in-out').addClass('start');
     $('#clock-in-out h1').text("Clock In");
     //$('.shiftNumbers').hide();
@@ -91,24 +98,6 @@ $(document).ready(function(){
   //     "and closed " + bgPage.userData.closedThisShift + " conversations, for an average of " + calcAverage("shift") +
   //     " conversations per hour");
   // }
-
-  // whenever the use opens up the popup, check if they're clocked in or not and perform actions accordingly.
-  if(!working){
-    clockedOut();
-  }else if(working){
-    // var returnVal = calcDuration();
-    // $('.hourCounter h3').text("You're " +  returnVal + " into your shift");
-    workingNow();
-    // var avg = calcAverage("shift");
-    // $('.averageThisShift').text(avg + " /Hr");
-
-    // interval = setInterval(function(){
-    //   var returnVal  = calcDuration();
-    //   $('.hourCounter h3').text("You're " +  returnVal + " into your shift");
-    //   var avg = calcAverage("shift");
-    //   $('.averageThisShift').text(avg + " /Hr");
-    //},1000);
-  }
 
   // show all time convo info
   // var allTimeAvg = calcAverage("all");
