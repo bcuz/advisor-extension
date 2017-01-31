@@ -54,7 +54,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 	   // Automatically send URL
 	   $(".conversation__text.composer-inbox").focus();
 	   setTimeout(function(){ 
-	   	$("button.inbox__conversation-controls__button.o__primary").click();
+	   	$("button.btn.o__primary.o__in-right-list").click();
 	   }, 500);
 	}
 });
