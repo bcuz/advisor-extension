@@ -52,9 +52,6 @@ $utils.createKeyboardShortcut(submit_unassign_close, "X");
 chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 	if (request.message == "got_rating_url") {
 	   console.log("Received rating url: " + request.ratingURL);
-	   let fixed_url = request.ratingURL.replace(/(https?:\/\/[^\s]+)/g, function(url){
-	   	return `<a href="${url}" target="_blank"> ${url} </a>`;
-	   });
 	   $("div.tabs__discrete-tab__container a:first").click();
 	   $(".conversation__text.composer-inbox p").text(request.ratingURL);
 	   $(".conversation__text.composer-inbox p").select();
