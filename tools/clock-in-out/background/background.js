@@ -35,7 +35,7 @@ function clockIn(){
 		}
 	);
 
-	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/details/"},
+	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/"},
 		function(tab){
 			//slackTab = tab;
 			chrome.tabs.executeScript(tab.id, {file: "libs/moment.min.js"}, function(){
@@ -72,7 +72,7 @@ function clockOut(){
 	userData.working = false;
 
 	// clock out on slack
-	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/details/"},
+	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/"},
 		function(tab){
 			chrome.tabs.executeScript(tab.id, {file: "libs/moment.min.js"}, function(){
 				chrome.tabs.executeScript(tab.id, { file: "libs/jquery-2.2.4.min.js"}, function(){
