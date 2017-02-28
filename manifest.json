@@ -1,12 +1,11 @@
 {
 	"manifest_version": 2,
 	"name": "Advisor Toolbox - Codecademy",
-	"version": "1.2.6",
+	"version": "1.2.7",
 	"devtools_page": "core/intercom-mapper/devtools.html",
 
 	"permissions": [
-		"tabs","declarativeWebRequest", "*://*/*", "storage", "webRequest", "notifications", "<all_urls>",
-		"activeTab", "downloads", "https://ajax.googleapis.com/"
+		"tabs", "*://*/*", "storage", "webRequest", "notifications", "<all_urls>", "activeTab", "downloads"
 	],
 
 	"content_scripts": [
@@ -48,6 +47,10 @@
 		"scripts": [
 			"libs/jquery-2.2.4.min.js", "libs/moment.min.js", "deploy/background.js"
 		]
+	},
+
+	"icons" : {
+		"48" : "img/panda-48x48.png"
 	},
 
 	"web_accessible_resources": [

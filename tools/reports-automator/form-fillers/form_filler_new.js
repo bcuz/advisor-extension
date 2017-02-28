@@ -116,17 +116,12 @@ chrome.runtime.sendMessage({
 	fillTextAndValidate(`[aria-label*="Seconds"]`, `seconds`);
 	fillTextAndValidate(`[aria-label*="Minutes"]`, `minutes`);
 
-	// Continue to next confirmation page
+	// Continue to next submit page
 	chrome.runtime.sendMessage({
 		"message": "checkpoint",
-		"goingToPage": "confirmation"
+		"goingToPage": "submit"
 	});
 
 	// Click Submit
 	document.querySelector(`[type="submit"]`).click();
-
-	// Notify that this report is successful
-	chrome.runtime.sendMessage({
-		"message": "report-success"
-	});
 });

@@ -76,6 +76,7 @@ CSS : `
 		margin-top: 65px;
 		overflow-y: auto;
 		height: 90%;
+		padding-bottom: 2em;
 	}
 	.required-mark {
 		font-size: 13px;
@@ -94,6 +95,13 @@ CSS : `
 	}
 	.unchanged{
 		background-color: #EFA2AD;
+	}
+	#missing-fields {
+		color: #ff0000;
+		margin: 1.5em auto;
+		width: 100%;
+		text-align: center;
+		display: none;
 	}
 `,
 
@@ -122,14 +130,30 @@ JS : function(data) {
 		// time dropdowns don't have a blank state makes things weird
 		if (data.hours === "0" && data.minutes === "00") {
 			 data.minutes = undefined;
-			}
+		}
 		data.seconds = "00";
+		// Check if any checkboxes are checked
+		if($("input:checkbox:checked").length > 0){
+			var anythingChecked = true;
+		}
 
-		// Send the message to open report tab
-		chrome.runtime.sendMessage({
-			message: "open_report_tab",
-			data: data
-		});
+		// Check if the report is filled out properly. 
+		// Adds a "data-can-file" attribute and sets it to true or false
+		// Attribute is then used by Ctrl+Shift+X handler to determine whether to close the panel and convo.
+		if(data.minutes !== undefined && anythingChecked){
+			// Send the message to open report tab
+			$("#data").attr("data-can-file", "true");
+			chrome.runtime.sendMessage({
+				message: "open_report_tab",
+				data: data
+			});
+			
+		}else{
+			// Show a warning to fill in the data
+			$("#missing-fields").show();
+			$("#data").attr("data-can-file", "false");
+		}
+
 	});
 
 	/*************  Close side panel  ***************/
@@ -145,6 +169,7 @@ JS : function(data) {
 
 	// disable "other" field until the checkbox is clicked
 	$("#other").prop("disabled", true);
+
 
 	// Hack for checkboxes
 	\$("#side-panel input[type=checkbox]").change(function() {
@@ -388,6 +413,7 @@ render: function(data) {
 
 		${ side_panel.HTML }
 		<div id="data">
+			<h2 id="missing-fields" style="display:none">Please fill in all required fileds</h2>
 			<center id="user_name">${data["Name"]}</center>
 			<h5 class="required-mark">*   Required</h5>
 			<span style="color: green; text-align: center; font-size: 18px; font-weight: bold; margin-right: 10px;">${alreadySubmitted}</span>

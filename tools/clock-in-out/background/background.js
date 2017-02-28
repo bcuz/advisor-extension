@@ -3,23 +3,13 @@ var trackSmartResponse = null;
 var slackResponse = null;
 //var slackTab;
 var userData = {
-	working: false,
-	// totalHours: 0,
-	// totalClosedConvos: 0,
-	// clockInTime: null,
-	// closedThisShift: 0
+	working: false
 }
 
 // set up user data
-chrome.storage.sync.get({'working': false/*, 'totalHours': 0, 'totalClosedConvos': 0, 'clockInTime': null, 'closedThisShift': 0*/},
+chrome.storage.sync.get({'working': false},
 	function(results){
 		userData.working = results.working;
-		// userData.totalHours = results.totalHours;
-		// userData.totalClosedConvos = results.totalClosedConvos;
-		// if(results.clockInTime){
-		// 	userData.clockInTime = moment(JSON.parse(results.clockInTime));
-		// }
-		// userData.closedThisShift = results.closedThisShift;
 		if(chrome.runtime.error){
 			console.log(chrome.runtime.error);
 		}
@@ -45,7 +35,7 @@ function clockIn(){
 		}
 	);
 
-	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/details/"},
+	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/"},
 		function(tab){
 			//slackTab = tab;
 			chrome.tabs.executeScript(tab.id, {file: "libs/moment.min.js"}, function(){
@@ -68,10 +58,7 @@ function clockIn(){
 
 	// set the working variable to true
 	userData.working = true;
-	// clock in time
-	// userData.clockInTime = moment();
-	// // store data in case browser is closed
-	// var stringTime = JSON.stringify(userData.clockInTime); // cannot store objects in chrome.storage
+	// store data in case browser is closed
 	chrome.storage.sync.set({'working': true/*, 'clockInTime': stringTime*/}, function(){
 		if(chrome.runtime.error){
 			console.log(chrome.runtime.error);
@@ -85,7 +72,7 @@ function clockOut(){
 	userData.working = false;
 
 	// clock out on slack
-	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/details/"},
+	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/"},
 		function(tab){
 			chrome.tabs.executeScript(tab.id, {file: "libs/moment.min.js"}, function(){
 				chrome.tabs.executeScript(tab.id, { file: "libs/jquery-2.2.4.min.js"}, function(){
@@ -114,11 +101,8 @@ function clockOut(){
 			});
 		}
 	);
-	// update the total convos (totalHours is updated by popup.js)
-	//userData.totalClosedConvos += userData.closedThisShift;
 	// store data for later use
-	chrome.storage.sync.set({'working': false/*, 'totalClosedConvos': userData.totalClosedConvos,
-		'closedThisShift': 0, 'clockInTime': null, 'totalHours': userData.totalHours*/},
+	chrome.storage.sync.set({'working': false},
 		function(){
 			if(chrome.runtime.lastError){
 				console.log(chrome.runtime.lastError);

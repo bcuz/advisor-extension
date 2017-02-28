@@ -24,10 +24,14 @@ function submit_press() {
 // speed addict
 function submit_unassign_close() {
 	$("#open-report").click();
-	$("#close-side-panel").click();
-	$("div[data-content='Assign to teammate or team']").click();
-	$("div.js__admin-list-item div")[1].click();
-	$("button.js__conversation-header__close-button").click();
+	// Check if the report is ready to be filed
+	if($("#data").attr("data-can-file") === "true"){
+		$("#close-side-panel").click();
+		$("div[data-content='Assign to teammate or team']").click();
+		$("div.js__admin-list-item div")[1].click();
+		$("button.js__conversation-header__close-button").click();
+	}
+
 }
 
 // Disable intercom default shortcuts
@@ -54,7 +58,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 	   // Automatically send URL
 	   $(".conversation__text.composer-inbox").focus();
 	   setTimeout(function(){ 
-	   	$("button.inbox__conversation-controls__button.o__primary").click();
+	   	$("button.btn.o__primary.o__in-right-list").click();
 	   }, 500);
 	}
 });
