@@ -30,10 +30,14 @@ function restore_options() {
   // Defaults here
   chrome.storage.sync.get({
     advisorName: '',
-    timeBetweenScreensForm: "2"
+    timeBetweenScreensForm: "2",
+    advisorEmail: '',
+    advisorAddress: ''
   }, function(items) {
     document.getElementById('advisor-name').value = items.advisorName;
     document.getElementById('time-between-screens-form').value = items.timeBetweenScreensForm;
+    document.getElementById('advisor-email').placeholder = items.advisorEmail !== '' ? "Saved" : '';
+    document.getElementById('advisor-address').placeholder = items.advisorAddress !== '' ? "Saved" : '';
   });
 }
 
@@ -46,4 +50,9 @@ function set_name_and_version(){
 document.addEventListener('DOMContentLoaded', function(){restore_options(); set_name_and_version();});
 document.getElementById('save').addEventListener('click',
     save_options);
+
+// JQ code for tabs
+$(function(){
+  $("#tabs").tabs();
+});
 

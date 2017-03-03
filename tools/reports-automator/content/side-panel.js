@@ -11,17 +11,17 @@ HTML : `
 
 	<div id="whattodo">
 		<div id="open-report">Submit Report</div>
-		<div id="close-side-panel">X</div>
+		<div id="close-side-panel">&#10006;</div>
 	</div>
 `,
 
 // Contains panel's CSS
 CSS : `
 	#side-panel {
-		background: #f0f0f0;
+		background: #f7f7f7;
 		height: 100%;
 		width: 30%;
-		border-left: 1px solid #c9d7df;
+		border-left: 1px solid #ba68c8;
 		position: absolute;
 		right: 0;
 		top: 0;
@@ -36,13 +36,18 @@ CSS : `
 		height: 100%;
 		position:absolute;
 		z-index: 10;
-		background: #df4057;
+		background: #f44336;
 		font-weight: bold;
 		font-size: 1.6em;
 		cursor: pointer;
-		color: #000;
+		color: #fff;
 		text-align: center;
 		line-height: 50px;
+		transition: all .3s;
+	}
+	#close-side-panel:hover {
+		background: #fff;
+		color: #f44336;
 	}
 	#whattodo {
 		position: absolute;
@@ -65,15 +70,20 @@ CSS : `
 		width: 75%;
 		line-height: 50px;
 		display: inline-block !important;
-		background: #76c56f;
+		background: #ba68c8;
 		color: white;
 		font-family: sans-serif;
 		cursor: pointer;
 		text-align: center;
 		font-size: 1.2em;
+		transition: all .3s;
+	}
+	#open-report:hover {
+		background: #fff;
+		color: #ba68c8;
 	}
 	#data {
-		margin-top: 65px;
+		margin-top: 50px;
 		overflow-y: auto;
 		height: 90%;
 		padding-bottom: 2em;
@@ -86,15 +96,88 @@ CSS : `
     	opacity: 0.9;
 	}
 	#user_name {
-		font-size: 20px;
-		color: #3d7eff;
+		color: #000;
+		font-size: 1.2em;
+		padding: 20px;
+		margin: 0;
+		background: #e9e9f7;
 	}
 	#side-panel input[type=checkbox], #side-panel label[data-for=checkbox],
 	#side-panel input[type=radio], #side-panel label[data-for=radio] {
 		display: inline-block !important;
 	}
+	#side-panel input[type=text] , #side-panel textarea{
+		outline: none;
+		border: none;
+		border-bottom: 1px solid #9e9e9e;
+		background: transparent;
+		height: 1.6rem;
+		width: 70%;
+		font-size: 1em;
+		margin: 0 0 15px 0;
+		padding: 0;
+		box-shadow: none;
+		transition: all 0.3s;
+	}
+	#side-panel textarea {
+		height: 80px;
+	}
+	#side-panel input[type="checkbox"]+label:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 15px;
+		height: 15px;
+		z-index: 0;
+		border: 2px solid #5a5a5a;
+		border-radius: 1px;
+		margin-top: 4px;
+		transition: all linear .3s;
+	}
+	#side-panel input[type="checkbox"]:not(:checked), #side-panel input[type="checkbox"]:checked {
+		position: absolute;
+		left: -9999px;
+		opacity: 0;
+		padding: 0;
+	}
+	#side-panel input[type="checkbox"]+label {
+		position: relative;
+		padding-left: 30px;
+		cursor: pointer;
+		font-size: .9em;
+		margin-top: .1em;
+	}
+	#side-panel input[type="checkbox"]:checked+label:before {
+		top: -4px;
+		left: 0px;
+		width: 8px;
+		height: 18px;
+		border-top: 2px solid transparent;
+		border-left: 2px solid transparent;
+		border-right: 2px solid  #ba68c8;
+		border-bottom: 2px solid  #ba68c8;
+		transform: rotate(40deg);
+		backface-visibility: hidden;
+		transform-origin: 100% 100%;
+	}
+	#side-panel input[type=text]:focus, #side-panel textarea:focus {
+		border-bottom: 1px solid #ba68c8;
+		box-shadow: 0 1px 0 0 #ba68c8;
+	}
+	#side-panel select {
+		background: transparent;
+		width: 70%;
+		border: none;
+		border-bottom: 1px solid #9e9e9e;
+		border-radius: 2px;
+		height: 3em;
+		padding: 5px;
+		font-size: .9em;
+		outline: none;
+	}
 	.unchanged{
-		background-color: #EFA2AD;
+		background-color: #f44336 !important;
 	}
 	#missing-fields {
 		color: #ff0000;
@@ -102,6 +185,42 @@ CSS : `
 		width: 100%;
 		text-align: center;
 		display: none;
+	}
+	#data div {
+		margin-top: .5em;
+	}
+	#data::-webkit-scrollbar {
+		width: 11px;
+		height: 10px;
+	}
+	#data::-webkit-scrollbar-button {
+		width: 0px;
+		height: 0px;
+	}
+	#data::-webkit-scrollbar-thumb {
+		background: #ba68c8;
+		border: 1px solid #fff;
+		border-radius: 10px;
+	}
+	#data::-webkit-scrollbar-thumb:hover {
+		background: #ba68c8;
+	}
+	#data::-webkit-scrollbar-thumb:active {
+		background: #ba68c8;
+	}
+	#data::-webkit-scrollbar-track {
+		background: #ffffff;
+		border-right: 1px solid #43d1af;
+		border-left: 1px solid #43d1af;
+	}
+	#data::-webkit-scrollbar-track:hover {
+		background: #ffffff;
+	}
+	#data::-webkit-scrollbar-track:active {
+		background: #ffffff;
+	}
+	#data::-webkit-scrollbar-corner {
+		background: transparent;
 	}
 `,
 
@@ -167,6 +286,11 @@ JS : function(data) {
 
 	/**************  Bad but useful hacks section  *************/
 
+	// select text in minutes and hours on click
+	$("#minutes, #hours").click(function(){
+		$(this).select();
+	})
+
 	// disable "other" field until the checkbox is clicked
 	$("#other").prop("disabled", true);
 
@@ -202,42 +326,14 @@ JS : function(data) {
 		$("#"+\$(this).attr("name")).val(\$(this).val());
 	});
 
-// if other has text, click other
+	// if other has text, click other
 	if ($("#other").val().length !== 0) {
 		$("#convo_type_9").click()
 		$("#other").removeClass("unchanged");
 	}
 
-	// Set useful default values
-	//$("input[id=hours]").val("0");
-	//$("input[id=minutes]").val("0");
-
 	// remove the red background when text is entered
 	$("#other").keypress(function(){ $(this).removeClass("unchanged"); });
-
-
-
-	// Another useful thing, if anything different than Code/Concept Review, Bug Report, or Personal Project is selected, check "Not a code question"
-	// $("input[name=convo_type]").change(function() {
-	// 	var not_code_q = $("#issue_type_2");
- //    	if ($(this).val() != 1 && $(this).val() != 4 && $(this).val() != 6) {
- //    			if (not_code_q.data('clicked') === true) {
- //    				// if not a code q is already checked, and
- //    				// another not a code q type of thing is selected
- //    				// do nothing
- //    			} else {
- //    				// clicks on not a code q checkbox, sets data to clicked
-	// 				  not_code_q.data('clicked', true).click();
- //    			}
- //       } else {
- //       		if (not_code_q.data('clicked') === true) {
- //       			// if a code q IS selected, and not a code q
- //       			// is checked, unclick it, and mark it as not clicked
- //     			not_code_q.data('clicked', false).click();
- //       		}
- //       }
-
-	// });
 
 	`;
 },
@@ -370,7 +466,7 @@ renderField: function(FORM, data, extra) {
 		// Append field to the form
 		formHTMLandJS[0] += `
 			<div ${extraClass}>
-				<label style="font-weight:bold;">${FORM[field].Label} <span style="display: inline-block; color: red;">${ requiredLabel }</span></label>
+				<label style="font-size:.9em;color:#894994">${FORM[field].Label} <span style="display: inline-block; color: red;">${ requiredLabel }</span></label>
 				${ fieldHTML }
 				${ extraHTMLandJS[0] }
 			</div>
@@ -413,8 +509,8 @@ render: function(data) {
 
 		${ side_panel.HTML }
 		<div id="data">
+			<center id="user_name">Report for ${data["Name"]}</center>
 			<h2 id="missing-fields" style="display:none">Please fill in all required fileds</h2>
-			<center id="user_name">${data["Name"]}</center>
 			<h5 class="required-mark">*   Required</h5>
 			<span style="color: green; text-align: center; font-size: 18px; font-weight: bold; margin-right: 10px;">${alreadySubmitted}</span>
 			${ formHTMLandJS[0] }

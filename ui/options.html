@@ -1,9 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Report Automator - Codecademy</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Merriweather" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../libs/jquery-ui.min.css" />
     <style>
-      body { padding: 10px; }
+      body { 
+        padding: 10px; 
+        min-width: 370px;
+        font-family: 'Open Sans', sans-serif;
+      }
       body div {
         padding: 1% 0;
         display: block;
@@ -13,8 +19,8 @@
         padding: .5em 0;
       }
       label {
-        font-size: 1.6em;
-        font-style: italic;
+        font-size: .9em;
+        color: #894994;
       }
       input {
         font-size: 1.4em;
@@ -34,75 +40,160 @@
       span {
         text-decoration: underline;
       }
-      #how-to {
-        font-size: 14px;
+      #tabs-abt a{
+        display: inline-block;
       }
-      .about_section a{
-        display: inline;
+      #tabs {
+        border: 1px solid #e9e9f7;
+        border-radius: 0px;
+      }
+      #tabs > ul {
+        border-radius: 0px;
+        background: #f7f7f7;
+        border-bottom: 1px solid #ba68c8;
+      }
+      #tabs > ul li.ui-state-active {
+        background: #ba68c8;
+      }
+      #tabs > ul li {
+        background: #e9e9f7;
+        font-size: 1.2em;
+      }
+      #tabs > ul li a {
+        outline: none;
+        border: none;
+      }
+      input[type=text] {
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #9e9e9e;
+        background: transparent;
+        height: 1.6rem;
+        width: 350px;
+        font-size: 1em;
+        margin: 0 0 15px 0;
+        padding: 0;
+        box-shadow: none;
+        transition: all 0.3s;
+      }
+      input[type=text]:focus {
+        border-bottom: 1px solid #ba68c8;
+        box-shadow: 0 1px 0 0 #ba68c8;
+      }
+      #tabs h1 {
+        font-family: "Merriweather", serif;
+      }
+      #save {
+          display: block;
+          padding: .8em;
+          border-radius: 2px;
+          box-shadow: 0 1px 4px rgba(0, 0, 0, .35);  
+          background-color: #ba68c8;
+          color: #fff;      
+          text-decoration: none;
+          transition: background-color .3s;
+          width: 335px;
+          text-align: center;
+        }
+      #save:hover {
+          background-color: #ee792c;
+          transition: background-color .3s;
+      }
+      #tabs-opt p {
+        width: 350px;
+      }
+      #tabs > div {
+        font-size: 1.1em;
+      }
+      p, li, a {
+        font-family: 'Open Sans', sans-serif;
       }
     </style>
   </head>
 
   <body>
-    <div>
-      <label>Your Name:</label>
-      <input id="advisor-name" type="text" />
-    </div>
-
-    <div>
-      <h2> FOR INVOICE GENERATION (optional, if you don't fill them here you have to do it manually in the invoice)</h2>
-      <label for="advisor-address">Address:</label>
-      <input id="advisor-address" type="text" style="width:250px" name="address" />
-
-      <label for="advisor-email">Email:</label>
-      <input id="advisor-email" type="text" name="email"/>
-    </div>
-
-    <div>
-      <label>Number of seconds to submit report?</label>
-      <input id="time-between-screens-form" type="text" />
-    </div>
-
-    <div id="status"></div>
-    <button style="padding: 0;" id="save">Save</button>
-
-    <div id="how-to">
-      <h1 style="font-size: 20px; font-weight: bold;"> How-To Guides </h1>
-      <span style="font-style: underlined"> Keyboard Shortcuts </span>
+    <div id="tabs">
       <ul>
-        <li>Ctrl + Shift + O  - Open/close reports panel</li>
-        <li>Ctrl + Shift + R  - Generate rating URL</li>
-        <li>Ctrl + Shift + U  - Unassign & Close</li>
-        <li>Ctrl + Shift + X  - Submit report, close panel, unassign, close </li>
+        <li><a href="#tabs-opt">Options</a></li>
+        <li><a href="#tabs-how">How-To Guide</a></li>
+        <li><a href="#tabs-abt">About</a></li>
       </ul>
-      <span> Using Reports Automator </span>
-      <ol>
-        <li> 1. Make sure you set your name and # of seconds in the fields above. Make sure your name matches (including casing) the one listed in the <a style="display:inline;" href="https://docs.google.com/a/codecademy.com/forms/d/e/1FAIpQLSdf8UJxP5m3eHoVKY1ufhRffOZr2ul5ExrJxKFXw3Qzeyw-cg/viewform">post-interaction report form</a></li>
-        <li> 2. While in the intercom tab, click the panda icon, then "Open/Close Reports Panel" (or use shortcut Ctrl + Shift + O). This will open the panel for your active conversation. Try it out!</li>
-        <li> 3. Fill the required fields and submit. Real report form will automatically be filled, submitted and closed. You'll get a notification whether the report suceeded or failed.</li>
-        <li> 4. If you've already submitted a report for a conversation, you'll see a notification about this in the panel (to avoid double entries).</li>
-        <li> 5. After saving your address and email on this page, it will be saved, but won't visually show up in the input fields again</li>
-      </ol>
-      <span>Tips</span>
-      <ol>
-        <p>You can use the following in a note to populate some of the report panel fields:</p>
-        <li>1. m: - fills in the minutes field</li>
-        <li>2. h: - fills in the hours field</li>
-        <li>3. o: - checks the "other" checkbox, and fills in the corresponding text field</li>
-        <li>4. Use a semicolon between each if using more than one </li>
-        <li>Example: <em>m: 2; o: reset Java exercise</em></li>
-      </ol>
-    </div>
-    <div class="about_section">
-      <h1 style="font-size: 20px; font-weight: bold;"> About </h1>
-      <h3 id="about_details"></h3>
-      <p>The extension was created by Roberto Arias-Yacupoma. It is currently maintained by Adam N, Elise H, and Jake B. <br>
-        On Slack we are <a href="https://codecademy.slack.com/team/roberto">roberto</a>, <a href="https://codecademy.slack.com/team/adam">adam</a>, <a href="https://codecademy.slack.com/team/elise9876">elise9876</a>, and
-        <a href="https://codecademy.slack.com/team/jakebrisk">jakebrisk</a>. 
-      </p>
-      <a href="https://bitbucket.org/walom8868/codecademy-advisortoolbox">Source code</a>
+
+      <div id="tabs-opt">
+        <h1> Options </h1>
+        <div>
+          <label>Your Name:</label>
+          <input id="advisor-name" type="text" />
+        </div>
+
+        <div>
+          <p> FOR INVOICE GENERATION <br> (optional, if you don't fill them here you have to do it manually in the invoice)</p>
+          <label for="advisor-address">Address:</label>
+          <input id="advisor-address" type="text" name="address" />
+
+          <label for="advisor-email">Email:</label>
+          <input id="advisor-email" type="text" name="email"/>
+        </div>
+
+        <div>
+          <label>Number of seconds to submit report?</label>
+          <input id="time-between-screens-form" type="text" />
+        </div>
+
+        <div id="status"></div>
+        <a href="#" id="save">Save</a>
+      </div>
+
+      <div id="tabs-how">
+
+        <div id="how-to">
+          <h1> How-To Guides </h1>
+          <span style="font-style: underlined"> Keyboard Shortcuts </span>
+          <ul>
+            <li>Ctrl + Shift + O  - Open/close reports panel</li>
+            <li>Ctrl + Shift + R  - Generate rating URL</li>
+            <li>Ctrl + Shift + U  - Unassign &amp; Close</li>
+            <li>Ctrl + Shift + X  - Submit report, close panel, unassign, close </li>
+          </ul>
+          <span> Using Reports Automator </span>
+          <ol>
+            <li> 1. Make sure you set your name and # of seconds in the fields above. Make sure your name matches (including casing) the one listed in the <a style="display:inline;" href="https://docs.google.com/a/codecademy.com/forms/d/e/1FAIpQLSdf8UJxP5m3eHoVKY1ufhRffOZr2ul5ExrJxKFXw3Qzeyw-cg/viewform">post-interaction report form</a></li>
+            <li> 2. While in the intercom tab, click the panda icon, then "Open/Close Reports Panel" (or use shortcut Ctrl + Shift + O). This will open the panel for your active conversation. Try it out!</li>
+            <li> 3. Fill the required fields and submit. Real report form will automatically be filled, submitted and closed. You'll get a notification whether the report suceeded or failed.</li>
+            <li> 4. If you've already submitted a report for a conversation, you'll see a notification about this in the panel (to avoid double entries).</li>
+            <li> 5. After saving your address and email on this page, it will be saved, but won't visually show up in the input fields again</li>
+          </ol>
+          <span>Tips</span>
+          <ol>
+            <li>You can use the following in a note to populate some of the report panel fields:</li>
+            <li>1. m: - fills in the minutes field</li>
+            <li>2. h: - fills in the hours field</li>
+            <li>3. o: - checks the "other" checkbox, and fills in the corresponding text field</li>
+            <li>4. Use a semicolon between each if using more than one </li>
+            <li>Example: <em>m: 2; o: reset Java exercise</em></li>
+          </ol>
+        </div>
+      </div>
+
+      <div id="tabs-abt">
+        <h1> About </h1>
+        <h3 id="about_details"></h3>
+        <p>The extension was created by Roberto Arias-Yacupoma. It is currently maintained by Adam N, Elise H, and Jake B. <br>
+          On Slack we are <a href="https://codecademy.slack.com/team/roberto">roberto</a>, <a href="https://codecademy.slack.com/team/adam">adam</a>, <a href="https://codecademy.slack.com/team/elise9876">elise9876</a>, and
+          <a href="https://codecademy.slack.com/team/jakebrisk">jakebrisk</a>. 
+        </p>
+        <a href="https://bitbucket.org/walom8868/codecademy-advisortoolbox/issues/new">Report a Bug</a>
+        <br>
+        <a href="https://bitbucket.org/walom8868/codecademy-advisortoolbox">Source code</a>
+      </div>
+
     </div>
 
+    
+
+    <script type="text/javascript" src="../libs/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="../libs/jquery-ui.min.js"></script>
     <script src="options.js"></script>
+
   </body>
 </html>
