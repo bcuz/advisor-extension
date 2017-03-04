@@ -53,6 +53,22 @@ document.getElementById('save').addEventListener('click',
 
 // JQ code for tabs
 $(function(){
-  $("#tabs").tabs();
+
+  $("#tabs ul li").first().addClass("active");
+  $("#tabs > div").hide();
+  let first_tab = $("#tabs ul li a").first().attr("href");
+  $(first_tab).show();
+  console.log(first_tab);
+  
+  $("#tabs a").click(function(e){
+    let tab_id = $(this).attr("href");
+    $("#tabs ul li").removeClass("active");
+    $(this).parent().addClass("active");
+    $("#tabs > div").hide();
+    $(tab_id).show();
+
+    e.preventDefault();
+    e.stopPropagation();
+  })
 });
 
