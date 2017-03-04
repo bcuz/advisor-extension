@@ -14,6 +14,8 @@ function unassign_and_close() {
 	$("div[data-content='Assign to teammate or team']").click();
 	if($("div.js__admin-list-item div span").first().text().indexOf("Nobody") !== -1)
 		$("div.js__admin-list-item div")[1].click();
+	else 
+		$("div[data-content='Assign to teammate or team']").click();
 	$("button.js__conversation-header__close-button").click();
 }
 
@@ -35,10 +37,17 @@ function submit_unassign_close() {
 }
 
 // Disable intercom default shortcuts
-// don't think this works
 $("body").append(
 	`<script>
-		$(document).off("keydown");
+		// Catch all keypresses - If the keypress doesn't include the CTRL key, 
+		// and the user is not focusing on an input filed, then prevent default behavior. 
+		window.document.body.onkeydown = function() {
+	        if (!event.ctrlKey && !($(".composer-inbox").is(':focus') || $('input').is(':focus') || $('textarea').is(':focus'))) {
+	            event.stopPropagation();
+	            event.preventDefault();
+	        }
+	        return true;
+	    }
 	 </script>`
 );
 
