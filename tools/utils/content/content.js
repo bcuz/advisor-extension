@@ -72,17 +72,44 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 	}
 });
 
-// Release announcement
-// Remember to update the version to only show this message once
-$utils.announcement(`
-	<p>Hi! This is Adam N (@adam) with an announcement:</p><br />
-	<p>Just wanted to officially mention that Elise(@elise9876) now owns the extension and I've been making
-	 some changes to it here and there. There are two new shortcuts:</p><br />
-	<p><strong>Ctrl + Shift + X</strong> will submit the report, close the panel, unassign convo, and close the convo.<br>
-	<strong>Ctrl + Shift + S</strong> will just submit the report. Use this or manually press the submit button
-	when not using Ctrl + Shift + X.
-</p><br />
-	<p>If you find a problem with the extension, feel free to
-	<a href="https://bitbucket.org/walom8868/codecademy-advisortoolbox/issues?status=new&status=open"> create an issue on BitBucket</a> or DM me on slack.</p><br />
+// Show announcement on install or version update 
+chrome.runtime.sendMessage({message: "show-message"}, (response) => {
+	if(response.show){
+		let thisVersion = chrome.runtime.getManifest().version;
+		if(response.reason === "install"){
+			// first install, show tips
+			$utils.announcement(`
+				<p>Hi! Thanks for installing the Advisor Toolbox extension. Your life is about to get so much easier!</p>
+				<br/>
+				<h3>Here are some tips to help you get started:</h3>
+				<ul>
+					<li>Make sure you set your name and number of seconds in the fields in the <a href="${chrome.extension.getURL("ui/options.html")}">
+					options page</a>. Confirm that your name matches (including casing) the one listed in the <a style="display:inline;" 
+					href="https://docs.google.com/a/codecademy.com/forms/d/e/1FAIpQLSdf8UJxP5m3eHoVKY1ufhRffOZr2ul5ExrJxKFXw3Qzeyw-cg/viewform"
+					>post-interaction report form</a>
+					</li>
+					<li>Read through the <a href="${chrome.extension.getURL("ui/options.html")}">usage guide</a> to learn more about how 
+					to make the most of this extension</li>
+				</ul>
+				<p>Happy advising!</p>
+				`);
+		}else if(response.reason === "update"){
 
-`, "1.1.4")
+			// Show an announcement on update
+			if(thisVersion === "1.1.4" /* change this to show for specific version */){
+				$utils.announcement(`
+					<p>Hi! This is Adam N (@adam) with an announcement:</p><br />
+					<p>Just wanted to officially mention that Elise(@elise9876) now owns the extension and I've been making
+					 some changes to it here and there. There are two new shortcuts:</p><br />
+					<p><strong>Ctrl + Shift + X</strong> will submit the report, close the panel, unassign convo, and close the convo.<br>
+					<strong>Ctrl + Shift + S</strong> will just submit the report. Use this or manually press the submit button
+					when not using Ctrl + Shift + X.
+				</p><br />
+					<p>If you find a problem with the extension, feel free to
+					<a href="https://bitbucket.org/walom8868/codecademy-advisortoolbox/issues?status=new&status=open"> create an issue on BitBucket</a> or DM me on slack.</p><br />
+
+				`);
+			}
+		}
+	}
+});

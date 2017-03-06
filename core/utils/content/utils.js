@@ -34,13 +34,7 @@ const $utils = {
 	 /**
 	  *  Show an announcement window
 	  */
-	announcement: function(message, version) {
-
-		// Check this version
-		if (localStorage.getItem("version") == version) return;
-
-		// Show only once
-		if ($utils.announcementShown) return;
+	announcement: function(message) {
 
 		$("body").append(`
 			<div id="announcement">
@@ -72,14 +66,11 @@ const $utils = {
 			    })
 			    </script>
 			    <div id="close-announcement">X</div>
-			    <h2> Announcement from the AllMighty Panda Extension (Advisor Toolbox) </h2>
+			    <h2> Message from the almighty Panda Extension (Advisor Toolbox) </h2>
 			    <br />
 			    ${message}
 			</div>
 		`);
-
-		// Update version
-		localStorage.setItem("version", version);
 	}
 }
 

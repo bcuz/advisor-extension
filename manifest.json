@@ -54,6 +54,6 @@
 	},
 
 	"web_accessible_resources": [
-		"img/error.png", "img/panda-48x48.png"
+		"img/error.png", "img/panda-48x48.png", "ui/options.html"
 	]
 }
