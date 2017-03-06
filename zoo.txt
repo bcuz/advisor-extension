@@ -1,0 +1,59 @@
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500  1) {
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500  2) 	"manifest_version": 2,
+670511af (Roberto Arias 2016-02-08 17:47:54 -0500  3) 	"name": "Advisor Toolbox - Codecademy",
+325a2362 (Jake Brisk    2017-02-15 20:57:29 -0500  4) 	"version": "1.2.7",
+c0075243 (Roberto Arias 2016-02-19 20:38:48 -0500  5) 	"devtools_page": "core/intercom-mapper/devtools.html",
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500  6) 
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500  7) 	"permissions": [
+b61baf01 (Jake Brisk    2017-02-15 20:51:55 -0500  8) 		"tabs", "*://*/*", "storage", "webRequest", "notifications", "<all_urls>", "activeTab", "downloads"
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500  9) 	],
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 10) 
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 11) 	"content_scripts": [
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 12) 		{
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 13) 			"matches": [
+0efe59f5 (Roberto Arias 2016-05-21 13:58:53 -0400 14) 				"https://app.intercom.io/a/apps/*",
+3d948a1e (ksirbj        2016-12-17 01:48:02 -0500 15) 				"https://app.intercom.com/a/apps/*",
+0efe59f5 (Roberto Arias 2016-05-21 13:58:53 -0400 16) 				"http://timeclock.tracksmart.com/app/time/manage/*",
+0efe59f5 (Roberto Arias 2016-05-21 13:58:53 -0400 17) 				"https://timeclock.tracksmart.com/app/time/manage/*"
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 18) 			],
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 19) 
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 20) 			"js": [
+a24a3746 (ksirbj        2016-12-27 21:10:10 -0500 21) 				"libs/jquery-2.2.4.min.js", "libs/notify.min.js", "deploy/content.js"
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 22) 			]
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 23) 		},
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 24) 		{
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 25) 			"matches": [
+c0075243 (Roberto Arias 2016-02-19 20:38:48 -0500 26) 				"https://docs.google.com/forms/*", "https://www.codecademy.com/advisors/survey/new"
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 27) 			],
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 28) 			"js": [
+a24a3746 (ksirbj        2016-12-27 21:10:10 -0500 29) 				"libs/jquery-2.2.4.min.js"
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 30) 			],
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 31) 			"run_at": "document_start"
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 32) 		}
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 33) 	],
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 34) 
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 35) 	"browser_action": {
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 36) 		"default_icon": "img/panda-48x48.png",
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 37) 		"default_popup": "ui/popup.html",
+56dc412b (Roberto Arias 2016-04-26 19:06:33 -0400 38) 		"default_title": "Advisor Toolbox"
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 39) 	},
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 40) 
+fce34b58 (Roberto Arias 2015-12-15 17:12:13 -0500 41) 	"options_ui": {
+fce34b58 (Roberto Arias 2015-12-15 17:12:13 -0500 42) 		"page": "ui/options.html",
+fce34b58 (Roberto Arias 2015-12-15 17:12:13 -0500 43) 		"chrome_style": true
+fce34b58 (Roberto Arias 2015-12-15 17:12:13 -0500 44) 	},
+fce34b58 (Roberto Arias 2015-12-15 17:12:13 -0500 45) 
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 46) 	"background": {
+c0075243 (Roberto Arias 2016-02-19 20:38:48 -0500 47) 		"scripts": [
+a24a3746 (ksirbj        2016-12-27 21:10:10 -0500 48) 			"libs/jquery-2.2.4.min.js", "libs/moment.min.js", "deploy/background.js"
+c0075243 (Roberto Arias 2016-02-19 20:38:48 -0500 49) 		]
+bd17ac17 (Adam Nawrocki 2016-09-05 09:30:59 -0400 50) 	},
+bd17ac17 (Adam Nawrocki 2016-09-05 09:30:59 -0400 51) 
+b61baf01 (Jake Brisk    2017-02-15 20:51:55 -0500 52) 	"icons" : {
+b61baf01 (Jake Brisk    2017-02-15 20:51:55 -0500 53) 		"48" : "img/panda-48x48.png"
+b61baf01 (Jake Brisk    2017-02-15 20:51:55 -0500 54) 	},
+b61baf01 (Jake Brisk    2017-02-15 20:51:55 -0500 55) 
+bd17ac17 (Adam Nawrocki 2016-09-05 09:30:59 -0400 56) 	"web_accessible_resources": [
+bd17ac17 (Adam Nawrocki 2016-09-05 09:30:59 -0400 57) 		"img/error.png", "img/panda-48x48.png"
+bd17ac17 (Adam Nawrocki 2016-09-05 09:30:59 -0400 58) 	]
+^1c8644b (Roberto Arias 2015-12-14 05:04:21 -0500 59) }
