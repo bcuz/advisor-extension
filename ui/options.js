@@ -58,9 +58,8 @@ $(function(){
   $("#tabs > div").hide();
   let first_tab = $("#tabs ul li a").first().attr("href");
   $(first_tab).show();
-  console.log(first_tab);
   
-  $("#tabs a").click(function(e){
+  $("#tabs > ul > li > a").click(function(e){
     let tab_id = $(this).attr("href");
     $("#tabs ul li").removeClass("active");
     $(this).parent().addClass("active");

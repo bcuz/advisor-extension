@@ -56,7 +56,6 @@ span {
   border-right: 1px solid #ddd;
   border-left: 1px solid #ddd;
   border-bottom: 1px solid #ba68c8;
-  background: #e9e9e9;
   color: #333;
   font-weight: bold;
   outline: 0;
@@ -146,7 +145,7 @@ input[type=text]:focus {
     text-align: center;
   }
 #save:hover {
-    background-color: #ee792c;
+    background-color: #a029b5;
     transition: background-color .3s;
 }
 #tabs-opt p {
@@ -160,4 +159,7 @@ input[type=text]:focus {
 }
 p, li, a {
   font-family: 'Open Sans', sans-serif;
+}
+#name_div ::-webkit-input-placeholder {
+  color: #ff0000;
 }

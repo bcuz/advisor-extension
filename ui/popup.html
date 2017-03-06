@@ -24,8 +24,12 @@
 				width: 100%;
 				font-family: 'Open Sans', sans-serif;
 				background: #f8f8f8;
-				padding: .5em;
+				padding: 0;
 				font-size: 1.21em;
+				height: 50px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 			}
 
 			#left div:hover {
@@ -33,15 +37,14 @@
 				color: white;
 			}
 			#header h1 {
-			    text-align: center;
-    			color: #fff;
-			    margin: 0 .5em 0 0;
-			    font-family: "Merriweather", serif;
-			    font-size: 1.8em;
+				text-align: center;
+				color: #fff;
+				font-family: "Merriweather", serif;
+				font-size: 1.8em;
 			}
 			.start, .stop{
 				margin: 0;
-				height: 100%;
+				height: 150px;
 				width: 100%;
 			}
 			.start h1, .stop h1{
@@ -50,24 +53,22 @@
 				justify-content: center;
 				align-items: center;
 				margin: 0;
-				height: 157%;
+				height: 150px;
 				transition: color .4s, background .4s;
+				padding: 0;
+				cursor: pointer;
 			}
 			.stop, .stop h1{
-				background:red;
+				background: #f44336;
 			}
 			.stop:hover, .stop h1:hover {
-				background: #fff;
-				color: red;
-				cursor: pointer;
+				background: #f72a1b;
 			}
 			.start, .start h1{
 				background: #7cb342;
 			}
 			.start:hover, .start h1:hover {
-				background: #fff;
-				color: #7cb342;;
-				cursor: pointer;
+				background: #49840a;
 			}
 			#header {
 				width: 100%;
@@ -79,14 +80,14 @@
 				padding: 1em 0;
 			}
 			#right {
-				width: 51%;
+				width: 53%;
 			}
 			#left {
-				width: 45%;
+				width: 47%;
 			}
 			#content {
 				display: flex;
-				justify-content: space-between;
+				justify-content: center;
 				flex-wrap: nowrap;
 			}
 
@@ -98,14 +99,15 @@
 			<img src="../img/panda-48x48.png" />
 		</div>
 		<div id="content">
-			<div id="left">
-				<div id="start-stop">Open/Close Reports Panel</div>
-				<div id="open-options">Options &amp; How-To Guides</div>
-				<div class="new" id="open-invoice">Create Invoice</div>
-			</div>
 			<div id="right">
 				<div id="clock-in-out"><h1></h1></div>
 			</div>
+			<div id="left">
+				<div id="start-stop">Open/Close Reports Panel</div>
+				<div id="open-options">Options &amp; Usage Guide</div>
+				<div class="new" id="open-invoice">Create Invoice</div>
+			</div>
+			
 		</div>
 
 	</body>
