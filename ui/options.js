@@ -30,10 +30,14 @@ function restore_options() {
   // Defaults here
   chrome.storage.sync.get({
     advisorName: '',
-    timeBetweenScreensForm: "2"
+    timeBetweenScreensForm: "2",
+    advisorEmail: '',
+    advisorAddress: ''
   }, function(items) {
     document.getElementById('advisor-name').value = items.advisorName;
     document.getElementById('time-between-screens-form').value = items.timeBetweenScreensForm;
+    document.getElementById('advisor-email').placeholder = items.advisorEmail !== '' ? "Saved" : '';
+    document.getElementById('advisor-address').placeholder = items.advisorAddress !== '' ? "Saved" : '';
   });
 }
 
@@ -46,4 +50,24 @@ function set_name_and_version(){
 document.addEventListener('DOMContentLoaded', function(){restore_options(); set_name_and_version();});
 document.getElementById('save').addEventListener('click',
     save_options);
+
+// JQ code for tabs
+$(function(){
+
+  $("#tabs ul li").first().addClass("active");
+  $("#tabs > div").hide();
+  let first_tab = $("#tabs ul li a").first().attr("href");
+  $(first_tab).show();
+  
+  $("#tabs > ul > li > a").click(function(e){
+    let tab_id = $(this).attr("href");
+    $("#tabs ul li").removeClass("active");
+    $(this).parent().addClass("active");
+    $("#tabs > div").hide();
+    $(tab_id).show();
+
+    e.preventDefault();
+    e.stopPropagation();
+  })
+});
 

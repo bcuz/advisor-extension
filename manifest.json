@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Advisor Toolbox - Codecademy",
-	"version": "1.2.7",
+	"version": "1.2.8",
 	"devtools_page": "core/intercom-mapper/devtools.html",
 
 	"permissions": [
@@ -54,6 +54,6 @@
 	},
 
 	"web_accessible_resources": [
-		"img/error.png", "img/panda-48x48.png"
+		"img/error.png", "img/panda-48x48.png", "ui/options.html"
 	]
 }

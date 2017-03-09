@@ -161,6 +161,11 @@ toggleReport = function() {
 		$notifications.info("You are not in your inbox page!");
 		return;
 	}
+	// Warn and return if there are no conversations
+	if($(".nothingness").length !== 0){
+		$notifications.info("There are no conversations in this inbox");
+		return;
+	}
 
 	// Toggle the status of the extension
 	isRunning = !isRunning;

@@ -1,0 +1,165 @@
+body { 
+  padding: 10px; 
+  min-width: 370px;
+  font-family: 'Open Sans', sans-serif;
+  color: rgb(51, 51, 51);
+  cursor: default;
+  margin: 14px 17px;
+}
+body div {
+  padding: 1% 0;
+  display: block;
+}
+body div * {
+  display: block;
+  padding: .5em 0;
+}
+label {
+  font-size: .9em;
+  color: #894994;
+}
+input {
+  font-size: 1.4em;
+}
+ol {
+  list-style: decimal;
+  margin: 0 0 0 1em;
+}
+p {
+  padding: 0;
+  margin:0;
+  font-size: 14px;
+}
+ul {
+  margin: 0 0 0 1em;
+}
+span {
+  text-decoration: underline;
+}
+#tabs-abt a{
+  display: inline-block;
+}
+#tabs {
+  border: 1px solid #e9e9f7;
+  border-radius: 0px;
+  background: #fff;
+  color: #333;
+  position: relative;
+  padding: .2em;
+}
+#tabs > ul {
+  border-radius: 0px;
+  background: #f7f7f7;
+  margin: 0;
+  padding: .2em .2em 0;
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-bottom: 1px solid #ba68c8;
+  color: #333;
+  font-weight: bold;
+  outline: 0;
+  text-decoration: none;
+  font-size: 100%;
+  list-style: none;
+}
+#tabs > ul:before {
+  content: "";
+  display: table;
+  border-collapse: collapse;
+}
+#tabs > ul:after {
+  clear: both;
+  content: "";
+  display: table;
+  border-collapse: collapse;
+}
+#tabs > ul li.active {
+  background: #ba68c8;
+  color: #fff;
+  border-top: 1px solid #003eff;
+  border-right: 1px solid #003eff;
+  border-left: 1px solid #003eff;
+  border-bottom: 1px solid #ba68c8;
+}
+.active a {
+  color: #fff !important;
+}
+#tabs > ul li {
+  position: relative;
+  top: 0;
+  background: #e9e9f7;
+  font-size: 1.2em;
+  margin-bottom: -3px;
+  padding-bottom: 1px;
+  list-style: none;
+  float: left;
+  margin: 1px .2em 0 0;
+  border-bottom-width: 0;
+  padding: 0;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  color: #454545;
+  border: 1px solid #c5c5c5;
+  font-weight: normal;
+}
+#tabs > ul li a {
+  outline: none;
+  border: none;
+  float: left;
+  padding: .5em 1em;
+  text-decoration: none;
+  font-weight: normal;
+  color: #454545
+}
+input[type=text] {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #9e9e9e;
+  background: transparent;
+  height: 1.6rem;
+  width: 350px;
+  font-size: 1em;
+  margin: 0 0 15px 0;
+  padding: 0;
+  box-shadow: none;
+  transition: all 0.3s;
+}
+input[type=text]:focus {
+  border-bottom: 1px solid #ba68c8;
+  box-shadow: 0 1px 0 0 #ba68c8;
+}
+#tabs h1 {
+  font-family: "Merriweather", serif;
+}
+#save {
+    display: block;
+    padding: .8em;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .35);  
+    background-color: #ba68c8;
+    color: #fff;      
+    text-decoration: none;
+    transition: background-color .3s;
+    width: 335px;
+    text-align: center;
+  }
+#save:hover {
+    background-color: #a029b5;
+    transition: background-color .3s;
+}
+#tabs-opt p {
+  width: 350px;
+}
+#tabs > div {
+  font-size: 1.1em;
+  border-width: 0;
+  padding: 1em 1.4em;
+  background: none;
+}
+p, li, a {
+  font-family: 'Open Sans', sans-serif;
+}
+#name_div ::-webkit-input-placeholder {
+  color: #ff0000;
+}

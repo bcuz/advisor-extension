@@ -1,3 +1,13 @@
+// On install / update show an announcement
+let show_msg = false;
+let msg_reason = '';
+chrome.runtime.onInstalled.addListener((details) => {
+	if(details.reason === "install" || details.reason === "update"){
+		show_msg = true;
+		msg_reason = details.reason;
+	}
+});
+
 chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 	// URL rating
 	switch(request.message) {
@@ -34,6 +44,14 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 			});
 
 			break;
+		case "show-message":
+			if(show_msg){
+				sendResponse({show: true, reason: msg_reason});
+				show_msg = false;
+				msg_reason = '';
+			}
+			else 
+				sendResponse({show: false});
 		default:
 			break;
 	}

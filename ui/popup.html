@@ -1,89 +1,116 @@
 <html>
 	<head>
 		<title>Report helper</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans|Merriweather" rel="stylesheet">
+
 		<script src="../libs/moment.min.js"></script>
 		<script src="../libs/jquery-2.2.4.min.js"></script>
 		<script src="popup.js"></script>
+
 		<style>
 			body {
 				overflow: hidden;
 				background: white;
-				width: 330px;
+				width: 370px;
+				height: 90px;
+				max-height: 90px;
 				margin: 0;
+				overflow: hidden;
 			}
 
-			div {
+			#left div {
 				cursor: pointer;
 				text-align: center;
-				font-size: 1.2em;
-				width: 95%;
-				font-family: sans-serif;
+				width: 100%;
+				font-family: 'Open Sans', sans-serif;
 				background: #f8f8f8;
-				margin: 1px auto;
-				padding: 2% 0;
-				font-size: 19px;
+				padding: 0;
+				font-size: 1.21em;
+				height: 49px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-bottom: 1px;
 			}
 
-			div:hover {
+			#left div:hover {
 				background: #5577ee;
 				color: white;
 			}
-			h1 {
-			    text-align: center;
-    			color: #040595;
-    			background: #43e1b6;
-			    margin: 0;
-			    padding: 6% 4%;
-			    font-family: "Palatino Linotype", "Book Antiqua", Palatino
-			}
-/*			.new::before {
-			    content: "new";
-			    float: left;
-			    font-size: 16px;
-			    padding: 0.6% 2%;
-			    background: #ea5506;
-			    color: white;
-			    border-radius: 15%;
-			    border: 1px solid red;
-			    animation-name: blink;
-    			animation-duration: 2s;
-    			animation-iteration-count: 7;
-			}
-			@keyframes blink {
-				0%  { opacity: 100; }
-				50% { opacity: 0; }
-				100% { opacity: 100; }
-			}*/
-			.start, .stop{
-				width:100%;
-				height:60px;
+			#header h1 {
 				text-align: center;
-				margin: 0em 0 15px 0;
+				color: #fff;
+				font-family: "Merriweather", serif;
+				font-size: 1.8em;
+				margin-right: .5em;
+			}
+			.start, .stop{
+				margin: 0;
+				height: 150px;
+				width: 100%;
 			}
 			.start h1, .stop h1{
-				line-height: 60px;
-				height: 60px;
-				padding: 10px 0;
 				color: #fff;
-			}
-			.stop, .stop h1, .stop:hover{
-				background:red;
-			}
-			.start, .start h1, .start:hover{
-				background: green;
-			}
-			.start:hover, .stop:hover{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin: 0;
+				height: 150px;
+				transition: color .4s, background .4s;
+				padding: 0;
 				cursor: pointer;
+			}
+			.stop, .stop h1{
+				background: #f44336;
+			}
+			.stop:hover, .stop h1:hover {
+				background: #f72a1b;
+			}
+			.start, .start h1{
+				background: #7cb342;
+			}
+			.start:hover, .start h1:hover {
+				background: #49840a;
+			}
+			#header {
+				width: 100%;
+				display: flex;
+				flex-wrap: nowrap;
+				justify-content: center;
+				background: #ba68c8;
+				align-items: center;
+				padding: 1em 0;
+			}
+			#right {
+				width: 53%;
+			}
+			#left {
+				width: 47%;
+			}
+			#content {
+				display: flex;
+				justify-content: center;
+				flex-wrap: nowrap;
 			}
 
 		</style>
 	</head>
 	<body>
-		<h1> Advisor Toolbox - v1.2.7 </h1>
+		<div id="header">
+			<h1> Advisor Toolbox - v1.2.8 </h1>
+			<img src="../img/panda-48x48.png" />
+		</div>
+		<div id="content">
+			<div id="right">
+				<div id="clock-in-out"><h1></h1></div>
+			</div>
+			<div id="left">
+				<div id="start-stop">Open/Close Reports Panel</div>
+				<div id="open-options">Options &amp; Usage Guide</div>
+				<div class="new" id="open-invoice">Create Invoice</div>
+			</div>
+			
+		</div>
 
-		<div id="clock-in-out"><h1></h1></div>
-		<div id="start-stop">Open/Close Reports Panel</div>
-		<div id="open-options">Options & How-To Guides</div>
-		<div class="new" id="open-invoice">Create Invoice</div>
 	</body>
 </html>
