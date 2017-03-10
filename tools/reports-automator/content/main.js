@@ -162,7 +162,7 @@ toggleReport = function() {
 		return;
 	}
 	// Warn and return if there are no conversations
-	if($(".nothingness").length !== 0){
+	if($(".nothingness").length !== 0 && !isRunning){
 		$notifications.info("There are no conversations in this inbox");
 		return;
 	}

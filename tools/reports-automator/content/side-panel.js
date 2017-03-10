@@ -238,7 +238,7 @@ JS : function(data) {
 		${ data }
 
 		// Add the user name too
-		data["user_name"] = $("#user_name").html();
+		data["user_name"] = $("#user_name").html().replace(/Report for /g, '');
 
 		// Fix the time issue for 1 digit in minutes and seconds
 		if (data.minutes.length == 1) {
