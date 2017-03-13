@@ -42,7 +42,8 @@ $("body").append(
 		// Catch all keypresses - If the keypress doesn't include the CTRL key, 
 		// and the user is not focusing on an input filed, then prevent default behavior. 
 		window.document.body.onkeydown = function() {
-	        if (!event.ctrlKey && !($(".composer-inbox").is(':focus') || $('input').is(':focus') || $('textarea').is(':focus'))) {
+	        if (!event.ctrlKey && !($(".composer-inbox").is(':focus') || $('input').is(':focus') || $('textarea').is(':focus') 
+	        	|| $('div[contenteditable=true').is(':focus'))) {
 	            event.stopPropagation();
 	            event.preventDefault();
 	        }
