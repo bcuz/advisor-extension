@@ -46,8 +46,8 @@ CSS : `
 		transition: all .3s;
 	}
 	#close-side-panel:hover {
-		background: #fff;
-		color: #f44336;
+		background: #dd1102;
+		color: #fff;
 	}
 	#whattodo {
 		position: absolute;
@@ -75,12 +75,12 @@ CSS : `
 		font-family: sans-serif;
 		cursor: pointer;
 		text-align: center;
-		font-size: 1.2em;
+		font-size: 1.2vw;
 		transition: all .3s;
 	}
 	#open-report:hover {
-		background: #fff;
-		color: #ba68c8;
+		background: #7C4982;
+		color: #fff;
 	}
 	#data {
 		margin-top: 50px;
@@ -97,7 +97,7 @@ CSS : `
 	}
 	#user_name {
 		color: #000;
-		font-size: 1.2em;
+		font-size: 1.2vw;
 		padding: 20px;
 		margin: 0;
 		background: #e9e9f7;
@@ -113,7 +113,7 @@ CSS : `
 		background: transparent;
 		height: 1.6rem;
 		width: 70%;
-		font-size: 1em;
+		font-size: 1vw;
 		margin: 0 0 15px 0;
 		padding: 0;
 		box-shadow: none;
@@ -133,7 +133,7 @@ CSS : `
 		border: 2px solid #5a5a5a;
 		border-radius: 1px;
 		margin-top: 4px;
-		transition: all linear .3s;
+		transition: all linear .2s;
 	}
 	#side-panel input[type="checkbox"]:not(:checked), #side-panel input[type="checkbox"]:checked {
 		position: absolute;
@@ -145,7 +145,7 @@ CSS : `
 		position: relative;
 		padding-left: 30px;
 		cursor: pointer;
-		font-size: .9em;
+		font-size: .92vw;
 		margin-top: .1em;
 	}
 	#side-panel input[type="checkbox"]:checked+label:before {
@@ -173,7 +173,7 @@ CSS : `
 		border-radius: 2px;
 		height: 3em;
 		padding: 5px;
-		font-size: .9em;
+		font-size: .92vw;
 		outline: none;
 	}
 	.unchanged{
@@ -238,7 +238,7 @@ JS : function(data) {
 		${ data }
 
 		// Add the user name too
-		data["user_name"] = $("#user_name").html();
+		data["user_name"] = $("#user_name").html().replace(/Report for /g, '');
 
 		// Fix the time issue for 1 digit in minutes and seconds
 		if (data.minutes.length == 1) {
@@ -466,7 +466,7 @@ renderField: function(FORM, data, extra) {
 		// Append field to the form
 		formHTMLandJS[0] += `
 			<div ${extraClass}>
-				<label style="font-size:.9em;color:#894994">${FORM[field].Label} <span style="display: inline-block; color: red;">${ requiredLabel }</span></label>
+				<label style="font-size:.91vw;color:#894994">${FORM[field].Label} <span style="display: inline-block; color: red;">${ requiredLabel }</span></label>
 				${ fieldHTML }
 				${ extraHTMLandJS[0] }
 			</div>
@@ -510,7 +510,7 @@ render: function(data) {
 		${ side_panel.HTML }
 		<div id="data">
 			<center id="user_name">Report for ${data["Name"]}</center>
-			<h2 id="missing-fields" style="display:none">Please fill in all required fileds</h2>
+			<h2 id="missing-fields" style="display:none">Please fill in all required fields</h2>
 			<h5 class="required-mark">*   Required</h5>
 			<span style="color: green; text-align: center; font-size: 18px; font-weight: bold; margin-right: 10px;">${alreadySubmitted}</span>
 			${ formHTMLandJS[0] }
