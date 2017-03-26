@@ -4,9 +4,9 @@ import $utils from 'core/utils/content/utils'
 
 var count = 0;
 
-/** Keep in memory data for all the users we'll have in this shift **/
-// This will be used later... during data collection
-interactions = {};
+/** Keep in memory the ID's of all successfully filed reports for this shift **/
+// This will be used later to check for duplicate reports
+let success_list = {};
 
 // Set the state of the extension in this tab
 var isRunning = false;
@@ -19,14 +19,15 @@ function collectDataAndOpenReport() {
 	/** Get the conversation URL, gotta use the last # as this interaction's ID */
 	// An interaction is the user-chat combination we have today
 	var conversationURL = $intercom.getConversationURL();
-	var interactionID = conversationURL.split("/")[conversationURL.split("/").length - 1];
+	var interactionID = conversationURL.substring(conversationURL.lastIndexOf("/")+1);
 
-	// Check if we already have something in memory for this interaction
-	if (interactions[interactionID] == undefined) {
-		// Start up this object
-		interactions[interactionID] = {};
-	}
+	// the data for this interaction
+	let interaction = {};
 
+	// Check if we already filed a successful report for this interaction
+	if(success_list[interactionID] !== undefined)
+		interaction["success"] = true;
+	
 	// Get the clicked item
 	var clickedItem = $(this);
 
@@ -36,8 +37,8 @@ function collectDataAndOpenReport() {
 
 
     /*  Add user's name and conversation URL to our collected data object */
-    interactions[interactionID]["Name"] = userNameLeftBox;
-    interactions[interactionID]["conversationURL"] = conversationURL;
+    interaction["Name"] = userNameLeftBox;
+    interaction["conversationURL"] = conversationURL;
 
     // Need to use this variable to correctly get data when the chat loads using executeWhenReady
     var collectFromChat = {
@@ -55,11 +56,10 @@ function collectDataAndOpenReport() {
 
 		  	// clean up the text
 		  	for(var i in possibleOther){
-		  		var temp = possibleOther[i];
-		  		possibleOther[i] = temp.trim();
+		  		possibleOther[i] = possibleOther[i].trim();
 		  	}
-		  	console.log(possibleOther);
-		  	var mins, hours, other;
+
+		  	var mins = null, hours = null, other = null;
 		  	// Get the minutes, hours, and other text from the last note
 		  	if (possibleOther.length > 1){
 			  	for(var i = 0; i < possibleOther.length; i++){
@@ -76,7 +76,7 @@ function collectDataAndOpenReport() {
 		  		other = "";
 
 		  	// Add the other to our panel
-		  	interactions[interactionID]["other"] = other;
+		  	interaction["other"] = other;
 
 		  	// If the duration is not in the last note, try to automatically calculate it.
 		  	if(!mins && !hours){
@@ -85,29 +85,18 @@ function collectDataAndOpenReport() {
 				// try to calculate conversation duration
 				if(possibleDuration !== undefined && possibleDuration !== null){
 					var time = new Date(possibleDuration), time2 = new Date();
-					time = time.getTime();
-					time2 = time2.getTime();
-					var difference = time2 - time;
-					mins = ((difference / (1000*60)) %60);
-					hours = ((difference / (1000*60*60)) %24);
-					mins = mins.toFixed();
-					hours = Math.floor(hours);
+					var difference = time2.getTime() - time.getTime();
+					mins = ((difference / (1000*60)) %60).toFixed();
+					hours = Math.floor(((difference / (1000*60*60)) %24));
 					console.log("Got the convo duration: " + hours + " hours, " + mins + " minutes.");
 				}
 		  	}
 
-		  	// not in the note, and couldn't be calculated 
-		  	if(!mins)
-		  		mins = "0";
-		  	if(!hours)
-		  		hours = "0";
-
 		  	// add minutes to panel
-		  	interactions[interactionID]["minutes"] = mins;
+		  	interaction["minutes"] = mins || 0;
 		  	// add hours to the panel
-		  	interactions[interactionID]["hours"] = hours;
+		  	interaction["hours"] = hours || 0;
 		  	
-
 
 		  	/** Get report's course from the user's information panel (the one at the right of the chat)
 		  	 *  This field might not be correct 100% of the time,
@@ -118,7 +107,7 @@ function collectDataAndOpenReport() {
 		  	var lastVisitedLinkURL = $intercom.getUserLastVisitedLink();
 		  	console.log("Retrieved last visited link: " + lastVisitedLinkURL);
 
-			// Compare against pre-defined courses values in URL (check form.js)
+			// Compare against pre-defined courses values in URL (check new_form.js)
 			var foundCourse = false;
 			for (key in COURSES) {
 				if (!foundCourse) {
@@ -126,7 +115,7 @@ function collectDataAndOpenReport() {
 						if (lastVisitedLinkURL !== undefined && lastVisitedLinkURL.indexOf(COURSES[key][course_id]) > -1) {
 							console.log("course_id is " + course_id + " and " + COURSES[key][course_id]);
 							console.log("Found the course " + key);
-							interactions[interactionID]["course"] = key;
+							interaction["course"] = key;
 							foundCourse = true;
 							break;
 						}
@@ -137,7 +126,7 @@ function collectDataAndOpenReport() {
 			}
 
 			// Finally, render the panel. Do it at the end so all collected info is displayed
-			side_panel.render(interactions[interactionID]);
+			side_panel.render(interaction);
 	    },
 
 	    condition: userNameHeader,
@@ -146,7 +135,7 @@ function collectDataAndOpenReport() {
 	    	toUpdate.condition = $intercom.getUserNameHeader();
 	    	console.log("User in header updated to: " + userNameHeader);
 	    },
-	    delay: 500
+	    delay: 100
     }
 
     // Need to wait until the right chat is loaded in screen
@@ -161,6 +150,7 @@ toggleReport = function() {
 		$notifications.info("You are not in your inbox page!");
 		return;
 	}
+	
 	// Warn and return if there are no conversations
 	if($(".nothingness").length !== 0 && !isRunning){
 		$notifications.info("There are no conversations in this inbox");
@@ -176,8 +166,6 @@ toggleReport = function() {
 		$($intercom.UI_selectors.app).on("click",
 			`${$intercom.UI_selectors.chat} ${$intercom.UI_selectors.chatItem}`, collectDataAndOpenReport);
 
-		console.log(`${$intercom.UI_selectors.chat} ${$intercom.UI_selectors.chatItem}`);
-
 		// Click the active tab to open
 		$intercom.getActiveChatItem().click();
 
@@ -186,12 +174,9 @@ toggleReport = function() {
 
 	} else {
 		// Remove data collector function
-		document.getElementById("side-panel").innerHTML = "";
 		$($intercom.UI_selectors.app).unbind("click", collectDataAndOpenReport);
-
-		// Alert reports disabled
-		// i think this is redundant
-		// $notifications.info("Report panel closed!");
+		// hide the panel
+		side_panel.hide_panel();
 	}
 }
 
@@ -203,20 +188,20 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
     switch(request.message) {
     	case "start-stop":
    			toggleReport();
-   			break
+   			break;
 
 		case "filling_failed":
 			$notifications.failure("Failed report for: " + request.userName);
-			break
+			break;
 
 		case "filling_success":
 			$notifications.success("Success report for: " + request.userName);
-			// Update our list of success
-			interactions[request.interactionID]["success"] = true;
-			break
+			// Update our list of successes
+			success_list[request.interactionID] = true;
+			break;
 
 		// Do nothing on default
 		default:
-			break
+			break;
 	}
 });
