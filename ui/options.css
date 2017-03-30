@@ -129,6 +129,45 @@ input[type=text]:focus {
   border-bottom: 1px solid #ba68c8;
   box-shadow: 0 1px 0 0 #ba68c8;
 }
+input[type="checkbox"]+label:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  z-index: 0;
+  border: 2px solid #5a5a5a;
+  border-radius: 1px;
+  margin-top: 4px;
+  transition: all linear .2s;
+}
+input[type="checkbox"]:not(:checked), input[type="checkbox"]:checked {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  padding: 0;
+}
+input[type="checkbox"]+label {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: .92em;
+  margin-top: .1em;
+}
+input[type="checkbox"]:checked+label:before {
+  top: -4px;
+  left: 0px;
+  width: 8px;
+  height: 18px;
+  border-top: 2px solid transparent;
+  border-left: 2px solid transparent;
+  border-right: 2px solid  #ba68c8;
+  border-bottom: 2px solid  #ba68c8;
+  transform: rotate(40deg);
+  backface-visibility: hidden;
+  transform-origin: 100% 100%;
+}
 #tabs h1 {
   font-family: "Merriweather", serif;
 }

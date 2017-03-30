@@ -36,21 +36,26 @@ function submit_unassign_close() {
 
 }
 
-// Disable intercom default shortcuts
-$("body").append(
-	`<script>
-		// Catch all keypresses - If the keypress doesn't include the CTRL or CMD key, 
-		// and the user is not focusing on an input filed, then prevent default behavior. 
-		window.document.body.onkeydown = function() {
-	        if (!event.ctrlKey && !event.metaKey &&  !($(".composer-inbox").is(':focus') || $('input').is(':focus') 
-	        	|| $('textarea').is(':focus') || $('div[contenteditable=true').is(':focus'))) {
-	            event.stopPropagation();
-	            event.preventDefault();
-	        }
-	        return true;
-	    }
-	 </script>`
-);
+// Optionally disable intercom default shortcuts
+chrome.storage.sync.get({disable_shortcuts: true}, function(data){
+	if(data.disable_shortcuts && (location.host === "app.intercom.io" ||  location.host == "app.intercom.com")){
+		$("body").append(
+			`<script>
+				// Catch all keypresses - If the keypress doesn't include the CTRL or CMD key, 
+				// and the user is not focusing on an input filed, then prevent default behavior. 
+				window.document.body.onkeydown = function() {
+			        if (!event.ctrlKey && !event.metaKey &&  !($(".composer-inbox").is(':focus') || $('input').is(':focus') 
+			        	|| $('textarea').is(':focus') || $('div[contenteditable=true').is(':focus'))) {
+			            event.stopPropagation();
+			            event.preventDefault();
+			        }
+			        return true;
+			    }
+			 </script>`
+		);
+	}
+})
+
 
 // Create shortcuts
 $utils.createKeyboardShortcut(unassign_and_close, "U");
