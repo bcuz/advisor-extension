@@ -28,20 +28,28 @@ jQuery(document).ready(function($){
 	});
 	// Add a submit button to the form, and then click it
 	$('#msg_form').append('<input type="submit" value="" id="submit-button" style="display:none">');
- 	// First wait 3 seconds to give page time to finish loading
+ 	// First wait 1 second to give page time to finish loading
 	setTimeout(function(){
 		if ($('#msg_input').length > 0) {
-			$('#msg_input').val(actionString);
+			$('#msg_input p').text(actionString);
 		}
-		var result = $('#msg_input').val();
-		$('#submit-button').trigger("click");
-		// check if it was successful
-		if(result == actionString && clicked){
-			chrome.runtime.sendMessage({message: "success-slack", closeTab: closeTab});
-		}else{
-			chrome.runtime.sendMessage({message: "error-slack", closeTab: closeTab});
-		}
-	}, 3000);
+		var result = $('#msg_input p').text();
+
+		// Need to wait for Slack's scripts to do their thing before trying to submit
+		setTimeout(function(){
+			
+			// Post the message
+			document.getElementById("submit-button").click();
+			
+			// check if it was successful
+			if(result == actionString && clicked){
+				chrome.runtime.sendMessage({message: "success-slack", closeTab: closeTab});
+			}else{
+				chrome.runtime.sendMessage({message: "error-slack", closeTab: closeTab});
+			}
+		}, 50);
+		
+	}, 1000);
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender){

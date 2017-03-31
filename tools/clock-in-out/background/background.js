@@ -1,19 +1,15 @@
 // global variables
 var trackSmartResponse = null;
 var slackResponse = null;
-//var slackTab;
-var userData = {
-	working: false
-}
+var working = false;
 
 // set up user data
 chrome.storage.sync.get({'working': false},
 	function(results){
-		userData.working = results.working;
+		working = results.working;
 		if(chrome.runtime.error){
 			console.log(chrome.runtime.error);
 		}
-		console.log(results);
 	}
 );
 
@@ -37,7 +33,6 @@ function clockIn(){
 
 	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/"},
 		function(tab){
-			//slackTab = tab;
 			chrome.tabs.executeScript(tab.id, {file: "libs/moment.min.js"}, function(){
 				chrome.tabs.executeScript(tab.id, { file: "libs/jquery-2.2.4.min.js"}, function(){
 					chrome.tabs.executeScript(tab.id, { file: "deploy/slack.js", runAt: "document_end" }, function(){
@@ -57,9 +52,9 @@ function clockIn(){
 	});
 
 	// set the working variable to true
-	userData.working = true;
+	working = true;
 	// store data in case browser is closed
-	chrome.storage.sync.set({'working': true/*, 'clockInTime': stringTime*/}, function(){
+	chrome.storage.sync.set({'working': true}, function(){
 		if(chrome.runtime.error){
 			console.log(chrome.runtime.error);
 		}
@@ -69,7 +64,7 @@ function clockIn(){
 
 function clockOut(){
 	// no longer working
-	userData.working = false;
+	working = false;
 
 	// clock out on slack
 	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/"},
@@ -109,16 +104,12 @@ function clockOut(){
 			}
 		}
 	)
-	// clean up unused variables
-	userData.clockInTime = null;
-	userData.closedThisShift = 0;
-	//slackTab = null;
 }
 
 chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 	switch(request.message) {
-		case "get-user-data":
-			sendResponse({data: userData});
+		case "get-status":
+			sendResponse({data: working});
 			break;
 		case "clock-user-in":
 			clockIn();

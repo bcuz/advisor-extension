@@ -22,7 +22,6 @@ function pullOptions() {
 	    advisorAddress = items.advisorAddress;
 	    advisorEmail = items.advisorEmail;
 	    timeBetweenScreensForm = items.timeBetweenScreensForm;
-	    console.log("Options updated! Name: " + advisorName + " - time: " + timeBetweenScreensForm);
 	});
 }
 
@@ -34,7 +33,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 	switch(request.message) {
 		case "update-options":
 			pullOptions();
-			break
+			break;
 
 		case "popup":
 			// Start/stop the report data collection
@@ -74,17 +73,12 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 				window.open(chrome.runtime.getURL('ui/options.html'));
 			}
 
-			break
+			break;
 
 		case "open_report_tab":
 
 			// Save intercom tab
 			intercomTab = sender.tab.id;
-
-			// Save all variables in local storage, so we can get them from reports tab later
-			for (field in request.data) {
-				console.log("Field: " + field + " - Value: " + request.data[field]);
-			}
 
 			chrome.tabs.create({
 				url: reportURL,
@@ -95,13 +89,6 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 					// Get interactionID of this request
 					var conversationURL = request.data.conversationURL;
 					var interactionID = conversationURL.split("/")[conversationURL.split("/").length - 1];
-
-					// Check if there's a previous failed report with same interactionID
-					// If there is one, remove it from memory
-					if (data[interactionID] != undefined && data[interactionID]["success"] == false) {
-						console.log("Found old report, remove it: " + data[interactionID].user_name + " - " + interactionID);
-						data[interactionID] = null;
-					}
 
 					// Store the data using this tab's ID
 					data[tab.id] = request.data;
@@ -116,7 +103,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 				}
 			);
 
-			break
+			break;
 
 		case "give_me_data":
 			var requestorTabID = sender.tab.id;
@@ -132,7 +119,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 				data: data[requestorTabID]
 			});
 
-			break
+			break;
 
 		// Call the other screens in the form
 		case "checkpoint":
@@ -149,7 +136,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 				});
 			}, timeBetweenScreensForm * 1000);
 
-			break
+			break;
 
 		case "filling_failed":
 			var requestorTabID = sender.tab.id;
@@ -157,25 +144,22 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 			console.log("Page: " + request.page + " - Field: " + request.field);
 			console.log("Selector: " + request.selector + " - Value: " + request.value);
 
-			data[requestorTabID]["success"] = false;
-
 			// Get the interaction ID
 			var conversationURL = data[requestorTabID]["conversationURL"];
 			var interactionID = conversationURL.split("/")[conversationURL.split("/").length - 1];
-
-			// Clone data with interactionID as new ID
-			data[interactionID] = data[requestorTabID];
-			// Remove old copy that uses tabID
-			data[requestorTabID] = null;
 
 			// Notify failure to intercom tab
 			chrome.tabs.sendMessage(intercomTab, {
 				message: "filling_failed",
 				interactionID: interactionID,
-				userName: data[interactionID]["user_name"]
+				userName: data[requestorTabID]["user_name"]
 			});
 
-			break
+			// When the report fails the user will file a new report, or submit it manually.
+			// Either way we don't need it in memory anymore
+			delete data[requestorTabID];
+
+			break;
 
 		case "report-success":
 			var requestorTabID = sender.tab.id;
@@ -186,35 +170,30 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 			var conversationURL = data[requestorTabID]["conversationURL"];
 			var interactionID = conversationURL.split("/")[conversationURL.split("/").length - 1];
 
-			// Clone data with interactionID as new ID
-			data[interactionID] = data[requestorTabID];
-			// Remove old copy that uses tabID
-			data[requestorTabID] = null;
-
-			// Mark field for success
-			data[interactionID]["success"] = true;
-
 			// Update timestamp of last update performed (used for cleaning up old data)
 			data.lastTimeUpdated = new Date();
 
-			// Notify failure to intercom tab
+			// Notify success to intercom tab
 			chrome.tabs.sendMessage(intercomTab, {
 				message: "filling_success",
-				userName: data[interactionID]["user_name"],
+				userName: data[requestorTabID]["user_name"],
 				interactionID: interactionID
 			});
 
 			// Report success to user
 			console.log("Success report!  ID#: " + interactionID);
+			
+			// Report was successfully filed. No need to keep it in memory anymore
+			delete data[requestorTabID];
 
-			break
+			break;
 
 		case "close_tab":
 			// Close the generation url tab
 			chrome.tabs.remove(sender.tab.id);
-			break
+			break;
 
 		default:
-			break
+			break;
 	}
 });

@@ -15,13 +15,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 $(document).ready(function(){
-  let userData = null;
   let working = null;
   // whenever the use opens up the popup, check if they're clocked in or not and perform actions accordingly.
-  chrome.runtime.sendMessage({message: "get-user-data"}, function(response){
+  chrome.runtime.sendMessage({message: "get-status"}, function(response){
     if(response !== null && response !== undefined){
-      userData = response.data;
-      working = userData.working;
+      working = response.data;
     }else{
       working = false;
     }
