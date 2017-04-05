@@ -23,7 +23,7 @@ const $intercom = {
 
 	// In the currently selected chat, this takes the user name at the top
 	getUserNameHeader: function() {
-		return $(".conversation__card__header a[href*=\"/a/apps\"] span").html().trim()
+		return $(".conversation__card__title a[href*=\"/a/apps\"] span").html().trim()
 	},
 
 	// In the selected chat from the list of available ones (left panel)
