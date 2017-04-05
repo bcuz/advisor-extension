@@ -477,9 +477,40 @@ var side_panel = {
 		// update username
 		this.$panel.find("#user_name").text(`Report for ${data.Name}`).attr('data-report-for', data.Name);
 
+
 		// update all other fields
 		for(var field in data){
 			this.$panel.find(`#${field}`).val(data[field]);
+		}
+
+		// check any indicated checkboxes 
+		// convo_type_i is based on the data in new_form.js -> convo_type -> options
+		// If the order is changed there it has to be updaded here too
+		for(let field in data.to_check){
+			if(data.to_check[field]){
+				switch(field){
+					case 'syntax':
+						$("#convo_type_1").click();
+						break;
+					case 'concept':
+						$("#convo_type_0").click();
+						break;
+					case 'onboard':
+						$("#convo_type_2").click();
+						break;
+					case 'other':
+						$("#convo_type_9").click();
+						break;
+					case 'bug':
+						$("#convo_type_5").click();
+						break;
+					case 'personal':
+						$("#convo_type_7").click();
+						break;
+					default:
+						break;
+				}
+			}
 		}
 
 		// Check if report for this user was already submitted
@@ -492,8 +523,7 @@ var side_panel = {
 		this.$panel.show();
 
 		// if other has text, click other
-		if (this.$panel.find("#other").val().length !== 0) {
-			$("#convo_type_9").click();
+		if (data.other) {		
 			$("#other").removeClass("unchanged");
 		}
 
