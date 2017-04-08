@@ -237,9 +237,20 @@ var side_panel = {
 		document.getElementById("open-report").addEventListener("click", function() {	
 
 			// update the data object with the field values
-			for(field in side_panel.data){
+			for(var field in side_panel.data){
 				side_panel.data[field] = side_panel.$panel.find(`#${field}`).val();
 			}
+
+			// Add the convo type.
+			// Loops through all checkboxes and updates the default convo_type value by inserting 
+			// a 1 at the index of each checked checkbox
+			let convo_type = $("#convo_type").val();
+			$("#side-panel input[type=checkbox]").each(function(i) {
+				if($(this).prop('checked')){
+					convo_type = convo_type.replaceAt(i, 1);
+				}
+			});
+			side_panel.data["convo_type"] = convo_type;
 
 			// Add the user name to the data 
 			side_panel.data["user_name"] = $("#user_name").attr('data-report-for');	
@@ -300,27 +311,15 @@ var side_panel = {
 		// disable "other" field until the checkbox is clicked
 		$("#other").prop("disabled", true);
 
-		// Hack for checkboxes
-		side_panel.$panel.on('change', 'input[type=checkbox]', function() {
-			var value = ($(this).prop("checked") == true) ? 1 : 0;
-			var str_tmp = $("#"+$(this).attr("data-field")).val();
-			var index = $(this).val() - 1;
-
-			// enable and disable the "other" textbox, and switch the background color between
-			// red and default based on whether it's checked or not
-			if(index == "9"){
-				$("#other").prop("disabled", function(){
-					return ! $(this).prop("disabled");
-				});
-				if($("#other").prop("disabled")){
-					$("#other").val("");
-					$("#other").removeClass("unchanged");
-				}else{
-					$("#other").addClass("unchanged");
-				}
+		// enable and disable the "other" textbox, and switch the background color between
+		// red and default based on whether it's checked or not
+		$("#convo_type_9").change(function() {
+			if(document.getElementById('convo_type_9').checked){
+				$("#other").addClass("unchanged").removeAttr('disabled');
+			}else {
+				$("#other").val("").removeClass("unchanged").attr('disabled', true);
 			}
 
-			$("#"+$(this).attr("data-field")).val(str_tmp.replaceAt(index, value));
 		});
 
 		// Hack for radio buttons
@@ -416,8 +415,9 @@ var side_panel = {
 							<br />`;
 						k++;
 					}
-
-					fieldHTML += `<input type="hidden" id="${ field }" value="0000000000"/>`; // needs as many zeros as there are checkboxes
+					// This stores the default convo type - A string of 0's as long as the number of checkboxes
+					let num_checkboxes = Object.keys(FORM[field].Options).length;
+					fieldHTML += `<input type="hidden" id="${ field }" value="${'0'.repeat(num_checkboxes)}"/>`;
 					break;
 
 				// If longText, put a textarea
@@ -477,7 +477,6 @@ var side_panel = {
 		// update username
 		this.$panel.find("#user_name").text(`Report for ${data.Name}`).attr('data-report-for', data.Name);
 
-
 		// update all other fields
 		for(var field in data){
 			this.$panel.find(`#${field}`).val(data[field]);
@@ -486,7 +485,7 @@ var side_panel = {
 		// check any indicated checkboxes 
 		// convo_type_i is based on the data in new_form.js -> convo_type -> options
 		// If the order is changed there it has to be updaded here too
-		for(let field in data.to_check){
+		for(var  field in data.to_check){
 			if(data.to_check[field]){
 				switch(field){
 					case 'syntax':
@@ -522,7 +521,7 @@ var side_panel = {
 		// show the panel
 		this.$panel.show();
 
-		// if other has text, click other
+		// if other has text, remove red background
 		if (data.other) {		
 			$("#other").removeClass("unchanged");
 		}
