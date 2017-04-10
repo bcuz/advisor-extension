@@ -43,13 +43,18 @@ jQuery(document).ready(function($){
 			
 			// check if it was successful
 			if(result == actionString && clicked){
-				chrome.runtime.sendMessage({message: "success-slack", closeTab: closeTab});
+				// need to wait again for slack's scripts to realize the textbox is empty
+				setTimeout(function(){
+					$("#submit-button").remove();
+					chrome.runtime.sendMessage({message: "success-slack", closeTab: closeTab});
+				}, 50);
+				
 			}else{
 				chrome.runtime.sendMessage({message: "error-slack", closeTab: closeTab});
 			}
 		}, 50);
 		
-	}, 1000);
+	}, 1500);
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender){
@@ -59,4 +64,4 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 		actionString = "Clocking out ~";
 		closeTab = true;
 	}
-})
+});

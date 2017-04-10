@@ -75,16 +75,14 @@ function collectDataAndOpenReport() {
 
 		  	// Try to determine the type of conversation from the note
 		  	// and use this to check the corresponding checkboxes
-		  	possibleNoteElement = possibleNoteElement.text().toLowerCase();
+		  	let pne = possibleNoteElement.text().toLowerCase();
 		  	let to_check = {
-		  		'syntax': possibleNoteElement.includes('syntax'), 
-		  		'concept': possibleNoteElement.includes('concept') || possibleNoteElement.includes('explained'),
-		  		'onboard': possibleNoteElement.includes('onboard'),
+		  		'syntax': pne.includes('syntax') || pne.includes('missing') || pne.includes('bracket'), 
+		  		'concept': pne.includes('concept') || pne.includes('explained') || pne.includes('explanation'),
+		  		'onboard': pne.includes('onboard'),
 		  		'other': other.length > 0,
-		  		'bug': possibleNoteElement.includes('bug report'),
-		  		'personal': possibleNoteElement.includes('personal project') || 
-		  						possibleNoteElement.includes('off platform') ||
-		  						possibleNoteElement.includes('off-platfrom')
+		  		'bug': pne.includes('bug report'),
+		  		'personal': pne.includes('personal project') || pne.includes('off platform') || pne.includes('off-platfrom')
 		  	}
 		  	interaction["to_check"] = to_check;
 
@@ -166,7 +164,7 @@ toggleReport = function() {
 	}
 	
 	// Warn and return if there are no conversations
-	if($(".nothingness").length !== 0 && !isRunning){
+	if($(".empty-state").length !== 0 && !isRunning){
 		$notifications.info("There are no conversations in this inbox");
 		return;
 	}
