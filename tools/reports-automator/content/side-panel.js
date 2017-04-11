@@ -95,7 +95,7 @@ var side_panel = {
 			font-size: 13px;
 	    	color: red;
 	    	font-style: italic;
-	    	padding: 3% 7% 1% 7%;
+	    	padding: 0 0 0 1em;
 	    	opacity: 0.9;
 		}
 		#user_name {

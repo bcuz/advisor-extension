@@ -102,17 +102,23 @@ chrome.runtime.sendMessage({message: "show-message"}, (response) => {
 		}else if(response.reason === "update"){
 
 			// Show an announcement on update
-			if(thisVersion === "1.1.4" /* change this to show for specific version */){
+			if(thisVersion === "1.3.0" /* change this to show for specific version */){
 				$utils.announcement(`
-					<p>Hi! This is Adam N (@adam) with an announcement:</p><br />
-					<p>Just wanted to officially mention that Elise(@elise9876) now owns the extension and I've been making
-					 some changes to it here and there. There are two new shortcuts:</p><br />
-					<p><strong>Ctrl + Shift + X</strong> will submit the report, close the panel, unassign convo, and close the convo.<br>
-					<strong>Ctrl + Shift + S</strong> will just submit the report. Use this or manually press the submit button
-					when not using Ctrl + Shift + X.
-				</p><br />
+					<h2>Panda has updated!</h2>
+					<br />
+					<p>What's new?</p>
+					<p>The extension's clock in/out function has been updated to use When I Work</p>
+					<p>Update for the invoice generator is coming soon...</p>
+					<br>
+					
+					<p>Additionally, the extension will now attempt to figure out, and check the conversation type checkboxes based on 
+					the final note left in the conversation.</p>
+					<br>
+
 					<p>If you find a problem with the extension, feel free to
-					<a href="https://bitbucket.org/walom8868/codecademy-advisortoolbox/issues?status=new&status=open"> create an issue on BitBucket</a> or DM me on slack.</p><br />
+					<a href="https://bitbucket.org/walom8868/codecademy-advisortoolbox/issues?status=new&status=open"> create an issue on BitBucket</a>.</p><br />
+
+					<p>Happy advising!</p>
 
 				`);
 			}

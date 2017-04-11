@@ -77,8 +77,8 @@ function collectDataAndOpenReport() {
 		  	// and use this to check the corresponding checkboxes
 		  	let pne = possibleNoteElement.text().toLowerCase();
 		  	let to_check = {
-		  		'syntax': pne.includes('syntax') || pne.includes('missing') || pne.includes('bracket'), 
-		  		'concept': pne.includes('concept') || pne.includes('explained') || pne.includes('explanation'),
+		  		'syntax': pne.includes('syntax') || pne.includes('missing') || pne.includes('fixed') || pne.includes('corrected'), 
+		  		'concept': pne.includes('concept') || pne.includes('explained') || pne.includes('explanation') || pne.includes('how'),
 		  		'onboard': pne.includes('onboard'),
 		  		'other': other.length > 0,
 		  		'bug': pne.includes('bug report'),
