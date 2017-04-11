@@ -43,14 +43,12 @@ function collectDataAndOpenReport() {
     // Need to use this variable to correctly get data when the chat loads using executeWhenReady
     var collectFromChat = {
     	executeThisFunction: function() {
-    		// this needs to be cleaned up to account for the fact
-    		// that this deals with the other category now as oppposed to summary stuff
 	    	/**** Get summary from the chat  *****/
-	    	var possibleOtherElement = $intercom.getLatestInternalNote();
+	    	var possibleNoteElement = $intercom.getLatestInternalNote();
 
 		    // Get the last note which might be our Summary of interaction
-		  	if (possibleOtherElement.length != 0)
-		  		var possibleOther = possibleOtherElement.html().split(/[;\:]/);
+		  	if (possibleNoteElement.length != 0)
+		  		var possibleOther = possibleNoteElement.html().split(/[;\:]/);
 		  	else
 		  		var possibleOther = [];
 
@@ -74,6 +72,21 @@ function collectDataAndOpenReport() {
 		  	}
 		  	if(!other)
 		  		other = "";
+
+		  	// Try to determine the type of conversation from the note
+		  	// and use this to check the corresponding checkboxes
+		  	// let pne = possibleNoteElement.text().toLowerCase();
+		  	// let to_check = {
+		  	// 	'syntax': pne.includes('syntax') || pne.includes('missing') || pne.includes('fixed') || pne.includes('corrected'), 
+		  	// 	'concept': pne.includes('concept') || pne.includes('explained') || pne.includes('explanation') || pne.includes('how to'),
+		  	// 	'onboard': pne.includes('onboard') || pne.includes('obd'),
+		  	// 	'other': other.length > 0,
+		  	// 	'bug': pne.includes('bug report'),
+		  	// 	'personal': pne.includes('personal project') || pne.includes('off platform') || pne.includes('off-platfrom')
+		  	// 				|| pne.includes('outside project')
+		  	// }
+		  	// interaction["to_check"] = to_check;
+
 
 		  	// Add the other to our panel
 		  	interaction["other"] = other;
@@ -152,7 +165,7 @@ toggleReport = function() {
 	}
 	
 	// Warn and return if there are no conversations
-	if($(".nothingness").length !== 0 && !isRunning){
+	if($(".empty-state").length !== 0 && !isRunning){
 		$notifications.info("There are no conversations in this inbox");
 		return;
 	}

@@ -1,5 +1,5 @@
 // global variables
-var trackSmartResponse = null;
+var wheniworkResponse = null;
 var slackResponse = null;
 var working = false;
 
@@ -17,10 +17,10 @@ chrome.storage.sync.get({'working': false},
 
 // open up the tabs when the user clocks in
 function clockIn(){
-	chrome.tabs.create({active: false, url: "https://timeclock.tracksmart.com/app/time"},
+	chrome.tabs.create({active: false, url: "https://codecademy.wheniwork.com/"},
 		function(tab){
 			chrome.tabs.executeScript(tab.id,{
-				file: "deploy/tracksmart.js",
+				file: "deploy/wheniwork.js",
 				runAt: "document_end"
 			}, function(){
 				chrome.tabs.sendMessage(tab.id, {message: "clock-in"});
@@ -82,11 +82,11 @@ function clockOut(){
 		}
 	);
 
-	// clock out on tracksmart
-	chrome.tabs.create({active: false, url: "https://timeclock.tracksmart.com/app/time"},
+	// clock out on when i work
+	chrome.tabs.create({active: false, url: "https://codecademy.wheniwork.com/"},
 		function(tab){
 			chrome.tabs.executeScript(tab.id,{
-				file: "deploy/tracksmart.js",
+				file: "deploy/wheniwork.js",
 				runAt: "document_end"
 			}, function(){
 				chrome.tabs.sendMessage(tab.id, {message: "clock-out"});
@@ -117,19 +117,19 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 		case "clock-user-out":
 			clockOut();
 			break;
-		// successfully clocked in / out on tracksmart
-		case "success-tracksmart":
-			trackSmartResponse = 1;
+		// successfully clocked in / out on when i work
+		case "success-wheniwork":
+			wheniworkResponse = 1;
 			chrome.tabs.remove(sender.tab.id);
 			break;
-		// error clocking in / out on tracksmart
-		case "error-tracksmart":
-			trackSmartResponse = 0;
+		// error clocking in / out on when i work
+		case "error-wheniwork":
+			wheniworkResponse = 0;
 			// error meesage notification
 			var options ={
 				type: "basic",
-				title: "Error on TrackSmart",
-				message: "We encountered a problem on TrackSmart, please clock in/out manually.",
+				title: "Error on When I Work",
+				message: "We encountered a problem on When I Work, please clock in/out manually.",
 				iconUrl: "img/error.png",
 				priority: 2,
 				requireInteraction: true
@@ -157,12 +157,27 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 			}
 			chrome.notifications.create(options);
 			break;
+		case "went-to-login":
+			// User logged in, wait a sec for when I work to do its thing
+			// and then try to clock in/out again
+			setTimeout(function(){
+				chrome.tabs.executeScript(sender.tab.id,{
+					file: "deploy/wheniwork.js",
+					runAt: "document_end"
+				}, function(){
+					chrome.tabs.sendMessage(sender.tab.id, {message: request.action});
+				});
+			}, 800);
+			break;
+		case 'highlight-me':
+			// change the active tab
+			chrome.tabs.update(sender.tab.id, {highlighted: true});
 		default:
 			break;
 	}
 
 	// if all went well, notify the user
-	if(trackSmartResponse && slackResponse){
+	if(wheniworkResponse && slackResponse){
 		var opt ={
 			type: "basic",
 			title: "Success",
