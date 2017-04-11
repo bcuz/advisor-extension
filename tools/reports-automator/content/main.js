@@ -75,16 +75,17 @@ function collectDataAndOpenReport() {
 
 		  	// Try to determine the type of conversation from the note
 		  	// and use this to check the corresponding checkboxes
-		  	let pne = possibleNoteElement.text().toLowerCase();
-		  	let to_check = {
-		  		'syntax': pne.includes('syntax') || pne.includes('missing') || pne.includes('fixed') || pne.includes('corrected'), 
-		  		'concept': pne.includes('concept') || pne.includes('explained') || pne.includes('explanation') || pne.includes('how'),
-		  		'onboard': pne.includes('onboard'),
-		  		'other': other.length > 0,
-		  		'bug': pne.includes('bug report'),
-		  		'personal': pne.includes('personal project') || pne.includes('off platform') || pne.includes('off-platfrom')
-		  	}
-		  	interaction["to_check"] = to_check;
+		  	// let pne = possibleNoteElement.text().toLowerCase();
+		  	// let to_check = {
+		  	// 	'syntax': pne.includes('syntax') || pne.includes('missing') || pne.includes('fixed') || pne.includes('corrected'), 
+		  	// 	'concept': pne.includes('concept') || pne.includes('explained') || pne.includes('explanation') || pne.includes('how to'),
+		  	// 	'onboard': pne.includes('onboard') || pne.includes('obd'),
+		  	// 	'other': other.length > 0,
+		  	// 	'bug': pne.includes('bug report'),
+		  	// 	'personal': pne.includes('personal project') || pne.includes('off platform') || pne.includes('off-platfrom')
+		  	// 				|| pne.includes('outside project')
+		  	// }
+		  	// interaction["to_check"] = to_check;
 
 
 		  	// Add the other to our panel

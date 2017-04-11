@@ -110,10 +110,6 @@ chrome.runtime.sendMessage({message: "show-message"}, (response) => {
 					<p>The extension's clock in/out function has been updated to use When I Work</p>
 					<p>Update for the invoice generator is coming soon...</p>
 					<br>
-					
-					<p>Additionally, the extension will now attempt to figure out, and check the conversation type checkboxes based on 
-					the final note left in the conversation.</p>
-					<br>
 
 					<p>If you find a problem with the extension, feel free to
 					<a href="https://bitbucket.org/walom8868/codecademy-advisortoolbox/issues?status=new&status=open"> create an issue on BitBucket</a>.</p><br />
