@@ -107,7 +107,6 @@ function clockOut(){
 }
 
 chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
-	console.log(request);
 	switch(request.message) {
 		case "get-status":
 			sendResponse({data: working});
@@ -121,7 +120,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 		// successfully clocked in / out on when i work
 		case "success-wheniwork":
 			wheniworkResponse = 1;
-			//chrome.tabs.remove(sender.tab.id);
+			chrome.tabs.remove(sender.tab.id);
 			break;
 		// error clocking in / out on when i work
 		case "error-wheniwork":
