@@ -102,13 +102,20 @@ chrome.runtime.sendMessage({message: "show-message"}, (response) => {
 		}else if(response.reason === "update"){
 
 			// Show an announcement on update
-			if(thisVersion === "1.3.0" /* change this to show for specific version */){
+			if(thisVersion === "1.3.1" /* change this to show for specific version */){
 				$utils.announcement(`
 					<h2>Panda has updated!</h2>
 					<br />
-					<p>What's new?</p>
-					<p>The extension's clock in/out function has been updated to use When I Work</p>
-					<p>Update for the invoice generator is coming soon...</p>
+					<p>The invoice generator and clock in/out functions now use When I Work!</p>
+					<br>
+					<p>To generate an invoice:</p>
+					<ol>
+						<li>Make sure you're logged in to <a href="https://codecademy.wheniwork.com/">When I Work</a>.</li>
+						<li>Fill in your name, email, and address in the <a href="${chrome.extension.getURL("ui/options.html")}">options page</a>.
+							(Not required, but makes invoice generation easier)</li>
+						<li>Click "Create Invoice" in the extension popup. This will navigate to When I Work, generate an invoice, and then
+							prompt you to download it</li>
+					</ol>
 					<br>
 
 					<p>If you find a problem with the extension, feel free to
