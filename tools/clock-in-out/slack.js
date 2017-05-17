@@ -54,7 +54,7 @@ jQuery(document).ready(function($){
 			}
 		}, 50);
 		
-	}, 1500);
+	}, 1700);
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender){
