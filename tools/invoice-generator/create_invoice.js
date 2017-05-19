@@ -203,7 +203,7 @@ jQuery(document).ready(function($){
 		        direction: ltr;
 		        padding: 2px 3px 2px 3px;`,
 		
-		"td"	: "border: 1px solid #ffff;",
+		"td"	: "border: 1px solid #ffffff;",
 
 	}
 
@@ -232,7 +232,7 @@ jQuery(document).ready(function($){
 	/** 
 	 *	Generate the invoice HTML/CSS
 	 *
-	 *	@param basic_info {array} - An array containing the basic info needed for the invoice
+	 *	@param basic_info {object} - An object containing the basic info needed for the invoice
 	 *	@param invoice_items {array} - An array containing invoice_item objects
 	 *
 	 *	@return {HTML table} - The invoice as an HTML table
@@ -466,9 +466,6 @@ jQuery(document).ready(function($){
 
 
 						let a = document.createElement('a');
-						let data_type = 'data:application/vnd.ms-excel';
-						let invoice_div = document.getElementById('invoice-html');
-
 						a.setAttribute('href', 'data:text/calendar,' + encodeURIComponent(invoice));
 						a.setAttribute('download', 'codecademy_invoice.xls');
 
