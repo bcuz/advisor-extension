@@ -379,6 +379,7 @@ jQuery(document).ready(function($){
 		total: 0
 	};
 	let invoice_items = [];
+	let advisor_name = '';
 
 	// Main function to generate an invoice
 	function run(){

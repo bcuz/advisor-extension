@@ -12,7 +12,8 @@
 		{
 			"matches": [
 				"https://app.intercom.io/a/apps/*",
-				"https://app.intercom.com/a/apps/*"
+				"https://app.intercom.com/a/apps/*",
+				"https://timeclock.tracksmart.com/app/time/manage"
 			],
 
 			"js": [
