@@ -102,7 +102,7 @@ chrome.runtime.sendMessage({message: "show-message"}, (response) => {
 		}else if(response.reason === "update"){
 
 			// Show an announcement on update
-			if(thisVersion === "1.3.1" /* change this to show for specific version */){
+			if(thisVersion === "1.3.2" /* change this to show for specific version */){
 				$utils.announcement(`
 					<h2>Panda has updated!</h2>
 					<br />
