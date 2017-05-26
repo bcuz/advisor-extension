@@ -102,7 +102,7 @@ chrome.runtime.sendMessage({message: "show-message"}, (response) => {
 		}else if(response.reason === "update"){
 
 			// Show an announcement on update
-			if(thisVersion === "1.3.1" /* change this to show for specific version */){
+			if(thisVersion === "1.3.2" /* change this to show for specific version */){
 				$utils.announcement(`
 					<h2>Panda has updated!</h2>
 					<br />
@@ -116,6 +116,10 @@ chrome.runtime.sendMessage({message: "show-message"}, (response) => {
 						<li>Click "Create Invoice" in the extension popup. This will navigate to When I Work, generate an invoice, and then
 							prompt you to download it</li>
 					</ol>
+					<p><strong>For mentors / Project review people:</strong> If you do project review or are a mentor, and need to also generate invoices 
+						from Tracksmart records, check the "I am also a mentor / do project review" button in the 
+						<a href="${chrome.extension.getURL("ui/options.html")}">options page</a>.
+					</p>
 					<br>
 
 					<p>If you find a problem with the extension, feel free to

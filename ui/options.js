@@ -4,13 +4,15 @@ function save_options() {
   var email = document.getElementById('advisor-email').value;
   var timeBetweenScreensForm = document.getElementById('time-between-screens-form').value;
   let disable_shortcuts = document.getElementById('disable_shortcuts').checked;
+  let mentor = document.getElementById('mentor').checked;
 
   chrome.storage.sync.set({
     advisorName: name,
     advisorAddress: address,
     advisorEmail: email,
     timeBetweenScreensForm: timeBetweenScreensForm,
-    disable_shortcuts: disable_shortcuts
+    disable_shortcuts: disable_shortcuts,
+    mentor: mentor
   }, function() {
     // Update status to let user know options were saved.
     var status = document.getElementById('status');
@@ -35,7 +37,8 @@ function restore_options() {
     timeBetweenScreensForm: "2",
     advisorEmail: '',
     advisorAddress: '',
-    disable_shortcuts: true
+    disable_shortcuts: true,
+    mentor: false
   }, function(items) {
     document.getElementById('advisor-name').value = items.advisorName;
     document.getElementById('time-between-screens-form').value = items.timeBetweenScreensForm;
