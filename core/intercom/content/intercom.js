@@ -29,14 +29,14 @@ const $intercom = {
 	// In the selected chat from the list of available ones (left panel)
 	// This takes the user name from the selected chat
 	getUserNameActiveChatItem: function() {
-		return $intercom.getActiveChatItem().find(".layout__media__ext h3").html().trim().replace(/[<!--->]/g, '');
+		return $intercom.getActiveChatItem().find(".layout__media__ext h3").html().replace(/[<!--->]/g, '').trim();
 	},
 
 	// Intercom takes a bit to load a new chat, until it does the active chat item does not change
 	// It's important to differentiate the clicked chat item vs the active chat item, they're not always the same
 	// clickedItem must be passed as argument, so it needs to be referenced using $(this) from the caller function
 	getUserNameClickedChatItem: function(clickedItem) {
-		return clickedItem.find(".layout__media__ext h3").html().trim().replace(/[<!--->]/g, '');
+		return clickedItem.find(".layout__media__ext h3").html().replace(/[<!--->]/g, '').trim();
 	},
 
 	getLatestInternalNote: function() {
