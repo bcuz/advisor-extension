@@ -23,20 +23,20 @@ const $intercom = {
 
 	// In the currently selected chat, this takes the user name at the top
 	getUserNameHeader: function() {
-		return $(".conversation__card__title a[href*=\"/a/apps\"] span").html().trim();
+		return $(".conversation__card__title a[href*=\"/a/apps\"] span").html().replace(/<!--(.*?)-->/g, '').trim();
 	},
 
 	// In the selected chat from the list of available ones (left panel)
 	// This takes the user name from the selected chat
 	getUserNameActiveChatItem: function() {
-		return $intercom.getActiveChatItem().find(".layout__media__ext h3").html().replace(/[<!--->]/g, '').trim();
+		return $intercom.getActiveChatItem().find(".layout__media__ext h3").html().replace(/<!--(.*?)-->/g, '').trim();
 	},
 
 	// Intercom takes a bit to load a new chat, until it does the active chat item does not change
 	// It's important to differentiate the clicked chat item vs the active chat item, they're not always the same
 	// clickedItem must be passed as argument, so it needs to be referenced using $(this) from the caller function
 	getUserNameClickedChatItem: function(clickedItem) {
-		return clickedItem.find(".layout__media__ext h3").html().replace(/[<!--->]/g, '').trim();
+		return clickedItem.find(".layout__media__ext h3").html().replace(/<!--(.*?)-->/g, '').trim();
 	},
 
 	getLatestInternalNote: function() {
