@@ -50,16 +50,16 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 							sendMessage("error-wheniwork");
 						}
 
-					},250);
+					},500);
 
-				},250)
+				},500)
 
 			}else{
 				sendMessage("error-wheniwork");
 			}			
 		}
 
-	}, 1700);
+	}, 2000);
 
 });
 
