@@ -40,7 +40,12 @@ const $intercom = {
 	},
 
 	getLatestInternalNote: function() {
-		return $(".conversation__part .o__admin-note .conversation__text p").last();
+		// only return latest note if it's after the latest convo reassign / close
+		let el = $(".conversation__part .o__admin-note .conversation__text").last().parents(':eq(4)');
+		if($(el).nextAll('.ember-view:has(.conversation__action)').length === 0 ){
+			return $(".conversation__part .o__admin-note .conversation__text p").last();
+		}
+		else return $();
 	},
 
 	getUserLastVisitedLink: function() {
