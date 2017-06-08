@@ -313,8 +313,8 @@ var side_panel = {
 
 		// enable and disable the "other" textbox, and switch the background color between
 		// red and default based on whether it's checked or not
-		$("#convo_type_9").change(function() {
-			if(document.getElementById('convo_type_9').checked){
+		$("#convo_type_10").change(function() {
+			if(document.getElementById('convo_type_10').checked){
 				$("#other").addClass("unchanged").removeAttr('disabled');
 			}else {
 				$("#other").val("").removeClass("unchanged").attr('disabled', true);
@@ -523,7 +523,7 @@ var side_panel = {
 
 		// if other has text, remove red background
 		if (data.other) {	
-			$("#convo_type_9").click();	
+			$("#convo_type_10").click();	
 			$("#other").removeClass("unchanged");
 		}
 
