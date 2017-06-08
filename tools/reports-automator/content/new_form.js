@@ -89,8 +89,9 @@ NEW_FORM =
 			6: "I received and filed a bug report",
 			7: " I received a product suggestion",
 			8: "It was a Personal Project (Off-Platform)",
-			9: "I re-directed to customer service",
-			10: "Other"
+			9: "This was a conversation about Ready material",
+			10: "I re-directed to customer service",
+			11: "Other"
 		}
 	},
 
