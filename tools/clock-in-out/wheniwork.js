@@ -1,9 +1,10 @@
 // Clock in/out on When I Work.
 chrome.runtime.onMessage.addListener(function(request, sender){
 	let action_string = request.message;
+	let interval = null;
 
-	// First wait for page to finish loading.
-	setTimeout(function(){
+	// Main function
+	function run(){
 
 		// Check if user was redirected to the login page
 		if(document.getElementById("login-username")){
@@ -59,7 +60,21 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 			}			
 		}
 
-	}, 2000);
+		
+	}
+
+	// Wait for elements to finish loading
+	if(!document.getElementById("login-username") && document.getElementsByClassName('clock-in').length === 0 && !executed){
+			interval = setInterval(function(){
+				if(document.getElementById("login-username") || document.getElementsByClassName('clock-in').length > 0){
+					clearInterval(interval);
+					run();
+				}
+				
+			}, 200);
+	}else{
+		run();
+	}
 
 });
 
