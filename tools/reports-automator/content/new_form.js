@@ -34,7 +34,7 @@ COURSES = {
 	"Command Line": ["command-line"],
 	"Sass": ["sass"],
 	"ReactJS": ['react'],
-	"NOT A CODE QUESTION": ["subscription_billing", "path", "lrn"]
+	"NOT A CODE QUESTION": ["subscription_billing", "path", "lrn", "account"]
 }
 
 /* Each 1st level element is a field, and has these properties:
@@ -107,6 +107,7 @@ NEW_FORM =
 		Required: true,
 		formID: "1578101060",
 		Options: {
+			"PLEASE SELECT" : "PLEASE SELECT",
 			"NOT A CODE QUESTION": "NOT A CODE QUESTION",
 			"Angular.js": "Angular.js",
 			"Command Line": "Command Line",
