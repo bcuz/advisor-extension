@@ -416,27 +416,32 @@ jQuery(document).ready(function($){
 		let pot_items = $(".list.times-list li");
 		pot_items.each(function(id, li){
 			let item = $(li);
-			if(item.find('.time-total-col span').attr('data-total') !== '-'){
-				let i = {
-					'date': '',
-					'fname': '',
-					'lname': '',
-					'pos': '',
-					'loc': '',
-					'in': '',
-					'out': '',
-					'span': ''
-				};
-				i.date = item.find('.day-col strong').text() +  " " + item.find('.day-col span').text();
-				i.fname = first_name;
-				i.lname = last_name;
-				i.in = item.find('.col-in input').attr('value');
-				i.out = item.find('.col-out input').attr('value');
-				i.pos = item.find('.col-tags .position').text();
-				i.loc = item.find('.col-tags .location').text();
-				i.span = item.find('.time-total-col span').attr('data-total');
+			if(item.find('.col-total span').attr('data-total') !== '-'){
+				let date = item.find('.day-col strong').text() +  " " + item.find('.day-col span').text();
+				item.find('.inner-col').each(function(id, div){
+					let data = $(div);
+					let i = {
+						'date': '',
+						'fname': '',
+						'lname': '',
+						'pos': '',
+						'loc': '',
+						'in': '',
+						'out': '',
+						'span': ''
+					};
+					i.date = date
+					i.fname = first_name;
+					i.lname = last_name;
+					i.in = data.find('.col-in input').attr('value');
+					i.out = data.find('.col-out input').attr('value');
+					i.pos = data.find('.col-tags .position').text();
+					i.loc = data.find('.col-tags .location').text();
+					i.span = data.find('.col-total span').attr('data-total');
 
-				invoice_items.push(i);
+					invoice_items.push(i);
+				})
+				
 			}
 		});
 		
@@ -493,11 +498,8 @@ jQuery(document).ready(function($){
 
 	// Use interval to wait for page to finish loading
 	if($(".payroll-info-card section").length === 0 ){
-		console.log("here");
 		interval1 = setInterval(function(){
-			console.log("there")
 			if($(".payroll-info-card section").length > 0 ){
-				console.log("here now")
 				clearInterval(interval1);
 				init_p1();
 			}
