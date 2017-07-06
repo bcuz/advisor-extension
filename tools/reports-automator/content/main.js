@@ -123,13 +123,14 @@ function collectDataAndOpenReport() {
 					break;
 			}
 
+			// Default to "PLEASE SELECT" if course wasn't found
 			if(!foundCourse)
 				interaction["course"] = "PLEASE SELECT";
 
 			// Auto-check "This was about ready material"
 			let is_ready_convo = lastVisitedLinkURL.includes('freelance') || lastVisitedLinkURL.includes('programs');
 
-			if(lastVisitedLinkURL.includes('programs') && interaction["course"] === "PLEASE SELECT")
+			if(is_ready_convo && !foundCourse)
 				interaction["course"] = "HTML/CSS";
 
 			// Try to determine the type of conversation from the note

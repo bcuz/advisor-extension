@@ -12,7 +12,7 @@
 COURSES = {
 	"HTML/CSS": ["html-css", "HZA3b", "LceTK", "y2Yjd", "9x6JW",
 								"f8mcL", "zrZ6c", "TlhFi", "UuBLw", "WF0CF",
-								"jNuXw", "6merh"],
+								"jNuXw", "6merh", "responsive-design"],
 	"Deploy a Website": ["deploy-a-website"],
 	"JavaScript": ["javascript", "spencer-sandbox", "getting-started",
 								"address-book", "objects-ii", "super-makert"],
