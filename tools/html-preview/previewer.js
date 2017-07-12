@@ -1,4 +1,19 @@
+const btn_css = ` 
+	#preview-btn {
+		color: #fff;
+		background: #7e61ea;
+		background-image: linear-gradient(-180deg, #7e61ea 0%, #573faf 90%);
+	}
 
+	#preview-btn:hover {
+		background-color: #573faf;
+		background-image: linear-gradient(-180deg, #573faf 0%, #4e31b7 90%);
+	}
+
+	#preview-btn:focus {
+		box-shadow: 0 0 0 0.2em rgba(78, 49, 183, 0.3);
+	}
+`;
 
 // Add Preview button to Github projects that have an index.html file
 function github_preview(){
@@ -9,10 +24,14 @@ function github_preview(){
 			let a = document.createElement('a');
 			a.setAttribute('class', 'btn btn-sm btn-primary');
 			a.setAttribute('target', '_blank');
+			a.setAttribute("id", "preview-btn");
 			a.href = 'https://htmlpreview.github.io/?' + files[i].href;
 			a.innerHTML = 'Preview';
 			a.style.backgroundColor = "#28a745";
 			a.style.color = "#fff";
+			let style = document.createElement('style');
+			style.appendChild(document.createTextNode(btn_css));
+			document.getElementsByTagName('head')[0].appendChild(style);
 			document.querySelector('.file-navigation.in-mid-page').appendChild(a);
 			break;
 		}
@@ -55,6 +74,7 @@ function gist_preview(){
 
 		// Add Preview button (only if there are HTML/CSS files)
 		if($(document).find('.file').attr('id').includes('html')){
+			$('head').append(`<style type="text/css">${btn_css}</style>`);
 			$('.file-navigation-options').prepend('<a href="#" id="preview-btn" class="btn btn-sm btn-primary">Preview</a>');
 		}
 		
