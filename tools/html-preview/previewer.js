@@ -13,6 +13,13 @@ const btn_css = `
 	#preview-btn:focus {
 		box-shadow: 0 0 0 0.2em rgba(78, 49, 183, 0.3);
 	}
+	.flash_me {
+	 	animation: flash 1.5s linear infinite;
+	}
+
+	@keyframes flash {  
+	  50% { opacity: 0; }
+	}
 `;
 
 // Add Preview button to Github projects that have an index.html file
@@ -22,9 +29,10 @@ function github_preview(){
 
 		if(files[i].href.includes('index.html')){
 			let a = document.createElement('a');
-			a.setAttribute('class', 'btn btn-sm btn-primary');
+			a.setAttribute('class', 'btn btn-sm btn-primary tooltipped tooltipped-s');
 			a.setAttribute('target', '_blank');
 			a.setAttribute("id", "preview-btn");
+			a.setAttribute('aria-label', 'Preview the HTML/CSS in a new tab')
 			a.href = 'https://htmlpreview.github.io/?' + files[i].href;
 			a.innerHTML = 'Preview';
 			a.style.backgroundColor = "#28a745";
@@ -36,6 +44,8 @@ function github_preview(){
 			break;
 		}
 	}
+
+	firstTimeIntro();
 }
 
 // Deal with HTML/CSS preview on gist files
@@ -75,7 +85,8 @@ function gist_preview(){
 		// Add Preview button (only if there are HTML/CSS files)
 		if($(document).find('.file').attr('id').includes('html')){
 			$('head').append(`<style type="text/css">${btn_css}</style>`);
-			$('.file-navigation-options').prepend('<a href="#" id="preview-btn" class="btn btn-sm btn-primary">Preview</a>');
+			$('.file-navigation-options').prepend('<a href="#" id="preview-btn" class="btn btn-sm btn-primary tooltipped tooltipped-s">Preview</a>');
+			$('#preview-btn').attr('aria-label', 'Preview the HTML/CSS in a new tab');
 		}
 		
 		// Add Edit button to each file
@@ -101,7 +112,18 @@ function gist_preview(){
 
 			
 		})
+		firstTimeIntro();
 	});
+}
+
+function firstTimeIntro(){
+	chrome.storage.sync.get({'preview_first_time': true}, function(response){
+		if(response.preview_first_time){
+			jQuery("#preview-btn").addClass('flash_me');
+			jQuery("#preview-btn").hover(function(){jQuery(this).removeClass('flash_me');});
+			chrome.storage.sync.set({'preview_first_time': false});
+		}
+	})
 }
 
 
@@ -116,6 +138,7 @@ if(url.includes('github.com') && !url.includes('gist.github.com')){
 }else if(url.includes('gist.github.com')){
 	gist_preview();
 }
+
 			
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	switch(request.message){
