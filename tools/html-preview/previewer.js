@@ -41,11 +41,10 @@ function github_preview(){
 			style.appendChild(document.createTextNode(btn_css));
 			document.getElementsByTagName('head')[0].appendChild(style);
 			document.querySelector('.file-navigation.in-mid-page').appendChild(a);
+			firstTimeIntro();
 			break;
 		}
 	}
-
-	firstTimeIntro();
 }
 
 // Deal with HTML/CSS preview on gist files
@@ -87,6 +86,7 @@ function gist_preview(){
 			$('head').append(`<style type="text/css">${btn_css}</style>`);
 			$('.file-navigation-options').prepend('<a href="#" id="preview-btn" class="btn btn-sm btn-primary tooltipped tooltipped-s">Preview</a>');
 			$('#preview-btn').attr('aria-label', 'Preview the HTML/CSS in a new tab');
+			firstTimeIntro();
 		}
 		
 		// Add Edit button to each file
@@ -108,11 +108,8 @@ function gist_preview(){
 			lines.each(function(i, obj){
 				$(this).attr('contenteditable', onOff);
 			});
-			$(this).text(onOff === true ? "Stop Editing" : "Edit");
-
-			
-		})
-		firstTimeIntro();
+			$(this).text(onOff === true ? "Stop Editing" : "Edit");	
+		});	
 	});
 }
 
@@ -123,7 +120,7 @@ function firstTimeIntro(){
 			jQuery("#preview-btn").hover(function(){jQuery(this).removeClass('flash_me');});
 			chrome.storage.sync.set({'preview_first_time': false});
 		}
-	})
+	});
 }
 
 
