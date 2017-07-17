@@ -276,7 +276,7 @@ var side_panel = {
 			// Check if the report is filled out properly. 
 			// Adds a "data-can-file" attribute and sets it to true or false
 			// Attribute is then used by Ctrl+Shift+X handler to determine whether to close the panel and convo.
-			if(side_panel.data.minutes !== undefined && anythingChecked){
+			if(side_panel.data.minutes !== undefined && anythingChecked && side_panel.data["course"] !== "PLEASE SELECT"){
 				// Send the message to open report tab
 				$("#data").attr("data-can-file", "true");
 				chrome.runtime.sendMessage({
@@ -485,32 +485,35 @@ var side_panel = {
 		// check any indicated checkboxes 
 		// convo_type_i is based on the data in new_form.js -> convo_type -> options
 		// If the order is changed there it has to be updaded here too
-		// for(var  field in data.to_check){
-		// 	if(data.to_check[field]){
-		// 		switch(field){
-		// 			case 'syntax':
-		// 				$("#convo_type_1").click();
-		// 				break;
-		// 			case 'concept':
-		// 				$("#convo_type_0").click();
-		// 				break;
-		// 			case 'onboard':
-		// 				$("#convo_type_2").click();
-		// 				break;
-		// 			case 'other':
-		// 				$("#convo_type_9").click();
-		// 				break;
-		// 			case 'bug':
-		// 				$("#convo_type_5").click();
-		// 				break;
-		// 			case 'personal':
-		// 				$("#convo_type_7").click();
-		// 				break;
-		// 			default:
-		// 				break;
-		// 		}
-		// 	}
-		// }
+		for(var  field in data.to_check){
+			if(data.to_check[field]){
+				switch(field){
+					case 'syntax':
+						$("#convo_type_1").click();
+						break;
+					case 'concept':
+						$("#convo_type_0").click();
+						break;
+					case 'onboard':
+						$("#convo_type_2").click();
+						break;
+					case 'other':
+						$("#convo_type_10").click();
+						break;
+					case 'ready':
+						$("#convo_type_8").click();
+						break;
+					case 'bug':
+						$("#convo_type_5").click();
+						break;
+					case 'personal':
+						$("#convo_type_7").click();
+						break;
+					default:
+						break;
+				}
+			}
+		}
 
 		// Check if report for this user was already submitted
 		var alreadySubmitted = (data["success"]) ? "Already Submitted!" : "";
@@ -522,8 +525,7 @@ var side_panel = {
 		this.$panel.show();
 
 		// if other has text, remove red background
-		if (data.other) {	
-			$("#convo_type_10").click();	
+		if (data.other) {		
 			$("#other").removeClass("unchanged");
 		}
 

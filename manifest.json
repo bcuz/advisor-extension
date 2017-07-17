@@ -28,6 +28,18 @@
 				"libs/jquery-2.2.4.min.js"
 			],
 			"run_at": "document_start"
+		},
+
+		{
+			"matches": [
+				"*://*.github.com/*"
+			],
+
+			"js": [
+				"libs/jquery-2.2.4.min.js", "deploy/previewer.js"
+			],
+
+			"run_at": "document_end"
 		}
 	],
 

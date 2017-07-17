@@ -380,6 +380,7 @@ jQuery(document).ready(function($){
 	};
 	let invoice_items = [];
 	let advisor_name = '';
+	let interval1 = null, interval2 = null;
 
 	// Main function to generate an invoice
 	function run(){
@@ -415,27 +416,32 @@ jQuery(document).ready(function($){
 		let pot_items = $(".list.times-list li");
 		pot_items.each(function(id, li){
 			let item = $(li);
-			if(item.find('.time-total-col span').attr('data-total') !== '-'){
-				let i = {
-					'date': '',
-					'fname': '',
-					'lname': '',
-					'pos': '',
-					'loc': '',
-					'in': '',
-					'out': '',
-					'span': ''
-				};
-				i.date = item.find('.day-col strong').text() +  " " + item.find('.day-col span').text();
-				i.fname = first_name;
-				i.lname = last_name;
-				i.in = item.find('.col-in input').attr('value');
-				i.out = item.find('.col-out input').attr('value');
-				i.pos = item.find('.col-tags .position').text();
-				i.loc = item.find('.col-tags .location').text();
-				i.span = item.find('.time-total-col span').attr('data-total');
+			if(item.find('.col-total span').attr('data-total') !== '-'){
+				let date = item.find('.day-col strong').text() +  " " + item.find('.day-col span').text();
+				item.find('.inner-col').each(function(id, div){
+					let data = $(div);
+					let i = {
+						'date': '',
+						'fname': '',
+						'lname': '',
+						'pos': '',
+						'loc': '',
+						'in': '',
+						'out': '',
+						'span': ''
+					};
+					i.date = date
+					i.fname = first_name;
+					i.lname = last_name;
+					i.in = data.find('.col-in input').attr('value');
+					i.out = data.find('.col-out input').attr('value');
+					i.pos = data.find('.col-tags .position').text();
+					i.loc = data.find('.col-tags .location').text();
+					i.span = data.find('.col-total span').attr('data-total');
 
-				invoice_items.push(i);
+					invoice_items.push(i);
+				})
+				
 			}
 		});
 		
@@ -443,43 +449,65 @@ jQuery(document).ready(function($){
 		
 	}
 
-	setTimeout(function(){
+	function init_p2(){
+		$("#timesheet .header").prepend('<a href="#" class="button-kit green medium" id="gen-invoice"> Generate Invoice</a>');
+		$(document).on('click', "#gen-invoice", function(e){
+			run();
+
+			let invoice = create_invoice(basic_info, invoice_items);
+			e.preventDefault();
 
 
+			let a = document.createElement('a');
+			a.setAttribute('href', 'data:text/calendar,' + encodeURIComponent(invoice));
+			a.setAttribute('download', 'codecademy_invoice.xls');
+
+			a.click();
+		});
+		$("#gen-invoice").click();
+	}	
+
+	function init_p1(){
 		chrome.storage.sync.get({'advisorName': 'YOUR NAME HERE', 'advisorEmail': 'YOUR EMAIL HERE', 'advisorAddress': 'YOUR ADDRESS HERE', }, 
-			function(data) {
-				advisor_name = data.advisorName;
-				basic_info.name = (data.advisorName);
-				basic_info.email = (data.advisorEmail);
-				basic_info.addr = (data.advisorAddress);
+				function(data) {
+					advisor_name = data.advisorName;
+					basic_info.name = (data.advisorName);
+					basic_info.email = (data.advisorEmail);
+					basic_info.addr = (data.advisorAddress);
 
-				$(".payroll-info-card section").click();
-				$(".payperiod-dropdown ul div:eq(2)").click();
-				setTimeout(function(){
-					
+					$(".payroll-info-card section").click();
+					$(".payperiod-dropdown ul div:eq(2)").click();
 
-					$("#timesheet .header").prepend('<a href="#" class="button-kit green medium" id="gen-invoice"> Generate Invoice</a>');
-					$(document).on('click', "#gen-invoice", function(e){
-						run();
+					if($("#timesheet .header").length === 0 || $(".loading").css('display') !== 'none' || 
+						$(".loading.animate").css('display') !== 'none'){
 
-						let invoice = create_invoice(basic_info, invoice_items);
-						e.preventDefault();
+						interval2 = setInterval(function(){
+							if($("#timesheet .header").length > 0 && $(".loading").css('display') === 'none' &&
+								$(".loading.animate").css('display') === 'none'){
 
+								clearInterval(interval2);
+								init_p2();
+							}
+						}, 1000)
+					}else{
+						init_p2();
+					}
+				}
+			);
+	}
 
-						let a = document.createElement('a');
-						a.setAttribute('href', 'data:text/calendar,' + encodeURIComponent(invoice));
-						a.setAttribute('download', 'codecademy_invoice.xls');
-
-						a.click();
-					});
-
-					$("#gen-invoice").click();
-				}, 500);
-				
+	// Use interval to wait for page to finish loading
+	if($(".payroll-info-card section").length === 0 ){
+		interval1 = setInterval(function(){
+			if($(".payroll-info-card section").length > 0 ){
+				clearInterval(interval1);
+				init_p1();
 			}
-		);
+			
+		}, 200)
+	}else{
+		init_p1();
+	}	
 
-		
-	}, 2000);
 
 });

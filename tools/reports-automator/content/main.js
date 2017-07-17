@@ -73,21 +73,6 @@ function collectDataAndOpenReport() {
 		  	if(!other)
 		  		other = "";
 
-		  	// Try to determine the type of conversation from the note
-		  	// and use this to check the corresponding checkboxes
-		  	// let pne = possibleNoteElement.text().toLowerCase();
-		  	// let to_check = {
-		  	// 	'syntax': pne.includes('syntax') || pne.includes('missing') || pne.includes('fixed') || pne.includes('corrected'), 
-		  	// 	'concept': pne.includes('concept') || pne.includes('explained') || pne.includes('explanation') || pne.includes('how to'),
-		  	// 	'onboard': pne.includes('onboard') || pne.includes('obd'),
-		  	// 	'other': other.length > 0,
-		  	// 	'bug': pne.includes('bug report'),
-		  	// 	'personal': pne.includes('personal project') || pne.includes('off platform') || pne.includes('off-platfrom')
-		  	// 				|| pne.includes('outside project')
-		  	// }
-		  	// interaction["to_check"] = to_check;
-
-
 		  	// Add the other to our panel
 		  	interaction["other"] = other;
 
@@ -137,6 +122,31 @@ function collectDataAndOpenReport() {
 				else
 					break;
 			}
+
+			// Default to "PLEASE SELECT" if course wasn't found
+			if(!foundCourse)
+				interaction["course"] = "PLEASE SELECT";
+
+			// Auto-check "This was about ready material"
+			let is_ready_convo = lastVisitedLinkURL.includes('freelance') || lastVisitedLinkURL.includes('programs');
+
+			if(is_ready_convo && !foundCourse)
+				interaction["course"] = "HTML/CSS";
+
+			// Try to determine the type of conversation from the note
+		  	// and use this to check the corresponding checkboxes
+		  	let pne = possibleNoteElement.text().toLowerCase();
+		  	let to_check = {
+		  		'syntax': pne.includes('syntax'), 
+		  		'concept': pne.includes('concept'),
+		  		'onboard': pne.includes('onboard') || pne.includes('obd'),
+		  		'ready': is_ready_convo,
+		  		'other': other.length > 0,
+		  		'bug': pne.includes('bug report'),
+		  		'personal': pne.includes('personal project') || pne.includes('off platform') || pne.includes('off-platfrom')
+		  					|| pne.includes('outside project')
+		  	}
+		  	interaction["to_check"] = to_check;
 
 			// Finally, render the panel. Do it at the end so all collected info is displayed
 			side_panel.render(interaction);

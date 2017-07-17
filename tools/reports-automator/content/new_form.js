@@ -12,7 +12,7 @@
 COURSES = {
 	"HTML/CSS": ["html-css", "HZA3b", "LceTK", "y2Yjd", "9x6JW",
 								"f8mcL", "zrZ6c", "TlhFi", "UuBLw", "WF0CF",
-								"jNuXw", "6merh"],
+								"jNuXw", "6merh", "responsive-design"],
 	"Deploy a Website": ["deploy-a-website"],
 	"JavaScript": ["javascript", "spencer-sandbox", "getting-started",
 								"address-book", "objects-ii", "super-makert"],
@@ -34,7 +34,7 @@ COURSES = {
 	"Command Line": ["command-line"],
 	"Sass": ["sass"],
 	"ReactJS": ['react'],
-	"NOT A CODE QUESTION": ["subscription_billing", "path", "lrn"]
+	"NOT A CODE QUESTION": ["subscription_billing", "path", "lrn", "account"]
 }
 
 /* Each 1st level element is a field, and has these properties:
@@ -107,6 +107,7 @@ NEW_FORM =
 		Required: true,
 		formID: "1578101060",
 		Options: {
+			"PLEASE SELECT" : "PLEASE SELECT",
 			"NOT A CODE QUESTION": "NOT A CODE QUESTION",
 			"Angular.js": "Angular.js",
 			"Command Line": "Command Line",

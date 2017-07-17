@@ -19,10 +19,6 @@ function unassign_and_close() {
 	$("button.js__conversation-header__close-button").click();
 }
 
-function submit_press() {
-	$("#open-report").click();
-}
-
 // speed addict
 function submit_unassign_close() {
 	$("#open-report").click();
@@ -60,7 +56,6 @@ chrome.storage.sync.get({disable_shortcuts: true}, function(data){
 // Create shortcuts
 $utils.createKeyboardShortcut(unassign_and_close, "U");
 $utils.createKeyboardShortcut(ratings_url, "R");
-$utils.createKeyboardShortcut(submit_press, "S");
 $utils.createKeyboardShortcut(submit_unassign_close, "X");
 
 // Add listener to put URL in the convo
