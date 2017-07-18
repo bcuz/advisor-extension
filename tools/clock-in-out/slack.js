@@ -43,7 +43,7 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 			if($(wait_on).length === 0 && !executed){
 				timeout = setTimeout(function(){
 					wait_and_do(wait_on, do_this);
-				}, 150);
+				}, 200);
 			}else if(!executed){
 				executed = true;
 				clearTimeout(timeout);
@@ -52,45 +52,49 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 		}
 
 		// Post the message to slack
-		function post_message(){
-			console.log("called");
+		function init(){
+			
 			// Add a submit button to the form
 			$('#msg_form').append('<input type="submit" value="" id="submit-button" style="display:none">');
 
 			if ($('#msg_input p').length > 0) {
-				console.log($('#msg_input p'));
 				$('#msg_input p').text(actionString);
 			}
 			var result = $('#msg_input p').text();
 
-			// Need to wait for Slack's scripts to do their thing before trying to submit
-			setTimeout(function(){
-				
-				// Post the message
+			// Post the message and confirm that it went through		
+			function post_and_confirm(tries){
+				result = $('#msg_input p').text();
 				document.getElementById("submit-button").click();
-				
-				// check if it was successful
-				if(result == actionString && clicked){
-					// need to wait again for slack's scripts to realize the textbox is empty
-					setTimeout(function(){
+
+				if(result === actionString && clicked){
+
+					let text = $('#msg_input p').text();
+					if(text.trim() === ""){
 						$("#submit-button").remove();
 						chrome.runtime.sendMessage({message: "success-slack", closeTab: closeTab});
-					}, 100);
-					
-				}else{
-					chrome.runtime.sendMessage({message: "error-slack", closeTab: closeTab});
+					}else if(tries < 10){
+						clicked = false;
+						setTimeout(function(){
+							post_and_confirm(tries+1);
+						}, 300);
+					}else{
+						chrome.runtime.sendMessage({message: "error-slack", closeTab: closeTab});
+					}
 				}
-			}, 100);
+			}
+			post_and_confirm(0);
 		}
+		
 
 
 		if(request.message == "clock-in"){
 			actionString = "Here for " + hourNow + " ~";
-			wait_and_do("#msg_input p", post_message);
+			wait_and_do("#msg_input p", init);
 		}else if(request.message == "clock-out"){
 			actionString = "Clocking out ~";
 			closeTab = true;
-			wait_and_do("#msg_input p", post_message);
+			wait_and_do("#msg_input p", init);
 		}
 		
 	});

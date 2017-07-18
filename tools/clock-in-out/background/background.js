@@ -167,7 +167,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 				}, function(){
 					chrome.tabs.sendMessage(sender.tab.id, {message: request.action});
 				});
-			}, 800);
+			}, 1000);
 			break;
 		case 'highlight-me':
 			// change the active tab

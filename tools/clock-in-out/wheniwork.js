@@ -22,12 +22,11 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 			document.getElementsByClassName("form-joined")[0].appendChild(el);
 
 			// autologin if prepopulated
-			setTimeout(function(){
-				if(document.getElementById("login-username").value !== '' && document.getElementById("login-password").value !== ''){
-					document.getElementById("login-button").click();
-				}
-			}, 100);
-
+			// setTimeout(function(){
+			// 	if(document.getElementById("login-username").value !== '' && document.getElementById("login-password").value !== ''){
+			// 		document.getElementById("login-button").click();
+			// 	}
+			// }, 100);
 
 		}else{
 
@@ -36,41 +35,48 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 			let expected_txt = action_string === "clock-in" ? "clock in" : "clock out"
 
 			if(btn_txt.includes(expected_txt)){
-				// clock in / out
-				find_and_click(document, 'clock-in');
+				// Step 1: Click the first clock in/out button
+				find_and_click('controller-home', 'clock-in', step2, 0);
 
-				// wait for the popup to appear, and click the second button
-				setTimeout(function(){
-					find_and_click(document.getElementsByClassName('buttons')[0], 'button-kit');
+				/**
+				 *	Step 2: Click the the button in the popup
+				 *
+				 *	@param btn_found {boolean} - Whether step 1 was successful
+				 */
+				function step2(btn_found){
+					if(btn_found){
+						find_and_click('buttons', 'button-kit', finalStep, 0);
+					}else{
+						sendMessage("error-wheniwork");
+					}
+				}
 
-					// wait again for the page to update, and confirm the clock in/out succeeded
-					setTimeout(function(){
-						if(confirm_click("nav-name", action_string === "clock-in" ? "clock out" : "clock in")){
-							sendMessage("success-wheniwork");
-						}else{
-							sendMessage("error-wheniwork");
-						}
-
-					},500);
-
-				},500)
+				/**
+				 *	Final Step: Confirm that the click went through
+				 *
+				 *	@param btn_found {boolean} - Whether step 2 was successful
+				 */
+				function finalStep(btn_found){
+					if(btn_found){
+						confirm_click("nav-name", action_string === "clock-in" ? "clock out" : "clock in", 0)
+					}else{
+						sendMessage("error-wheniwork");
+					}
+				}
 
 			}else{
 				sendMessage("error-wheniwork");
 			}			
-		}
-
-		
+		}		
 	}
 
 	// Wait for elements to finish loading
-	if(!document.getElementById("login-username") && document.getElementsByClassName('clock-in').length === 0 && !executed){
+	if(!document.getElementById("login-username") && document.getElementsByClassName('clock-in').length === 0){
 			interval = setInterval(function(){
 				if(document.getElementById("login-username") || document.getElementsByClassName('clock-in').length > 0){
 					clearInterval(interval);
 					run();
-				}
-				
+				}			
 			}, 200);
 	}else{
 		run();
@@ -78,20 +84,52 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 
 });
 
-// click a button on the page
-function find_and_click(rootEl, btn){
-	rootEl.getElementsByClassName(btn)[0].click();
+/**
+ *	Find and click a button on the page. Tries to find it 20 times, once every 250ms, before giving up
+ *
+ *	@param rootEl {string} - The class of the button's ancestor
+ *	@param btn {string} - The button's class
+ *	@param callback {function} - A callback function
+ *	@param tries {int} - How many times it has already tried to find the button
+ */
+function find_and_click(rootEl, btn, callback, tries){
+	if(document.getElementsByClassName(rootEl).length > 0 && document.getElementsByClassName(btn).length > 0){
+		document.getElementsByClassName(rootEl)[0].getElementsByClassName(btn)[0].click();
+		callback(true);
+	}else if(tries < 20){
+		setTimeout(() => {
+			find_and_click(rootEl, btn, callback, tries+1);
+		}, 250);
+	}else{
+		callback(false);
+	}
 }
 
-// Find a button with a specified string
-function confirm_click(className, string){
+/**
+ *	Confirm that the login/out went through by finding the opposite button.
+ *	Tries to find it 10 times, once every 250ms, before giving up
+ *
+ *	@param className {string} - The button's class
+ *	@param string {string} - The expected text of the button
+ *	@param {tries} - How many times it has tried to find the button
+ */
+function confirm_click(className, string, tries){
 	let elms = document.getElementsByClassName(className);
+	let found = false;
 	for(var i = 0; i < elms.length; ++i){
-		if(elms[i].innerText.toLowerCase().includes(string))
-			return true;
-
+		if(elms[i].innerText.toLowerCase().includes(string)){
+			sendMessage("success-wheniwork");
+			found = true;
+			break;
+		}
 	}
-	return false;
+	if(!found && tries < 10){
+		setTimeout(() => {
+			confirm_click(className, string, tries+1);
+		}, 250);
+	}else if(!found){
+		sendMessage("error-wheniwork");
+	}
 }
 
 // Send a message to the background script letting it know whether clock in/out was successful.
