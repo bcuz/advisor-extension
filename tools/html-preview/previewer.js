@@ -25,7 +25,7 @@ const btn_css = `
 // Add Preview button to Github projects that have an index.html file
 function github_preview(){
 	let files = document.querySelectorAll('tr.js-navigation-item .content a');
-	for(let i = 0; i , i < files.length; ++i){
+	for(let i = 0; i < files.length; ++i){
 
 		if(files[i].href.includes('index.html')){
 			let a = document.createElement('a');
@@ -35,8 +35,6 @@ function github_preview(){
 			a.setAttribute('aria-label', 'Preview the HTML/CSS in a new tab')
 			a.href = 'https://htmlpreview.github.io/?' + files[i].href;
 			a.innerHTML = 'Preview';
-			a.style.backgroundColor = "#28a745";
-			a.style.color = "#fff";
 			let style = document.createElement('style');
 			style.appendChild(document.createTextNode(btn_css));
 			document.getElementsByTagName('head')[0].appendChild(style);
