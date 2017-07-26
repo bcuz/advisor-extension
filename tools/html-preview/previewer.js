@@ -1,7 +1,7 @@
 const btn_css = ` 
 	#preview-btn {
 		color: #fff;
-		background: #7e61ea;
+		background-color: #7e61ea;
 		background-image: linear-gradient(-180deg, #7e61ea 0%, #573faf 90%);
 	}
 
@@ -13,6 +13,7 @@ const btn_css = `
 	#preview-btn:focus {
 		box-shadow: 0 0 0 0.2em rgba(78, 49, 183, 0.3);
 	}
+	
 	.flash_me {
 	 	animation: flash 1.5s linear infinite;
 	}
@@ -52,8 +53,8 @@ function gist_preview(){
 
 		// Preview HTML/CSS in new tab
 		function gen_gist_preview(){
-			// Rip all HTML, CSS, and JS files from the gist and store them in variables
-			let html = '', css = '', js = '';
+			// Rip all HTML and CSS files from the gist and store them in variables
+			let html = '', css = '';
 
 			let files = $('.file-box');
 			files.each(function(i, file){
@@ -70,27 +71,29 @@ function gist_preview(){
 				}
 			});
 
-			// Remove extra spaces
-			html = html.replace(/\s\s+/g, ' ');
+			// Remove extra spaces and script tags
+			html = html.replace(/\s\s+/g, ' ').replace(/<script.*>.*<\/script>/img, '');
 			css = css.replace(/\s\s+/g, ' ');
-			js = js.replace(/\s\s+/g, ' ');
 
 			// Send content to background page for display
-			chrome.runtime.sendMessage({message: 'open-preview', html: html, css: css, js: js});
+			chrome.runtime.sendMessage({message: 'open-preview', html: html, css: css});
 		}
 
 		// Add Preview button (only if there are HTML/CSS files)
-		if($(document).find('.file').attr('id').includes('html')){
-			$('head').append(`<style type="text/css">${btn_css}</style>`);
-			$('.file-navigation-options').prepend('<a href="#" id="preview-btn" class="btn btn-sm btn-primary tooltipped tooltipped-s">Preview</a>');
-			$('#preview-btn').attr('aria-label', 'Preview the HTML/CSS in a new tab');
-			firstTimeIntro();
-		}
+		$(document).find('.file').each(function(index, file){
+			if($(this).attr('id').includes('html')){
+				$('head').append(`<style type="text/css">${btn_css}</style>`);
+				$('.file-navigation-options').prepend('<a href="#" id="preview-btn" class="btn btn-sm btn-primary tooltipped tooltipped-s">Preview</a>');
+				$('#preview-btn').attr('aria-label', 'Preview the HTML/CSS in a new tab');
+				firstTimeIntro();
+				return false;
+			}
+		});
 		
 		// Add Edit button to each file
 		$('.file-actions').each(function(i, obj){ 
 			$(this).prepend('<a href="#" id="edit-btn" class="btn btn-sm">Edit</a>');
-		})
+		});
 
 		$(document).on('click', '#preview-btn', function(e){
 			gen_gist_preview();
@@ -111,6 +114,7 @@ function gist_preview(){
 	});
 }
 
+// Flash the preview button if it's the first time the user is seeing it
 function firstTimeIntro(){
 	chrome.storage.sync.get({'preview_first_time': true}, function(response){
 		if(response.preview_first_time){
@@ -122,7 +126,7 @@ function firstTimeIntro(){
 }
 
 
-
+// Figure out which page it's on
 let url = document.location.href;
 if(url.includes('github.com') && !url.includes('gist.github.com')){
 	if(document.readyState === "complete"){

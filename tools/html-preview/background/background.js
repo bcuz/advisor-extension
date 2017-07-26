@@ -6,7 +6,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 			
 				// Need to wait, otherwise message is lost
 				setTimeout(function(){
-					chrome.tabs.sendMessage(tab.id, {message: 'preview-page', html: request.html, css: request.css, js: request.js});
+					chrome.tabs.sendMessage(tab.id, {message: 'preview-page', html: request.html, css: request.css});
 				}, 1000);
 			});
 			break;

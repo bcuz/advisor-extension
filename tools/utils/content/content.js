@@ -61,15 +61,20 @@ $utils.createKeyboardShortcut(submit_unassign_close, "X");
 // Add listener to put URL in the convo
 chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 	if (request.message == "got_rating_url") {
-	   console.log("Received rating url: " + request.ratingURL);
-	   $("div.tabs__discrete-tab__container a:first").click();
-	   $(".conversation__text.composer-inbox p").text(request.ratingURL);
-	   $(".conversation__text.composer-inbox p").select();
-	   // Automatically send URL
-	   $(".conversation__text.composer-inbox").focus();
-	   setTimeout(function(){ 
-	   	$("button.btn.o__primary.o__in-right-list").click();
-	   }, 500);
+	  	// console.log("Received rating url: " + request.ratingURL);
+		$("div.tabs__discrete-tab__container a:first").click();
+		let prev_text =  $(".conversation__text.composer-inbox p").html();
+		if(prev_text.trim().replace(/\u200b/g, '').length > 0)
+			prev_text =  prev_text + '<br>';
+		else
+			prev_text = "";
+		$(".conversation__text.composer-inbox p").empty().html(prev_text + request.ratingURL);
+		$(".conversation__text.composer-inbox p").select();
+		// Automatically send URL
+		$(".conversation__text.composer-inbox").focus();
+		setTimeout(function(){ 
+			$("button.btn.o__primary.o__in-right-list").click();
+		}, 500);
 	}
 });
 
