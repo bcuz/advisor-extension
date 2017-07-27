@@ -86,7 +86,7 @@ NEW_FORM =
 			3: "I onboarded a new user",
 			4: "I directed a user on what to learn next",
 			5: "I gave career or industry advice",
-			6: "I received and filed a bug report",
+			6: "I received a bug report",
 			7: " I received a product suggestion",
 			8: "It was a Personal Project (Off-Platform)",
 			9: "This was a conversation about Ready material",
