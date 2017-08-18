@@ -15,7 +15,7 @@ COURSES = {
 								"jNuXw", "6merh", "responsive-design"],
 	"Deploy a Website": ["deploy-a-website"],
 	"JavaScript": ["javascript", "spencer-sandbox", "getting-started",
-								"address-book", "objects-ii", "super-makert"],
+								"address-book", "objects-ii", "super-makert", "minesweeper"],
 	"Java": ["java"],
 	"jQuery": ["jquery", "bay3D", "GfjC6", "v6phg", "JwhI1",
 							"jtFIC"],
