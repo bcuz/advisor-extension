@@ -33,7 +33,7 @@ COURSES = {
 	"Python": ["python"],
 	"Command Line": ["command-line"],
 	"Sass": ["sass"],
-	"ReactJS": ['react', 'ravenous'],
+	"ReactJS": ['react', 'ravenous', 'jammming'],
 	"NOT A CODE QUESTION": ["subscription_billing", "path", "lrn", "account"]
 }
 
