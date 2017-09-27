@@ -16,7 +16,7 @@ function unassign_and_close() {
 		$("div.js__admin-list-item div")[1].click();
 	else 
 		$("div[data-content='Assign to teammate or team']").click();
-	$("button.js__conversation-header__close-button").click();
+	$('div[data-content="Close conversation"]').find('.btn.o__secondary').click();
 }
 
 // speed addict
