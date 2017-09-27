@@ -12,10 +12,10 @@
 COURSES = {
 	"HTML/CSS": ["html-css", "HZA3b", "LceTK", "y2Yjd", "9x6JW",
 								"f8mcL", "zrZ6c", "TlhFi", "UuBLw", "WF0CF",
-								"jNuXw", "6merh", "responsive-design"],
+								"jNuXw", "6merh", "responsive-design", "learn-html", "learn-css"],
 	"Deploy a Website": ["deploy-a-website"],
 	"JavaScript": ["javascript", "spencer-sandbox", "getting-started",
-								"address-book", "objects-ii", "super-makert"],
+								"address-book", "objects-ii", "super-makert", "minesweeper"],
 	"Java": ["java"],
 	"jQuery": ["jquery", "bay3D", "GfjC6", "v6phg", "JwhI1",
 							"jtFIC"],
@@ -33,7 +33,7 @@ COURSES = {
 	"Python": ["python"],
 	"Command Line": ["command-line"],
 	"Sass": ["sass"],
-	"ReactJS": ['react'],
+	"ReactJS": ['react', 'ravenous', 'jammming'],
 	"NOT A CODE QUESTION": ["subscription_billing", "path", "lrn", "account"]
 }
 
@@ -89,7 +89,7 @@ NEW_FORM =
 			6: "I received a bug report",
 			7: " I received a product suggestion",
 			8: "It was a Personal Project (Off-Platform)",
-			9: "This was a conversation about Ready material",
+			9: "This was a conversation about Pro-Intensive material",
 			10: "I re-directed to customer service",
 			11: "Other"
 		}
