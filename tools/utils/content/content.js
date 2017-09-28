@@ -12,10 +12,11 @@ function ratings_url() {
 
 function unassign_and_close() {
 	$("div[data-content='Assign to teammate or team']").click();
-	if($("div.js__admin-list-item div span").first().text().indexOf("Nobody") !== -1)
+	if($("div.js__admin-list-item div span").first().text().indexOf("Nobody") !== -1){
 		$("div.js__admin-list-item div")[1].click();
-	else 
+	}else {
 		$("div[data-content='Assign to teammate or team']").click();
+	}
 	$('div[data-content="Close conversation"]').find('.btn.o__secondary').click();
 }
 
@@ -25,9 +26,7 @@ function submit_unassign_close() {
 	// Check if the report is ready to be filed
 	if($("#data").attr("data-can-file") === "true"){
 		$("#close-side-panel").click();
-		$("div[data-content='Assign to teammate or team']").click();
-		$("div.js__admin-list-item div")[1].click();
-		$("button.js__conversation-header__close-button").click();
+		unassign_and_close();
 	}
 
 }
