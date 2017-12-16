@@ -6,13 +6,27 @@ var working = false;
 // set up user data
 chrome.storage.sync.get({'working': false},
 	function(results){
+		catchErrors();
 		working = results.working;
-		if(chrome.runtime.error){
-			console.log(chrome.runtime.error);
-		}
 	}
 );
 
+function catchErrors(){
+	if(chrome.runtime.lastError)
+		console.log(chrome.runtime.lastError);
+}
+
+function errorNotification(title, msg){
+	const options ={
+		type: "basic",
+		title: title,
+		message: msg,
+		iconUrl: "img/error.png",
+		priority: 2,
+		requireInteraction: true
+	}
+	chrome.notifications.create(options);
+}
 /********************************* ------------------ CLOCK IN/OUT FUNCTIONS -----------------*******************/
 
 // open up the tabs when the user clocks in
@@ -24,9 +38,7 @@ function clockIn(){
 				runAt: "document_end"
 			}, function(){
 				chrome.tabs.sendMessage(tab.id, {message: "clock-in"});
-				if(chrome.runtime.lastError){
-					console.log(chrome.runtime.lastError);
-				}
+				catchErrors();
 			});
 		}
 	);
@@ -34,30 +46,26 @@ function clockIn(){
 	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/"},
 		function(tab){
 			chrome.tabs.executeScript(tab.id, {file: "libs/moment.min.js"}, function(){
+				catchErrors();
 				chrome.tabs.executeScript(tab.id, { file: "libs/jquery-2.2.4.min.js"}, function(){
+					catchErrors();
 					chrome.tabs.executeScript(tab.id, { file: "deploy/slack.js", runAt: "document_end" }, function(){
 						chrome.tabs.sendMessage(tab.id, {message: "clock-in"});
-						if(chrome.runtime.lastError){
-							console.log(chrome.runtime.lastError);
-						}
+						catchErrors();
 					});
 				})
 			});
 		}
 	);
 	chrome.tabs.create({url: "https://app.intercom.io/a/apps/wft4jxth/inbox/unassigned"}, function(){
-		if(chrome.runtime.lastError){
-			console.log(chrome.runtime.lastError);
-		}
+		catchErrors();
 	});
 
 	// set the working variable to true
 	working = true;
 	// store data in case browser is closed
 	chrome.storage.sync.set({'working': true}, function(){
-		if(chrome.runtime.error){
-			console.log(chrome.runtime.error);
-		}
+		catchErrors();
 	})
 }
 
@@ -70,12 +78,12 @@ function clockOut(){
 	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/"},
 		function(tab){
 			chrome.tabs.executeScript(tab.id, {file: "libs/moment.min.js"}, function(){
+				catchErrors();
 				chrome.tabs.executeScript(tab.id, { file: "libs/jquery-2.2.4.min.js"}, function(){
+					catchErrors();
 					chrome.tabs.executeScript(tab.id, { file: "deploy/slack.js", runAt: "document_end" }, function(){
+						catchErrors();
 						chrome.tabs.sendMessage(tab.id, {message: "clock-out"});
-						if(chrome.runtime.lastError){
-							console.log(chrome.runtime.lastError);
-						}
 					});
 				})
 			});
@@ -90,19 +98,13 @@ function clockOut(){
 				runAt: "document_end"
 			}, function(){
 				chrome.tabs.sendMessage(tab.id, {message: "clock-out"});
-				if(chrome.runtime.lastError){
-					console.log(chrome.runtime.lastError);
-				}
+				catchErrors();
 			});
 		}
 	);
 	// store data for later use
 	chrome.storage.sync.set({'working': false},
-		function(){
-			if(chrome.runtime.lastError){
-				console.log(chrome.runtime.lastError);
-			}
-		}
+		() => { catchErrors(); }
 	)
 }
 
@@ -125,16 +127,8 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 		// error clocking in / out on when i work
 		case "error-wheniwork":
 			wheniworkResponse = 0;
-			// error meesage notification
-			var options ={
-				type: "basic",
-				title: "Error on When I Work",
-				message: "We encountered a problem on When I Work, please clock in/out manually.",
-				iconUrl: "img/error.png",
-				priority: 2,
-				requireInteraction: true
-			}
-			chrome.notifications.create(options);
+			errorNotification("Error on When I Work",
+				"Encountered a problem on When I Work. Please clock in/out manually.")
 			break;
 		// successfully posted to slack
 		case "success-slack":
@@ -146,16 +140,8 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 		// error posting to slack
 		case "error-slack":
 			slackResponse = 0;
-			// error message notification
-			var options ={
-				type: "basic",
-				title: "Error Posting to Slack",
-				message: "There was a problem with posting to slack, please post manually.",
-				iconUrl: "img/error.png",
-				priority: 2,
-				requireInteraction: true
-			}
-			chrome.notifications.create(options);
+			errorNotification("Error Posting to Slack", 
+				"There was a problem with posting to slack. Please post manually.")
 			break;
 		case "went-to-login":
 			// User logged in, wait a sec for when I work to do its thing
@@ -165,9 +151,10 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 					file: "deploy/wheniwork.js",
 					runAt: "document_end"
 				}, function(){
+					catchErrors();
 					chrome.tabs.sendMessage(sender.tab.id, {message: request.action});
 				});
-			}, 1000);
+			}, 2000);
 			break;
 		case 'highlight-me':
 			// change the active tab
