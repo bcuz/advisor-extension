@@ -11,13 +11,14 @@ function ratings_url() {
 }
 
 function unassign_and_close() {
-	$("div[data-content='Assign to teammate or team']").click();
-	if($("div.js__admin-list-item div span").first().text().indexOf("Nobody") !== -1){
-		$("div.js__admin-list-item div")[1].click();
-	}else {
-		$("div[data-content='Assign to teammate or team']").click();
-	}
-	$('div[data-content="Close conversation"]').find('.btn.o__secondary').click();
+	$(".js__assignment-admin-dropdown .ds-new__dropdown__opener").click();
+	setTimeout(() => {
+		const index = $('.ds-new__dropdown__block__item .assignee-selector__assignee-name:contains("Nobody")').index();
+		if(index !== -1){
+			$('.ds-new__dropdown__block__item .assignee-selector__assignee-name')[index].click();
+			$('div[data-content="Close conversation"]').find('.btn.o__secondary').click();
+		}
+	}, 500);	
 }
 
 // speed addict

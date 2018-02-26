@@ -128,7 +128,9 @@ function collectDataAndOpenReport() {
 				interaction["course"] = "PLEASE SELECT";
 
 			// Auto-check "This was about ready material"
-			let is_ready_convo = lastVisitedLinkURL.includes('freelance') || lastVisitedLinkURL.includes('programs');
+			let is_ready_convo = false;
+			if(lastVisitedLinkURL !== undefined)
+				is_ready_convo = lastVisitedLinkURL.includes('freelance') || lastVisitedLinkURL.includes('programs');
 
 			if(is_ready_convo && !foundCourse)
 				interaction["course"] = "HTML/CSS";

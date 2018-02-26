@@ -1,4 +1,5 @@
 // Clock in/out on When I Work.
+const MAX_TRIES = 20;
 chrome.runtime.onMessage.addListener(function(request, sender){
 	let action_string = request.message;
 	let interval = null;
@@ -7,11 +8,11 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 	function run(){
 
 		// Check if user was redirected to the login page
-		if(document.getElementById("login-username")){
+		if(document.getElementsByClassName("login-form").length !== 0){
 			chrome.runtime.sendMessage({message: 'highlight-me'});
 
 			// notify to reinject script
-			document.getElementById("login-button").addEventListener('click', function(){
+			document.getElementsByClassName("btn-login")[0].addEventListener('click', function(){
 				chrome.runtime.sendMessage({message: "went-to-login", action: action_string})
 			});
 
@@ -19,7 +20,7 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 			let el = document.createElement('h2');
 			el.appendChild(document.createTextNode("Login to continue"));
 			el.style.color = "#ff0000";
-			document.getElementsByClassName("form-joined")[0].appendChild(el);
+			document.getElementsByClassName("notice-list")[0].appendChild(el);
 
 			// autologin if prepopulated
 			// setTimeout(function(){
@@ -31,7 +32,8 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 		}else{
 
 			// confirm we have the right button
-			let btn_txt = document.getElementsByClassName('clock-in')[0].getElementsByClassName('nav-name')[0].innerText.toLowerCase();
+			let btn_txt = document.getElementsByClassName('clock-in')[0]
+							.getElementsByClassName('nav-name')[0].innerText.toLowerCase();
 			let expected_txt = action_string === "clock-in" ? "clock in" : "clock out"
 
 			if(btn_txt.includes(expected_txt)){
@@ -40,7 +42,6 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 
 				/**
 				 *	Step 2: Click the the button in the popup
-				 *
 				 *	@param btn_found {boolean} - Whether step 1 was successful
 				 */
 				function step2(btn_found){
@@ -53,7 +54,6 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 
 				/**
 				 *	Final Step: Confirm that the click went through
-				 *
 				 *	@param btn_found {boolean} - Whether step 2 was successful
 				 */
 				function finalStep(btn_found){
@@ -71,12 +71,18 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 	}
 
 	// Wait for elements to finish loading
-	if(!document.getElementById("login-username") && document.getElementsByClassName('clock-in').length === 0){
+	let num_tries = 0;
+	if(document.getElementsByClassName("login-form").length === 0 
+		&& document.getElementsByClassName('clock-in').length === 0){
 			interval = setInterval(function(){
-				if(document.getElementById("login-username") || document.getElementsByClassName('clock-in').length > 0){
+				if(document.getElementsByClassName("login-form").length > 0
+				 || document.getElementsByClassName('clock-in').length > 0){
 					clearInterval(interval);
 					run();
-				}			
+				}else{
+					if(num_tries++ > MAX_TRIES)
+						sendMessage("error-wheniwork");
+				}		
 			}, 200);
 	}else{
 		run();
@@ -85,8 +91,7 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 });
 
 /**
- *	Find and click a button on the page. Tries to find it 20 times, once every 250ms, before giving up
- *
+ *	Find and click a button on the page. Tries to find it MAX_TRIES times, once every 250ms, before giving up
  *	@param rootEl {string} - The class of the button's ancestor
  *	@param btn {string} - The button's class
  *	@param callback {function} - A callback function
@@ -96,7 +101,7 @@ function find_and_click(rootEl, btn, callback, tries){
 	if(document.getElementsByClassName(rootEl).length > 0 && document.getElementsByClassName(btn).length > 0){
 		document.getElementsByClassName(rootEl)[0].getElementsByClassName(btn)[0].click();
 		callback(true);
-	}else if(tries < 20){
+	}else if(tries < MAX_TRIES){
 		setTimeout(() => {
 			find_and_click(rootEl, btn, callback, tries+1);
 		}, 250);
@@ -107,8 +112,7 @@ function find_and_click(rootEl, btn, callback, tries){
 
 /**
  *	Confirm that the login/out went through by finding the opposite button.
- *	Tries to find it 10 times, once every 250ms, before giving up
- *
+ *	Tries to find it MAX_TRIES times, once every 250ms, before giving up
  *	@param className {string} - The button's class
  *	@param string {string} - The expected text of the button
  *	@param {tries} - How many times it has tried to find the button
@@ -123,7 +127,7 @@ function confirm_click(className, string, tries){
 			break;
 		}
 	}
-	if(!found && tries < 10){
+	if(!found && tries < MAX_TRIES){
 		setTimeout(() => {
 			confirm_click(className, string, tries+1);
 		}, 250);

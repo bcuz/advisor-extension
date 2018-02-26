@@ -1,7 +1,6 @@
 
-
+const MAX_TRIES = 20;
 chrome.runtime.onMessage.addListener(function(request, sender){
-
 	// automatic "here for --" message in Slack
 
 	// check if DST
@@ -35,25 +34,25 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 
 		/**
 		 *	Wait until an element is ready and then run a function
-		 *
 		 *	@param wait_on {string} - Selector for the element
 		 *	@param do_this {function} - The function to run
 		 */
-		function wait_and_do(wait_on, do_this){
+		function wait_and_do(wait_on, do_this, tries = 0){
 			if($(wait_on).length === 0 && !executed){
 				timeout = setTimeout(function(){
-					wait_and_do(wait_on, do_this);
+					wait_and_do(wait_on, do_this, tries+1);
 				}, 200);
-			}else if(!executed){
+			}else if(!executed && tries < MAX_TRIES){
 				executed = true;
 				clearTimeout(timeout);
 				do_this();
+			}else{
+				chrome.runtime.sendMessage({message: "error-slack", closeTab: closeTab});
 			}
 		}
 
 		// Post the message to slack
-		function init(){
-			
+		function init(){	
 			// Add a submit button to the form
 			$('#msg_form').append('<input type="submit" value="" id="submit-button" style="display:none">');
 
@@ -68,12 +67,11 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 				document.getElementById("submit-button").click();
 
 				if(result === actionString && clicked){
-
 					let text = $('#msg_input p').text();
 					if(text.trim() === ""){
 						$("#submit-button").remove();
 						chrome.runtime.sendMessage({message: "success-slack", closeTab: closeTab});
-					}else if(tries < 10){
+					}else if(tries < MAX_TRIES){
 						clicked = false;
 						setTimeout(function(){
 							post_and_confirm(tries+1);
@@ -85,8 +83,6 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 			}
 			post_and_confirm(0);
 		}
-		
-
 
 		if(request.message == "clock-in"){
 			actionString = "Here for " + hourNow + " ~";
@@ -95,8 +91,6 @@ chrome.runtime.onMessage.addListener(function(request, sender){
 			actionString = "Clocking out ~";
 			closeTab = true;
 			wait_and_do("#msg_input p", init);
-		}
-		
+		}	
 	});
-
 });
