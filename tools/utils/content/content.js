@@ -13,7 +13,7 @@ function ratings_url() {
 function unassign_and_close() {
 	$(".js__assignment-admin-dropdown .ds-new__dropdown__opener").click();
 	setTimeout(() => {
-		const index = $('.ds-new__dropdown__block__item .assignee-selector__assignee-name:contains("Nobody")').index();
+		const index = $('.ds-new__dropdown__block__item .assignee-selector__assignee-name:contains("Unassigned")').index();
 		if(index !== -1){
 			$('.ds-new__dropdown__block__item .assignee-selector__assignee-name')[index].click();
 			$('div[data-content="Close conversation"]').find('.btn.o__secondary').click();
