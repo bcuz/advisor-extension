@@ -43,7 +43,7 @@ function clockIn(){
 		}
 	);
 
-	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/"},
+	chrome.tabs.create({active: false, url: "https://codecademycoach.slack.com/messages/CA1RVLRL1/"},
 		function(tab){
 			chrome.tabs.executeScript(tab.id, {file: "libs/moment.min.js"}, function(){
 				catchErrors();
@@ -57,7 +57,7 @@ function clockIn(){
 			});
 		}
 	);
-	chrome.tabs.create({url: "https://app.intercom.io/a/apps/wft4jxth/inbox/unassigned"}, function(){
+	chrome.tabs.create({url: "https://app.intercom.io/a/apps/wft4jxth/inbox/inbox/unassigned/"}, function(){
 		catchErrors();
 	});
 
@@ -75,7 +75,7 @@ function clockOut(){
 	working = false;
 
 	// clock out on slack
-	chrome.tabs.create({active: false, url: "https://codecademy.slack.com/messages/proadvisors/"},
+	chrome.tabs.create({active: false, url: "https://codecademycoach.slack.com/messages/CA1RVLRL1/"},
 		function(tab){
 			chrome.tabs.executeScript(tab.id, {file: "libs/moment.min.js"}, function(){
 				catchErrors();
