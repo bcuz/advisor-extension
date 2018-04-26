@@ -74,7 +74,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 		// Automatically send URL
 		$textbox.focus();
 		setTimeout(function(){ 
-			$("button.btn.o__primary.o__in-right-list").click();
+			$("button.btn.o__primary.ember-view")[0].click()
 		}, 500);
 	}
 });
