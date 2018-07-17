@@ -10,6 +10,16 @@ function ratings_url() {
 	});
 }
 
+function unassign() {
+	$(".js__assignment-admin-dropdown .ds-new__dropdown__opener").click();
+	setTimeout(() => {
+		const index = $('.ds-new__dropdown__block__item .assignee-selector__assignee-name:contains("Unassigned")').index();
+		if(index !== -1){
+			$('.ds-new__dropdown__block__item .assignee-selector__assignee-name')[index].click();
+		}
+	}, 500);	
+}
+
 function unassign_and_close() {
 	$(".js__assignment-admin-dropdown .ds-new__dropdown__opener").click();
 	setTimeout(() => {
@@ -57,6 +67,7 @@ chrome.storage.sync.get({disable_shortcuts: true}, function(data){
 $utils.createKeyboardShortcut(unassign_and_close, "U");
 $utils.createKeyboardShortcut(ratings_url, "R");
 $utils.createKeyboardShortcut(submit_unassign_close, "X");
+$utils.createKeyboardShortcut(unassign, "M");
 
 // Add listener to put URL in the convo
 chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
