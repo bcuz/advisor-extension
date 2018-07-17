@@ -64,10 +64,10 @@ chrome.storage.sync.get({disable_shortcuts: true}, function(data){
 
 
 // Create shortcuts
-$utils.createKeyboardShortcut(unassign_and_close, "U");
 $utils.createKeyboardShortcut(ratings_url, "R");
-$utils.createKeyboardShortcut(submit_unassign_close, "X");
 $utils.createKeyboardShortcut(unassign, "M");
+$utils.createKeyboardShortcut(unassign_and_close, "U");
+$utils.createKeyboardShortcut(submit_unassign_close, "X");
 
 // Add listener to put URL in the convo
 chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
