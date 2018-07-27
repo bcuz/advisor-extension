@@ -15,7 +15,7 @@ function unassign() {
 	setTimeout(() => {
 		const index = $('.ds-new__dropdown__block__item .assignee-selector__assignee-name:contains("Unassigned")').index();
 		if(index !== -1){
-			$('.ds-new__dropdown__block__item .assignee-selector__assignee-name')[index].click();
+			$('.ds-new__dropdown__block__item .assignee-selector__assignee-name:contains("Unassigned")')[index].click();
 		}
 	}, 500);	
 }
@@ -25,7 +25,7 @@ function unassign_and_close() {
 	setTimeout(() => {
 		const index = $('.ds-new__dropdown__block__item .assignee-selector__assignee-name:contains("Unassigned")').index();
 		if(index !== -1){
-			$('.ds-new__dropdown__block__item .assignee-selector__assignee-name')[index].click();
+			$('.ds-new__dropdown__block__item .assignee-selector__assignee-name:contains("Unassigned")')[index].click();
 			$('div[data-content="Close conversation"]').find('.btn.o__secondary').click();
 		}
 	}, 500);	
