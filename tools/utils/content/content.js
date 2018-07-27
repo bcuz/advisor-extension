@@ -10,12 +10,22 @@ function ratings_url() {
 	});
 }
 
+function unassign() {
+	$(".js__assignment-admin-dropdown .ds-new__dropdown__opener").click();
+	setTimeout(() => {
+		const index = $('.ds-new__dropdown__block__item .assignee-selector__assignee-name:contains("Unassigned")').index();
+		if(index !== -1){
+			$('.ds-new__dropdown__block__item .assignee-selector__assignee-name:contains("Unassigned")')[index].click();
+		}
+	}, 500);	
+}
+
 function unassign_and_close() {
 	$(".js__assignment-admin-dropdown .ds-new__dropdown__opener").click();
 	setTimeout(() => {
 		const index = $('.ds-new__dropdown__block__item .assignee-selector__assignee-name:contains("Unassigned")').index();
 		if(index !== -1){
-			$('.ds-new__dropdown__block__item .assignee-selector__assignee-name')[index].click();
+			$('.ds-new__dropdown__block__item .assignee-selector__assignee-name:contains("Unassigned")')[index].click();
 			$('div[data-content="Close conversation"]').find('.btn.o__secondary').click();
 		}
 	}, 500);	
@@ -54,8 +64,9 @@ chrome.storage.sync.get({disable_shortcuts: true}, function(data){
 
 
 // Create shortcuts
-$utils.createKeyboardShortcut(unassign_and_close, "U");
 $utils.createKeyboardShortcut(ratings_url, "R");
+$utils.createKeyboardShortcut(unassign, "M");
+$utils.createKeyboardShortcut(unassign_and_close, "U");
 $utils.createKeyboardShortcut(submit_unassign_close, "X");
 
 // Add listener to put URL in the convo
