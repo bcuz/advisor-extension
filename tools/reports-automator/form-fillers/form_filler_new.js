@@ -80,14 +80,14 @@ chrome.runtime.sendMessage({
 	fillTextAndValidate(`[name='entry.995604322']`, `conversationURL`);
 
 	// Type of Conversation - checkbox hack
-	for(var i = 0; i < data.convo_type.length; i++){
-		var buffer = data.convo_type[i];
-		if(buffer == 1){
-			var id_to_check = "group_260280481_" + (i+1);
-	 		console.log(id_to_check);
-			document.querySelector(`[id="${id_to_check}"]`).checked = true;
-		}
-	}
+	// for(var i = 0; i < data.convo_type.length; i++){
+	// 	var buffer = data.convo_type[i];
+	// 	if(buffer == 1){
+	// 		var id_to_check = "group_260280481_" + (i+1);
+	//  		console.log(id_to_check);
+	// 		document.querySelector(`[id="${id_to_check}"]`).checked = true;
+	// 	}
+	// }
 
 	// Other
 	fillTextAndValidate(`[name="entry.260280481.other_option_response"]`, `other`);
