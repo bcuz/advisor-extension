@@ -276,7 +276,7 @@ var side_panel = {
 			// Check if the report is filled out properly. 
 			// Adds a "data-can-file" attribute and sets it to true or false
 			// Attribute is then used by Ctrl+Shift+X handler to determine whether to close the panel and convo.
-			if(side_panel.data.minutes !== undefined && anythingChecked && side_panel.data["course"] !== "PLEASE SELECT"){
+			if(side_panel.data.minutes !== undefined){
 				// Send the message to open report tab
 				$("#data").attr("data-can-file", "true");
 				chrome.runtime.sendMessage({
