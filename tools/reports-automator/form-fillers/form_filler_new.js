@@ -74,34 +74,77 @@ chrome.runtime.sendMessage({
 	data = response.data;
 
 	// Name
-	fillTextAndValidate(`[name='entry.1957964296']`, `myName`);
+	var name = data['myName']
+	setTimeout(function(){
 
-	// URL
-	fillTextAndValidate(`[name='entry.995604322']`, `conversationURL`);
+		document.querySelector('.quantumWizMenuPaperselectOption').classList.remove('isSelected');
+		document.querySelector('.quantumWizMenuPaperselectOption').setAttribute("aria-selected", false)
+		document.querySelector('.quantumWizMenuPaperselectOption').setAttribute("tabindex", -1)
 
-	// Type of Conversation - checkbox hack
-	// for(var i = 0; i < data.convo_type.length; i++){
-	// 	var buffer = data.convo_type[i];
-	// 	if(buffer == 1){
-	// 		var id_to_check = "group_260280481_" + (i+1);
-	//  		console.log(id_to_check);
-	// 		document.querySelector(`[id="${id_to_check}"]`).checked = true;
-	// 	}
-	// }
+		document.querySelector(`[data-value="${name}"]`).setAttribute("aria-selected", true)
+		document.querySelector(`[data-value="${name}"]`).setAttribute("tabindex", 0)
+		document.querySelector(`[data-value="${name}"]`).classList.add('isSelected');
+		// fillTextAndValidate(`[name='entry.1957964296']`, `myName`);
 
-	// Other
-	fillTextAndValidate(`[name="entry.260280481.other_option_response"]`, `other`);
+		// URL
+		fillTextAndValidate(`[name='entry.995604322']`, `conversationURL`);
 
-	// Course
-	fillTextAndValidate(`[name="entry.856943265"]`, `course`);
+		// Type of Conversation - checkbox hack
+		var stuff = ["I explained a concept", "I corrected a syntax error (eg: missing semi-colon)", 
+					"I onboarded a new user",
+					"I directed user on what to learn next", "I gave career or industry advice",
+					"I received and filed a bug report", "I received a product suggestion", 
+					"It was a Personal Project (Off-Platform)", "This was a conversation about Ready material",
+					"I re-directed to customer service", "Other:"]
 
-	// Additional notes
-	fillTextAndValidate(`[name="entry.1525920400"]`, `other_notes`);
+		for(var i = 0; i < data.convo_type.length; i++){
+			var buffer = data.convo_type[i];
+			if(buffer == 1){
+				// var id_to_check = "group_260280481_" + (i+1);
+				var id_to_check = stuff[i];
+		 		console.log(id_to_check);
+				document.querySelector(`[aria-label="${id_to_check}"]`).classList.add('isChecked');
+				document.querySelector(`[aria-label="${id_to_check}"]`).setAttribute("aria-checked", true);
+			}
+		}
 
-	// Time
-	fillTextAndValidate(`[aria-label*="Hours"]`, `hours`);
-	fillTextAndValidate(`[aria-label*="Seconds"]`, `seconds`);
-	fillTextAndValidate(`[aria-label*="Minutes"]`, `minutes`);
+		// Other
+		// didnt look into this that hard, could later
+		fillTextAndValidate(`[aria-label="Other response"]`, `other`);
+		// document.querySelector('[aria-label="Other response"][data-initial-value]').setAttribute("badinput", false);
+		// document.querySelector('[aria-label="Other response"][data-initial-value]').setAttribute("data-initial-value", "placehold");
+		// document.querySelector('.quantumWizTextinputSimpleinputEl').classList.add('hasValue')
+
+		// Course
+		var courseName = data['course']
+		// document.querySelectorAll('.quantumWizMenuPaperselectOptionList')[1] 
+		document.querySelectorAll('.quantumWizMenuPaperselectOptionList')[1].querySelector('.quantumWizMenuPaperselectOption').classList.remove('isSelected');
+		document.querySelectorAll('.quantumWizMenuPaperselectOptionList')[1].querySelector('.quantumWizMenuPaperselectOption').setAttribute("aria-selected", false)
+		document.querySelectorAll('.quantumWizMenuPaperselectOptionList')[1].querySelector('.quantumWizMenuPaperselectOption').setAttribute("tabindex", -1)
+
+		document.querySelector(`[data-value="${courseName}"]`).setAttribute("aria-selected", true)
+		document.querySelector(`[data-value="${courseName}"]`).setAttribute("tabindex", 0)
+		document.querySelector(`[data-value="${courseName}"]`).classList.add('isSelected');
+		// fillTextAndValidate(`[name="entry.856943265"]`, `course`);
+
+		// Additional notes
+		fillTextAndValidate(`[name="entry.1525920400"]`, `other_notes`);
+
+		// Time
+
+		// still not working
+		// if (data.hours === "0") {
+		// 	data.hours = "00"		
+		// }
+		// document.querySelector('[aria-label="Hours"]').setAttribute("badinput", false);
+		// document.querySelector('[aria-label="Hours"]').setAttribute("data-initial-value", data['hours']);
+		// document.querySelectorAll('.quantumWizTextinputPaperinputEl')[1].classList.add('hasValue');
+		
+		fillTextAndValidate(`[aria-label*="Hours"]`, `hours`);
+		// document.querySelector('[aria-label="Hours"]').value = data['hours'];
+		fillTextAndValidate(`[aria-label*="Seconds"]`, `seconds`);
+		fillTextAndValidate(`[aria-label*="Minutes"]`, `minutes`);
+	}, 250)
 
 	// Continue to next confirmation page
 	chrome.runtime.sendMessage({
