@@ -111,9 +111,9 @@ chrome.runtime.sendMessage({
 		// Other
 		// didnt look into this that hard, could later
 		fillTextAndValidate(`[aria-label="Other response"]`, `other`);
-		document.querySelector('[aria-label="Other response"][data-initial-value]').setAttribute("badinput", false);
-		document.querySelector('[aria-label="Other response"][data-initial-value]').setAttribute("data-initial-value", "placehold");
-		document.querySelector('.quantumWizTextinputSimpleinputEl').classList.add('hasValue')
+		// document.querySelector('[aria-label="Other response"][data-initial-value]').setAttribute("badinput", false);
+		// document.querySelector('[aria-label="Other response"][data-initial-value]').setAttribute("data-initial-value", "placehold");
+		// document.querySelector('.quantumWizTextinputSimpleinputEl').classList.add('hasValue')
 
 		// Course
 		var courseName = data['course']
