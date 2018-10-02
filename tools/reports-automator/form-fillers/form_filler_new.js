@@ -144,7 +144,7 @@ chrome.runtime.sendMessage({
 		// document.querySelector('[aria-label="Hours"]').value = data['hours'];
 		fillTextAndValidate(`[aria-label*="Seconds"]`, `seconds`);
 		fillTextAndValidate(`[aria-label*="Minutes"]`, `minutes`);
-	}, 1000)
+	}, 250)
 
 	// Continue to next confirmation page
 	chrome.runtime.sendMessage({
