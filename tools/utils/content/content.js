@@ -71,7 +71,7 @@ chrome.storage.sync.get({disable_shortcuts: true}, function(data){
 $utils.createKeyboardShortcut(ratings_url, "R");
 $utils.createKeyboardShortcut(unassign, "M");
 $utils.createKeyboardShortcut(unassign_and_close, "U");
-$utils.createKeyboardShortcut(submit_press, "K");
+$utils.createKeyboardShortcut(submit_press, "L");
 $utils.createKeyboardShortcut(submit_unassign_close, "X");
 
 // Add listener to put URL in the convo
