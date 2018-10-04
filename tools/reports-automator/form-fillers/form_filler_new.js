@@ -144,15 +144,16 @@ chrome.runtime.sendMessage({
 		// document.querySelector('[aria-label="Hours"]').value = data['hours'];
 		fillTextAndValidate(`[aria-label*="Seconds"]`, `seconds`);
 		fillTextAndValidate(`[aria-label*="Minutes"]`, `minutes`);
+		
+		// Continue to next confirmation page
+		chrome.runtime.sendMessage({
+			"message": "checkpoint",
+			"goingToPage": "confirmation"
+		});
+
+		// Click Submit
+		document.querySelector('.quantumWizButtonPaperbuttonFocusOverlay').click();
 	}, 250)
 
-	// Continue to next confirmation page
-	chrome.runtime.sendMessage({
-		"message": "checkpoint",
-		"goingToPage": "confirmation"
-	});
-
-	// Click Submit
-	document.querySelector(`[type="submit"]`).click();
 
 });
