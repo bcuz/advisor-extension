@@ -102,7 +102,6 @@ chrome.runtime.sendMessage({
 			if(buffer == 1){
 				// var id_to_check = "group_260280481_" + (i+1);
 				var id_to_check = stuff[i];
-		 		console.log(id_to_check);
 				document.querySelector(`[aria-label="${id_to_check}"]`).classList.add('isChecked');
 				document.querySelector(`[aria-label="${id_to_check}"]`).setAttribute("aria-checked", true);
 			}
@@ -131,11 +130,6 @@ chrome.runtime.sendMessage({
 		fillTextAndValidate(`[name="entry.1525920400"]`, `other_notes`);
 
 		// Time
-
-		// still not working
-		// if (data.hours === "0") {
-		// 	data.hours = "00"		
-		// }
 		// document.querySelector('[aria-label="Hours"]').setAttribute("badinput", false);
 		// document.querySelector('[aria-label="Hours"]').setAttribute("data-initial-value", data['hours']);
 		// document.querySelectorAll('.quantumWizTextinputPaperinputEl')[1].classList.add('hasValue');
