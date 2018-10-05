@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Advisor Toolbox - Codecademy",
-	"version": "1.4.7",
+	"version": "1.4.8",
 	"devtools_page": "core/intercom-mapper/devtools.html",
 
 	"permissions": [
