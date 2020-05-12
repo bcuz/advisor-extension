@@ -1,1 +1,1 @@
-This is a Chrome extension that Codecademy Advisors used to speed up workflow. It was created by Roberto Arias-Yacupoma and I helped maintain it while working at Codecademy. Advisors depended on this extension to get them through the work day.
+A Chrome Extension that speeds up workflow for Codecademy Coaches. Built using: HTML/CSS, JavaScript, jQuery
